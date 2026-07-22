@@ -3,43 +3,33 @@
     <div class="hero__media">
       {{ section.settings.image | image_url: width: 2000 | image_tag: alt: section.settings.heading | escape, fetchpriority: 'high', sizes: '100vw', widths: '750, 1100, 1500, 2000' }}
     </div>
+  {%- elsif section.settings.image_url != blank -%}
+    <div class="hero__media"><img src="{{ section.settings.image_url }}" alt="{{ section.settings.heading | escape }}"></div>
   {%- endif -%}
+  <div class="hero__overlay"></div>
+
   <div class="page-width hero__inner">
-    <div class="hero__content">
-      {%- if section.settings.eyebrow != blank -%}<span class="eyebrow">{{ section.settings.eyebrow }}</span>{%- endif -%}
-      <h1>{{ section.settings.heading }}</h1>
-      {%- if section.settings.subtext != blank -%}<p class="hero__sub">{{ section.settings.subtext }}</p>{%- endif -%}
+    {%- if section.settings.eyebrow != blank -%}<p class="hero__eyebrow">{{ section.settings.eyebrow }}</p>{%- endif -%}
+    <h1>
+      {{ section.settings.heading }}
+      {%- if section.settings.heading_emphasis != blank -%}<br><em>{{ section.settings.heading_emphasis }}</em>{%- endif -%}
+    </h1>
+    {%- if section.settings.subtext != blank -%}<p class="hero__sub">{{ section.settings.subtext }}</p>{%- endif -%}
 
-      {%- if section.settings.show_search -%}
-        <form action="{{ routes.search_url }}" method="get" class="search-form" role="search">
-          <input type="hidden" name="type" value="product">
-          <label class="search-form__field">
-            <span class="visually-hidden">{{ 'general.search.search' | t }}</span>
-            {% render 'icon', icon: 'search' %}
-            <input type="search" name="q" placeholder="{{ 'general.search.placeholder' | t }}">
-          </label>
-          <button type="submit" class="btn btn--accent btn--lg">{{ 'general.search.submit' | t }}</button>
-        </form>
-      {%- endif -%}
-
-      <div class="btn-row" style="margin-top:var(--space-4)">
-        {%- if section.settings.button_label != blank -%}
-          <a href="{{ section.settings.button_link | default: routes.all_products_collection_url }}" class="btn btn--primary btn--lg">{{ section.settings.button_label }}</a>
-        {%- endif -%}
-        {%- if section.settings.button_label_2 != blank -%}
-          <a href="{{ section.settings.button_link_2 }}" class="btn btn--outline btn--lg" style="color:#fff;border-color:rgba(255,255,255,0.7)">{{ section.settings.button_label_2 }}</a>
-        {%- endif -%}
+    {%- if section.blocks.size > 0 -%}
+      <div class="hero__perks">
+        {%- for block in section.blocks -%}
+          <span class="perk" {{ block.shopify_attributes }}>{% render 'icon', icon: 'check-circle' %}{{ block.settings.text }}</span>
+        {%- endfor -%}
       </div>
+    {%- endif -%}
 
-      {%- if section.blocks.size > 0 -%}
-        <div class="hero__stats">
-          {%- for block in section.blocks -%}
-            <div class="hero__stat" {{ block.shopify_attributes }}>
-              <strong>{{ block.settings.value }}</strong>
-              <span>{{ block.settings.label }}</span>
-            </div>
-          {%- endfor -%}
-        </div>
+    <div class="hero__cta">
+      {%- if section.settings.button_label != blank -%}
+        <a href="{{ section.settings.button_link | default: routes.all_products_collection_url }}" class="btn btn--accent btn--lg btn--pill">{{ section.settings.button_label }}</a>
+      {%- endif -%}
+      {%- if section.settings.button_label_2 != blank -%}
+        <a href="{{ section.settings.button_link_2 }}" class="btn btn--outline-light btn--lg btn--pill">{{ section.settings.button_label_2 }}</a>
       {%- endif -%}
     </div>
   </div>
@@ -50,33 +40,34 @@
   "name": "Hero",
   "settings": [
     { "type": "image_picker", "id": "image", "label": "Background image" },
-    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Raw land, made simple" },
-    { "type": "text", "id": "heading", "label": "Heading", "default": "Own a piece of the land." },
-    { "type": "textarea", "id": "subtext", "label": "Subtext", "default": "Vetted parcels across the country with transparent pricing and flexible owner financing. Find your acreage and buy with confidence." },
-    { "type": "checkbox", "id": "show_search", "label": "Show search bar", "default": true },
-    { "type": "text", "id": "button_label", "label": "Primary button label", "default": "Browse available land" },
+    { "type": "text", "id": "image_url", "label": "Background image URL (fallback)", "default": "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1920&auto=format&fit=crop" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Ty-Leigh Capital Land Co." },
+    { "type": "text", "id": "heading", "label": "Heading line 1", "default": "Own Land." },
+    { "type": "text", "id": "heading_emphasis", "label": "Heading line 2 (accent)", "default": "Start Today." },
+    { "type": "textarea", "id": "subtext", "label": "Subtext", "default": "Affordable vacant land across the US with flexible owner financing. No credit check. No hassle." },
+    { "type": "text", "id": "button_label", "label": "Primary button label", "default": "Browse Available Properties" },
     { "type": "url", "id": "button_link", "label": "Primary button link" },
-    { "type": "text", "id": "button_label_2", "label": "Secondary button label", "default": "How it works" },
+    { "type": "text", "id": "button_label_2", "label": "Secondary button label", "default": "View on Map" },
     { "type": "url", "id": "button_link_2", "label": "Secondary button link" }
   ],
   "blocks": [
     {
-      "type": "stat",
-      "name": "Stat",
+      "type": "perk",
+      "name": "Perk",
       "settings": [
-        { "type": "text", "id": "value", "label": "Value", "default": "500+" },
-        { "type": "text", "id": "label", "label": "Label", "default": "Parcels sold" }
+        { "type": "text", "id": "text", "label": "Text", "default": "No Credit Check Required" }
       ]
     }
   ],
-  "max_blocks": 4,
+  "max_blocks": 5,
   "presets": [
     {
       "name": "Hero",
       "blocks": [
-        { "type": "stat", "settings": { "value": "500+", "label": "Parcels sold" } },
-        { "type": "stat", "settings": { "value": "30+", "label": "States" } },
-        { "type": "stat", "settings": { "value": "0%", "label": "Interest options" } }
+        { "type": "perk", "settings": { "text": "No Credit Check Required" } },
+        { "type": "perk", "settings": { "text": "Starting at $99/mo" } },
+        { "type": "perk", "settings": { "text": "60-Day Money-Back Guarantee" } },
+        { "type": "perk", "settings": { "text": "Owner Financing Available" } }
       ]
     }
   ]

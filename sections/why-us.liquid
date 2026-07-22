@@ -1,0 +1,105 @@
+<section id="about" class="section">
+  <div class="page-width">
+    <div class="whyus__grid">
+      <div class="whyus__media">
+        {%- if section.settings.image != blank -%}
+          {{ section.settings.image | image_url: width: 900 | image_tag: loading: 'lazy', alt: section.settings.heading | escape, widths: '450, 700, 900', sizes: '(min-width: 990px) 45vw, 90vw' }}
+        {%- elsif section.settings.image_url != blank -%}
+          <img src="{{ section.settings.image_url }}" alt="{{ section.settings.heading | escape }}" loading="lazy">
+        {%- endif -%}
+        {%- if section.settings.stat_1_num != blank or section.settings.stat_2_num != blank -%}
+          <div class="stats-badge">
+            {%- if section.settings.stat_1_num != blank -%}
+              <div class="stats-badge__item">
+                <div class="stats-badge__num stats-badge__num--primary">{{ section.settings.stat_1_num }}</div>
+                <div class="stats-badge__label">{{ section.settings.stat_1_label }}</div>
+              </div>
+            {%- endif -%}
+            {%- if section.settings.stat_2_num != blank -%}
+              <div class="stats-badge__item">
+                <div class="stats-badge__num stats-badge__num--accent">{{ section.settings.stat_2_num }}</div>
+                <div class="stats-badge__label">{{ section.settings.stat_2_label }}</div>
+              </div>
+            {%- endif -%}
+          </div>
+        {%- endif -%}
+      </div>
+
+      <div class="whyus__body">
+        {%- if section.settings.eyebrow != blank -%}<span class="eyebrow">{{ section.settings.eyebrow }}</span>{%- endif -%}
+        <h2>{{ section.settings.heading }}{% if section.settings.heading_emphasis != blank %}<br><em>{{ section.settings.heading_emphasis }}</em>{% endif %}</h2>
+        {%- if section.settings.text != blank -%}<p class="text-muted">{{ section.settings.text }}</p>{%- endif -%}
+
+        <div class="reasons">
+          {%- for block in section.blocks -%}
+            <div class="reason" {{ block.shopify_attributes }}>
+              <span class="reason__icon">{% render 'icon', icon: block.settings.icon %}</span>
+              <div>
+                <strong>{{ block.settings.title }}</strong>
+                <p>{{ block.settings.text }}</p>
+              </div>
+            </div>
+          {%- endfor -%}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Why us",
+  "settings": [
+    { "type": "image_picker", "id": "image", "label": "Image" },
+    { "type": "text", "id": "image_url", "label": "Image URL (fallback)", "default": "https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=800&auto=format&fit=crop" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Why Ty-Leigh Capital" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Land Ownership Made" },
+    { "type": "text", "id": "heading_emphasis", "label": "Heading (accent line)", "default": "Accessible for Everyone" },
+    { "type": "textarea", "id": "text", "label": "Text", "default": "We believe everyone deserves the chance to own a piece of America. That's why we offer flexible owner financing with no credit checks — making it possible for anyone to start building their legacy." },
+    { "type": "header", "content": "Stats badge" },
+    { "type": "text", "id": "stat_1_num", "label": "Stat 1 number", "default": "200+" },
+    { "type": "text", "id": "stat_1_label", "label": "Stat 1 label", "default": "Properties Sold" },
+    { "type": "text", "id": "stat_2_num", "label": "Stat 2 number", "default": "6" },
+    { "type": "text", "id": "stat_2_label", "label": "Stat 2 label", "default": "States" }
+  ],
+  "blocks": [
+    {
+      "type": "reason",
+      "name": "Reason",
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icon",
+          "default": "credit-card",
+          "options": [
+            { "value": "credit-card", "label": "Credit card" },
+            { "value": "zap", "label": "Lightning" },
+            { "value": "shield", "label": "Shield" },
+            { "value": "handshake", "label": "Handshake" },
+            { "value": "trending-up", "label": "Trending up" },
+            { "value": "map-pin", "label": "Map pin" },
+            { "value": "check-circle", "label": "Check" }
+          ]
+        },
+        { "type": "text", "id": "title", "label": "Title", "default": "No Credit Check" },
+        { "type": "textarea", "id": "text", "label": "Text", "default": "We never run a credit check. Anyone can qualify for owner financing with us." }
+      ]
+    }
+  ],
+  "max_blocks": 6,
+  "presets": [
+    {
+      "name": "Why us",
+      "blocks": [
+        { "type": "reason", "settings": { "icon": "credit-card", "title": "No Credit Check", "text": "We never run a credit check. Anyone can qualify for owner financing with us." } },
+        { "type": "reason", "settings": { "icon": "zap", "title": "Fast Closing", "text": "Close on your land in days — sometimes hours. No banks, no red tape." } },
+        { "type": "reason", "settings": { "icon": "shield", "title": "60-Day Guarantee", "text": "Full refund within 60 days if you change your mind. Zero risk." } },
+        { "type": "reason", "settings": { "icon": "handshake", "title": "No Prepayment Penalty", "text": "Pay off your land early anytime. No fees, no penalties, ever." } },
+        { "type": "reason", "settings": { "icon": "trending-up", "title": "Appreciating Asset", "text": "Land is a finite resource. Your investment grows as demand increases." } },
+        { "type": "reason", "settings": { "icon": "map-pin", "title": "Multiple States", "text": "Choose from Arizona, Arkansas, Colorado, Florida, Nevada & New Mexico." } }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,42 +1,71 @@
 {%- liquid
   assign coll = collections[section.settings.collection]
-  assign limit = section.settings.products_to_show | default: 4
+  assign limit = section.settings.products_to_show | default: 8
 -%}
-<div class="page-width section">
-  <div class="collection-toolbar" style="align-items:flex-end">
-    <div class="section-head" style="margin-bottom:0">
+<section id="listings" class="section">
+  <div class="page-width">
+    <div class="section-head">
       {%- if section.settings.eyebrow != blank -%}<span class="eyebrow">{{ section.settings.eyebrow }}</span>{%- endif -%}
-      <h2 class="mb-0">{{ section.settings.heading }}</h2>
+      <h2>{{ section.settings.heading }}</h2>
+      {%- if section.settings.subtext != blank -%}<p>{{ section.settings.subtext }}</p>{%- endif -%}
     </div>
-    {%- if coll and coll.url -%}
-      <a href="{{ coll.url }}" class="btn btn--ghost">View all {% render 'icon', icon: 'arrow-right' %}</a>
+
+    {%- if section.settings.show_search -%}
+      <div class="listings-toolbar">
+        <form action="{{ routes.search_url }}" method="get" class="search-form" role="search">
+          <input type="hidden" name="type" value="product">
+          <label class="search-form__field">
+            <span class="visually-hidden">{{ 'general.search.search' | t }}</span>
+            {% render 'icon', icon: 'search' %}
+            <input type="search" name="q" placeholder="Search by state, county, or title…">
+          </label>
+          <button type="submit" class="btn btn--primary">{{ 'general.search.submit' | t }}</button>
+        </form>
+      </div>
+    {%- endif -%}
+
+    {%- if section.settings.states != blank -%}
+      {%- assign states = section.settings.states | split: ',' -%}
+      <div class="state-pills">
+        <a href="{{ coll.url | default: routes.all_products_collection_url }}" class="chip">All Land</a>
+        {%- for s in states -%}
+          {%- assign st = s | strip -%}
+          <a href="{{ routes.search_url }}?q={{ st | url_encode }}&type=product" class="chip">{{ st }}</a>
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+
+    {%- if coll and coll.products.size > 0 -%}
+      <div class="card-grid card-grid--4">
+        {%- for product in coll.products limit: limit -%}
+          {% render 'parcel-card', product: product %}
+        {%- endfor -%}
+      </div>
+      <div class="text-center" style="margin-top:var(--space-7)">
+        <a href="{{ coll.url | default: routes.all_products_collection_url }}" class="btn btn--outline btn--lg btn--pill">View All Properties {% render 'icon', icon: 'arrow-right' %}</a>
+      </div>
+    {%- else -%}
+      <div class="empty-state">
+        <p class="text-muted">Select a collection in the theme editor to feature properties here.</p>
+      </div>
     {%- endif -%}
   </div>
-
-  {%- if coll and coll.products.size > 0 -%}
-    <div class="product-grid product-grid--4" style="margin-top:var(--space-5)">
-      {%- for product in coll.products limit: limit -%}
-        {% render 'parcel-card', product: product %}
-      {%- endfor -%}
-    </div>
-  {%- else -%}
-    <div class="empty-state">
-      <p class="text-muted">Select a collection in the theme editor to feature parcels here.</p>
-    </div>
-  {%- endif -%}
-</div>
+</section>
 
 {% schema %}
 {
-  "name": "Featured parcels",
+  "name": "Listings",
   "settings": [
-    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Featured land" },
-    { "type": "text", "id": "heading", "label": "Heading", "default": "Newly listed parcels" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Available Now" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Find Your Perfect Property" },
+    { "type": "textarea", "id": "subtext", "label": "Subtext", "default": "Browse owner-financed land across 6 states. New properties added weekly." },
     { "type": "collection", "id": "collection", "label": "Collection" },
-    { "type": "range", "id": "products_to_show", "min": 2, "max": 8, "step": 1, "label": "Parcels to show", "default": 4 }
+    { "type": "range", "id": "products_to_show", "min": 4, "max": 12, "step": 1, "label": "Properties to show", "default": 8 },
+    { "type": "checkbox", "id": "show_search", "label": "Show search bar", "default": true },
+    { "type": "text", "id": "states", "label": "State quick-links (comma separated)", "default": "Arizona, Arkansas, Colorado, Florida, Nevada, New Mexico" }
   ],
   "presets": [
-    { "name": "Featured parcels" }
+    { "name": "Listings" }
   ]
 }
 {% endschema %}

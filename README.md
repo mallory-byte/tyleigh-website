@@ -1,125 +1,123 @@
-# Tyleigh Capital — Shopify Theme
+# Ty-Leigh Capital Land Co. — Shopify Theme
 
-A custom [Shopify Online Store 2.0](https://shopify.dev/docs/themes) theme for selling **land parcels**. Buyers can browse and filter parcels by **state, acreage, and price**, search by keyword, view rich parcel detail pages (specs, financing, maps), and check out — all managed through Shopify.
+A custom [Shopify Online Store 2.0](https://shopify.dev/docs/themes) theme for selling **owner-financed land**, matching the Ty-Leigh Capital brand: deep-teal + orange, Playfair Display headings, and an owner-financing pricing model (monthly payment, down payment, cash price).
 
-This repository is designed to be connected directly to a Shopify store through Shopify's **GitHub integration**, so every push to the theme branch updates the store.
+Land parcels are Shopify **products**; land-specific data comes from **product metafields**. Buyers browse and filter by state, search, view rich property pages, and reserve/checkout through Shopify.
+
+This repo is built for Shopify's **GitHub integration** — connect it to a store and every push syncs.
 
 ---
 
 ## 1. Connect the repo to Shopify
 
-1. In Shopify admin, go to **Online Store → Themes**.
-2. Click **Add theme → Connect from GitHub**.
-3. Authorize GitHub and select the `mallory-byte/tyleigh-website` repository.
-4. Choose the branch to connect (e.g. `main` for production).
-5. Shopify pulls the theme. **Preview** it, then **Publish** when ready.
+1. Shopify admin → **Online Store → Themes**.
+2. **Add theme → Connect from GitHub**, authorize, and select `mallory-byte/tyleigh-website`.
+3. Choose the branch (e.g. `main` for production).
+4. **Preview**, then **Publish**.
 
-> Every commit pushed to the connected branch syncs automatically. Edits made in the Shopify theme editor are committed back to the branch.
-
-Docs: [Shopify ↔ GitHub integration](https://shopify.dev/docs/storefronts/themes/tools/github)
+Docs: [Shopify ↔ GitHub](https://shopify.dev/docs/storefronts/themes/tools/github)
 
 ---
 
-## 2. Set up parcel data (metafields)
+## 2. Set up property data (metafields)
 
-Each parcel is a **Shopify product**. Land-specific details live in **product metafields** in the `custom` namespace. Create these once in **Settings → Custom data → Products**:
+Each property is a **product**. Set the product **price** to the **cash price**, add **images** for the gallery, then create these metafields in **Settings → Custom data → Products** (namespace.key = `custom.*`):
 
-| Metafield (namespace.key)      | Type              | Shows up as / used for            |
-| ------------------------------ | ----------------- | --------------------------------- |
-| `custom.acreage`               | Decimal           | Acreage badge, spec, filter       |
-| `custom.state`                 | Single line text  | Location label, spec, filter      |
-| `custom.county`                | Single line text  | Location label, spec              |
-| `custom.apn`                   | Single line text  | Parcel / APN number spec          |
-| `custom.zoning`                | Single line text  | Zoning spec                       |
-| `custom.road_access`           | Single line text  | Road access spec                  |
-| `custom.utilities`             | Single line text  | Utilities spec                    |
-| `custom.financing_available`   | True / false      | "Financing" badge + trust row     |
-| `custom.financing_terms`       | Single line text  | Financing note on parcel page     |
-| `custom.map_embed_url`         | URL               | Embedded map (Google Maps embed)  |
-| `custom.latitude`              | Decimal           | Map fallback (with longitude)     |
-| `custom.longitude`             | Decimal           | Map fallback (with latitude)      |
+| Metafield (`custom.`)  | Type              | Used for                                   |
+| ---------------------- | ----------------- | ------------------------------------------ |
+| `state`                | Single line text  | Location label, filter, map                |
+| `county`               | Single line text  | Location label                             |
+| `acres`                | Decimal           | Acreage badge, specs                       |
+| `monthly_payment`      | Integer           | "$X/mo" owner-financing price              |
+| `down_payment`         | Integer           | "$Y down" + purchase panel                 |
+| `status`               | Single line text  | Badge: `available`, `pending`, or `sold`   |
+| `features`             | List of single-line text | Feature tags on the card             |
+| `parcel_number`        | Single line text  | Parcel / APN                               |
+| `legal_description`    | Multi-line text   | Property Information                        |
+| `access`               | Single line text  | Feature tile (road access)                 |
+| `power`                | Single line text  | Feature tile                               |
+| `water`                | Single line text  | Feature tile                               |
+| `septic`               | Single line text  | Feature tile                               |
+| `zoning`               | Single line text  | Feature tile                               |
+| `elevation`            | Single line text  | Feature tile                               |
+| `latitude`             | Decimal           | Coordinates tile                           |
+| `longitude`            | Decimal           | Coordinates tile                           |
+| `doc_fee`              | Integer           | Per-property document fee (default $249)    |
 
-Every field is optional — the theme only renders what's present, so nothing breaks if a parcel is missing data. Set the standard product **price** as the parcel price, use the product **type** for a category label (e.g. "Recreational"), and add product **images** for the gallery.
+Every field is optional — the theme only renders what's present. If `status` is empty, the theme shows **available** when the product is in stock and **sold** when it's out of stock.
 
-### Recommended product setup for a parcel
-- **Title** — e.g. "5 Acres in Costilla County, Colorado"
-- **Price** — the cash price
-- **Media** — parcel photos, plat maps, aerials
-- **Type** — a short category (used as a tag on cards)
-- **Metafields** — the `custom.*` fields above
-
----
-
-## 3. Turn on filtering (state / acreage / price)
-
-The listings and search pages render **Shopify's native storefront filters**. To enable the recommended filters:
-
-1. Install the free **[Search & Discovery](https://apps.shopify.com/search-and-discovery)** app from Shopify.
-2. Open it → **Filters**.
-3. Add filters for:
-   - **Price** (built in)
-   - **Metafield → `custom.state`** → label it "State"
-   - **Metafield → `custom.acreage`** → label it "Acreage"
-   - **Metafield → `custom.financing_available`** → label it "Financing"
-4. Save. The filter sidebar on collection and search pages populates automatically.
-
-> Tip: for acreage you can present it as ranges (0–1, 1–5, 5–20, 20+) inside the Search & Discovery app.
+> **Pricing model note.** The card and property page display owner financing (`$monthly/mo`, `$down` down) alongside the **cash price** (the product price). The **Reserve This Property** button adds the product to the cart and goes to Shopify checkout, which charges the **product price**. Decide what checkout should collect and set the product price accordingly — e.g. set it to the cash price for cash sales, or create a dedicated reservation/deposit product if you want to collect only the down payment + document fee online and handle financing offline.
 
 ---
 
-## 4. Set up navigation & pages
+## 3. Turn on state filtering
 
-**Navigation** (Online Store → Navigation):
-- **Main menu** (`main-menu`): Home, Browse Land (link to a collection or `/collections/all`), Financing, About, Contact.
-- **Footer menu** (`footer`): About, Financing, FAQ, Contact, etc.
+The listings page (`/collections/...`) renders state filter pills from **Shopify's native storefront filters**:
 
-**Pages** (Online Store → Pages) — create these and assign the matching theme template in the page's **Theme template** dropdown:
-| Page    | Handle      | Template to assign      |
-| ------- | ----------- | ----------------------- |
-| Contact | `contact`   | `page.contact`          |
-| About   | `about`     | `page.about`            |
-| Financing | `financing` | `page.financing`      |
-
-Any other page uses the default `page` template.
+1. Install the free **[Search & Discovery](https://apps.shopify.com/search-and-discovery)** app.
+2. **Filters** → add a filter on **Metafield → `custom.state`**, labelled "State" (add Price / `custom.acres` if you like).
+3. Save — the pills appear automatically. Keyword search and the state quick-links on the homepage work without any setup.
 
 ---
 
-## 5. Customize the look
+## 4. Navigation & pages
 
-Everything visual is editable in the **theme editor** (Customize) or in `config/settings_schema.json`:
-- **Brand** — name, logo, tagline, favicon
-- **Colors** — primary green, gold accent, backgrounds, borders
-- **Typography** — heading & body fonts
-- **Layout** — max width, corner radius
-- **Product cards** — toggle acreage / location / financing badges
-- **Social & contact** — email, phone, social links
+**Main menu** (`main-menu`) — build a nested menu to get the dropdowns:
+- Home → `/`
+- **Listings** (dropdown) → All Land `/collections/all`, then a child per state (link to a state collection or `/search?q=Arizona&type=product`)
+- **How It Works** (dropdown) → Buying Process, FAQ, Title / Escrow, Financing Info, Our Guarantee, Referral Program
+- About → `/pages/about`
+- Contact → `/pages/contact`
 
-Homepage sections (hero, value props, featured parcels, how-it-works, testimonials, FAQ, CTA, newsletter) are all drag-and-drop editable in the theme editor.
+**Footer menu** (`footer`) — Browse Listings, How It Works, About, Contact, etc.
+
+**Pages** — create each in **Online Store → Pages** and set its **Theme template** to the matching template:
+
+| Page             | Handle           | Template            |
+| ---------------- | ---------------- | ------------------- |
+| About            | `about`          | `page.about`        |
+| Contact          | `contact`        | `page.contact`      |
+| FAQ              | `faq`            | `page.faq`          |
+| Buying Process   | `buying-process` | `page.buying-process` |
+| Title / Escrow   | `title-escrow`   | `page.title-escrow` |
+| Financing Info   | `financing-info` | `page.financing-info` |
+| Our Guarantee    | `our-guarantee`  | `page.our-guarantee` |
+| Referral Program | `referral`       | `page.referral`     |
+
+The About, FAQ, and How-It-Works pages come pre-filled with Ty-Leigh copy in the template JSON — you can edit everything in the theme editor.
+
+---
+
+## 5. Brand & styling
+
+Editable in the theme editor (**Customize**) or `config/settings_schema.json`:
+- **Brand** — name, suffix, logo (defaults to the Ty-Leigh horizontal logo URL), tagline, phone.
+- **Colors** — deep teal primary, orange accent, backgrounds, borders.
+- **Typography** — Playfair Display + Inter (loaded from Google Fonts).
+- **Product cards** — toggle status / acreage / location / feature / monthly-price.
+- **Contact** — email, phone, business hours, social links.
+
+Homepage sections (hero, listings, property map, how-it-works, why-us, contact) are drag-and-drop editable.
 
 ---
 
 ## Theme structure
 
 ```
-assets/          base.css (design system), theme.js (interactions)
-config/          settings_schema.json, settings_data.json
-layout/          theme.liquid, password.liquid
-locales/         en.default.json
-sections/        header/footer, home sections, main-* page sections
-snippets/        parcel-card, facets, price, pagination, icon, meta-tags
-templates/       JSON templates + customer & gift card templates
+assets/     base.css (design system), theme.js
+config/     settings_schema.json, settings_data.json
+layout/     theme.liquid, password.liquid
+locales/    en.default.json
+sections/   header/footer groups, hero, featured-parcels (listings), map,
+            how-it-works, why-us, contact-section, main-* page sections,
+            page-hero, prose, compare, cta-band, faq, value-props, media-text
+snippets/   parcel-card, price, pagination, icon, meta-tags
+templates/  JSON templates + customer, gift card, password templates
 ```
 
 ## Local development (optional)
 
-Use the [Shopify CLI](https://shopify.dev/docs/themes/tools/cli) to preview against a live store:
-
 ```bash
-shopify theme dev --store your-store.myshopify.com
-```
-
-Run the theme linter before pushing:
-
-```bash
-shopify theme check
+shopify theme dev --store your-store.myshopify.com   # live preview
+shopify theme check                                  # lint before pushing
 ```

@@ -1,81 +1,57 @@
 {%- liquid
   assign per_page = section.settings.results_per_page | default: 12
 -%}
-<section class="collection-hero">
+<section class="page-hero">
   <div class="page-width">
-    <h1>{{ 'general.search.search' | t }}</h1>
-    <form action="{{ routes.search_url }}" method="get" class="search-form" role="search" style="max-width:36rem;margin-top:var(--space-4)">
+    <h1>Search Properties</h1>
+    <form action="{{ routes.search_url }}" method="get" class="search-form" role="search" style="max-width:38rem;margin:var(--space-5) auto 0">
       <input type="hidden" name="type" value="product">
       <label class="search-form__field">
         <span class="visually-hidden">{{ 'general.search.search' | t }}</span>
         {% render 'icon', icon: 'search' %}
-        <input type="search" name="q" value="{{ search.terms | escape }}" placeholder="{{ 'general.search.placeholder' | t }}">
+        <input type="search" name="q" value="{{ search.terms | escape }}" placeholder="Search by state, county, or title…">
       </label>
       <button type="submit" class="btn btn--accent">{{ 'general.search.submit' | t }}</button>
     </form>
   </div>
 </section>
 
-<div class="page-width section">
+<div class="page-width section--sm">
   {%- if search.performed -%}
     {%- paginate search.results by per_page -%}
-      <div class="collection-layout">
-        {% render 'facets', results: search %}
+      <p class="results-count">Showing <strong>{{ search.results_count }}</strong> result{% if search.results_count != 1 %}s{% endif %} for "{{ search.terms }}"</p>
 
-        <div class="collection-main">
-          <div class="collection-toolbar">
-            <button type="button" class="btn btn--outline facets__mobile-toggle" data-toggle-facets>
-              {% render 'icon', icon: 'ruler' %} {{ 'products.facets.filter_and_sort' | t }}
-            </button>
-            <span class="collection-toolbar__count">
-              {{ 'general.search.results_count' | t: count: search.results_count, terms: search.terms }}
-            </span>
-            {%- if search.sort_options.size > 0 -%}
-              <form method="get" class="sort-select" data-auto-submit>
-                <input type="hidden" name="q" value="{{ search.terms | escape }}">
-                <input type="hidden" name="type" value="product">
-                <label for="SortBy" class="visually-hidden">{{ 'products.facets.sort_by' | t }}</label>
-                <select name="sort_by" id="SortBy">
-                  {%- assign current_sort = search.sort_by | default: 'relevance' -%}
-                  {%- for option in search.sort_options -%}
-                    <option value="{{ option.value }}" {% if option.value == current_sort %}selected{% endif %}>{{ option.name }}</option>
-                  {%- endfor -%}
-                </select>
-              </form>
+      {%- if search.results.size > 0 -%}
+        <div class="card-grid card-grid--4">
+          {%- for item in search.results -%}
+            {%- if item.object_type == 'product' -%}
+              {% render 'parcel-card', product: item %}
+            {%- else -%}
+              <article class="p-card">
+                <div class="p-card__body">
+                  <h3 class="p-card__title"><a href="{{ item.url }}">{{ item.title }}</a></h3>
+                  <p class="p-card__desc">{{ item.content | default: item.excerpt | strip_html | truncatewords: 20 }}</p>
+                  <a href="{{ item.url }}" class="btn btn--outline btn--block" style="margin-top:auto">View {% render 'icon', icon: 'arrow-right' %}</a>
+                </div>
+              </article>
             {%- endif -%}
-          </div>
-
-          {%- if search.results.size > 0 -%}
-            <div class="product-grid">
-              {%- for item in search.results -%}
-                {%- if item.object_type == 'product' -%}
-                  {% render 'parcel-card', product: item %}
-                {%- else -%}
-                  <article class="parcel-card">
-                    <a href="{{ item.url }}" class="parcel-card__body">
-                      <h3 class="parcel-card__title">{{ item.title }}</h3>
-                      <p class="text-muted">{{ item.content | default: item.excerpt | strip_html | truncatewords: 20 }}</p>
-                    </a>
-                  </article>
-                {%- endif -%}
-              {%- endfor -%}
-            </div>
-            {% render 'pagination', paginate: paginate %}
-          {%- else -%}
-            <div class="empty-state">
-              {% render 'icon', icon: 'search' %}
-              <h3>{{ 'general.search.no_results' | t: terms: search.terms }}</h3>
-              <a href="{{ routes.all_products_collection_url }}" class="btn btn--primary">Browse all land</a>
-            </div>
-          {%- endif -%}
+          {%- endfor -%}
         </div>
-      </div>
+        {% render 'pagination', paginate: paginate %}
+      {%- else -%}
+        <div class="empty-state">
+          {% render 'icon', icon: 'search' %}
+          <h3>No properties found for "{{ search.terms }}".</h3>
+          <p class="text-muted">Try a different search, or browse all available land.</p>
+          <a href="{{ routes.all_products_collection_url }}" class="btn btn--primary btn--pill">Browse all land</a>
+        </div>
+      {%- endif -%}
     {%- endpaginate -%}
   {%- else -%}
     <div class="empty-state">
       {% render 'icon', icon: 'search' %}
       <h3>Search for land</h3>
-      <p class="text-muted">Search by state, county, acreage, or parcel name.</p>
+      <p class="text-muted">Search by state, county, acreage, or property name.</p>
     </div>
   {%- endif -%}
 </div>
@@ -84,15 +60,7 @@
 {
   "name": "Search results",
   "settings": [
-    {
-      "type": "range",
-      "id": "results_per_page",
-      "min": 6,
-      "max": 24,
-      "step": 3,
-      "label": "Results per page",
-      "default": 12
-    }
+    { "type": "range", "id": "results_per_page", "min": 6, "max": 24, "step": 3, "label": "Results per page", "default": 12 }
   ]
 }
 {% endschema %}

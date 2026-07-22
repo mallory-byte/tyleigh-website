@@ -1,46 +1,40 @@
 <div class="page-width section">
-  <div class="media-text {% if section.settings.image_position == 'right' %}media-text--reverse{% endif %}">
-    <div class="media-text__media">
+  <div class="whyus__grid {% if section.settings.image_position == 'right' %}media-reverse{% endif %}">
+    <div class="whyus__media" style="box-shadow:none">
       {%- if section.settings.image != blank -%}
-        {{ section.settings.image | image_url: width: 1000 | image_tag: loading: 'lazy', alt: section.settings.heading | escape, sizes: '(min-width: 750px) 50vw, 100vw', widths: '500, 750, 1000' }}
-      {%- else -%}
-        <div style="aspect-ratio:4/3;border-radius:var(--card-radius);background:linear-gradient(135deg,var(--color-primary),var(--color-primary-dark))"></div>
+        {{ section.settings.image | image_url: width: 1000 | image_tag: loading: 'lazy', alt: section.settings.heading | escape, style: 'height:auto;aspect-ratio:16/10;box-shadow:var(--shadow-lg)', sizes: '(min-width: 990px) 45vw, 90vw', widths: '500, 750, 1000' }}
+      {%- elsif section.settings.image_url != blank -%}
+        <img src="{{ section.settings.image_url }}" alt="{{ section.settings.heading | escape }}" loading="lazy" style="aspect-ratio:16/10;box-shadow:var(--shadow-lg)">
       {%- endif -%}
     </div>
-    <div class="media-text__body">
+    <div class="whyus__body">
       {%- if section.settings.eyebrow != blank -%}<span class="eyebrow">{{ section.settings.eyebrow }}</span>{%- endif -%}
       <h2>{{ section.settings.heading }}</h2>
-      <div class="rte">{{ section.settings.text }}</div>
+      <div class="rte text-muted">{{ section.settings.text }}</div>
       {%- if section.settings.button_label != blank -%}
-        <a href="{{ section.settings.button_link }}" class="btn btn--primary" style="margin-top:var(--space-3)">{{ section.settings.button_label }}</a>
+        <a href="{{ section.settings.button_link }}" class="btn btn--primary btn--pill" style="margin-top:var(--space-3)">{{ section.settings.button_label }}</a>
       {%- endif -%}
     </div>
   </div>
 </div>
+
+<style>
+  @media (min-width: 990px) { #shopify-section-{{ section.id }} .media-reverse .whyus__media { order: 2; } }
+</style>
 
 {% schema %}
 {
   "name": "Image with text",
   "settings": [
     { "type": "image_picker", "id": "image", "label": "Image" },
-    {
-      "type": "select",
-      "id": "image_position",
-      "label": "Image position",
-      "default": "left",
-      "options": [
-        { "value": "left", "label": "Left" },
-        { "value": "right", "label": "Right" }
-      ]
-    },
-    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "About us" },
-    { "type": "text", "id": "heading", "label": "Heading", "default": "Land people, not just a listing site" },
-    { "type": "richtext", "id": "text", "label": "Text", "default": "<p>Tyleigh Capital was built on a simple idea: owning land should be within reach. We source, vet, and price parcels so buyers can invest in real property without the complexity of traditional real estate.</p>" },
-    { "type": "text", "id": "button_label", "label": "Button label", "default": "Learn more" },
+    { "type": "text", "id": "image_url", "label": "Image URL (fallback)" },
+    { "type": "select", "id": "image_position", "label": "Image position", "default": "left", "options": [ { "value": "left", "label": "Left" }, { "value": "right", "label": "Right" } ] },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Our Mission" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Land Ownership Made Easy" },
+    { "type": "richtext", "id": "text", "label": "Text", "default": "<p>Ty-Leigh Capital Land Co. was founded with one goal: to make land ownership possible for people who've been told \"no\" by traditional banks. We specialize in owner financing — meaning we act as the bank, so you never need a credit check or a large down payment.</p>" },
+    { "type": "text", "id": "button_label", "label": "Button label" },
     { "type": "url", "id": "button_link", "label": "Button link" }
   ],
-  "presets": [
-    { "name": "Image with text" }
-  ]
+  "presets": [ { "name": "Image with text" } ]
 }
 {% endschema %}

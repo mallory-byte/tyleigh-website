@@ -1,15 +1,10 @@
-<div class="page-width section">
-  <div class="section-head section-head--center">
-    <h1>{{ page.title }}</h1>
-  </div>
-  <div class="rte" style="max-width:48rem;margin-inline:auto">
+<div class="page-width section--sm">
+  <div class="section-head"><h1>{{ page.title }}</h1></div>
+  <div class="prose rte">
     {{ page.content }}
   </div>
 </div>
 
 {% schema %}
-{
-  "name": "Page",
-  "settings": []
-}
+{ "name": "Page", "settings": [] }
 {% endschema %}

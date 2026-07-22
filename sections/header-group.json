@@ -5,13 +5,15 @@
     "announcement-bar": {
       "type": "announcement-bar",
       "settings": {
-        "text": "New parcels added weekly — flexible owner financing available."
+        "show_phone": true,
+        "text": "No Credit Check  |  60-Day Money-Back Guarantee"
       }
     },
     "header": {
       "type": "header",
       "settings": {
-        "menu": "main-menu"
+        "menu": "main-menu",
+        "cta_label": "Browse Properties"
       }
     }
   },

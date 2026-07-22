@@ -1,0 +1,32 @@
+{
+  "sections": {
+    "hero": {
+      "type": "page-hero",
+      "settings": { "eyebrow": "How It Works", "heading": "Financing Info", "subtext": "Owner financing with no bank approval, no credit check, and no waiting." }
+    },
+    "intro": {
+      "type": "prose",
+      "settings": {
+        "intro": "<p>With owner financing, <strong>we are the bank</strong>. You make a small down payment to reserve your land, then pay affordable monthly installments until it's paid off. There's no bank approval, no credit check, and no waiting period — it's that simple.</p>"
+      }
+    },
+    "compare": {
+      "type": "compare",
+      "settings": {
+        "yes_title": "Ty-Leigh Owner Financing",
+        "yes_items": "Low down payments starting at $249\nMonthly payments as low as $89/month\nNo bank approval or waiting period\nFlexible terms to fit your budget\nEarly payoff allowed at any time",
+        "no_title": "Traditional Bank Financing",
+        "no_items": "Credit score of 680+ typically required\nDown payments of 20–30% common\nBank approval can take weeks or months\nClosing costs add thousands to the price\nStrict income verification required\nMany vacant land loans simply aren't available"
+      }
+    },
+    "cta": {
+      "type": "cta-band",
+      "settings": {
+        "heading": "Ready to Get Started?",
+        "subtext": "Browse our listings and call or text us at (662) 442-4362 to reserve your property today.",
+        "button_label": "Browse Available Properties"
+      }
+    }
+  },
+  "order": ["hero", "intro", "compare", "cta"]
+}

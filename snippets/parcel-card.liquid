@@ -1,63 +1,82 @@
 {%- comment -%}
-  Parcel (product) card.
+  Property (parcel) card — matches Ty-Leigh Capital design.
   Params: product (required)
-  Reads optional metafields in the `custom` namespace:
-    custom.acreage (number)  custom.state (text)  custom.county (text)
-    custom.financing_available (boolean)
+  Metafields (custom namespace): state, county, acres, monthly_payment,
+  down_payment, status, features (list). Cash price = product price.
 {%- endcomment -%}
 {%- liquid
-  assign acreage = product.metafields.custom.acreage.value
-  assign state = product.metafields.custom.state.value
-  assign county = product.metafields.custom.county.value
-  assign financing = product.metafields.custom.financing_available.value
+  assign m = product.metafields.custom
+  assign acres = m.acres.value | default: m.acreage.value
+  assign state = m.state.value
+  assign county = m.county.value
+  assign monthly = m.monthly_payment.value
+  assign down = m.down_payment.value
+  assign features = m.features.value
 
-  assign location = ''
-  if county != blank and state != blank
-    assign location = county | append: ', ' | append: state
-  elsif state != blank
-    assign location = state
-  elsif county != blank
-    assign location = county
+  assign status = m.status.value | downcase
+  if status == blank
+    if product.available
+      assign status = 'available'
+    else
+      assign status = 'sold'
+    endif
   endif
 -%}
-<article class="parcel-card">
-  <a href="{{ product.url }}" class="parcel-card__media" aria-label="{{ product.title | escape }}">
+<article class="p-card">
+  <a href="{{ product.url }}" class="p-card__media" aria-label="{{ product.title | escape }}">
     {%- if product.featured_media -%}
-      {{ product.featured_media | image_url: width: 600 | image_tag:
-        loading: 'lazy', widths: '300, 450, 600, 900', sizes: '(min-width: 750px) 33vw, 90vw', alt: product.featured_media.alt | default: product.title | escape }}
+      {{ product.featured_media | image_url: width: 700 | image_tag: loading: 'lazy', widths: '350, 525, 700', sizes: '(min-width: 900px) 25vw, 90vw', alt: product.featured_media.alt | default: product.title | escape }}
     {%- else -%}
-      <div style="display:grid;place-items:center;height:100%;color:var(--color-muted)">
-        {% render 'icon', icon: 'tree' %}
+      <span style="display:grid;place-items:center;height:100%;color:var(--color-muted)">{% render 'icon', icon: 'tree' %}</span>
+    {%- endif -%}
+    {%- if settings.show_status_badge -%}
+      <span class="p-card__status status--{{ status }}">{{ status }}</span>
+    {%- endif -%}
+    {%- if settings.show_acreage_badge and acres != blank -%}
+      <span class="p-card__acres">{{ acres }} acres</span>
+    {%- endif -%}
+  </a>
+
+  <div class="p-card__body">
+    <h3 class="p-card__title"><a href="{{ product.url }}">{{ product.title }}</a></h3>
+    {%- if settings.show_state_label and state != blank -%}
+      <span class="p-card__loc">{% render 'icon', icon: 'map-pin' %}{% if county != blank %}{{ county }} County, {% endif %}{{ state }}</span>
+    {%- endif -%}
+    {%- if product.description != blank -%}
+      <p class="p-card__desc">{{ product.description | strip_html | truncatewords: 22 }}</p>
+    {%- endif -%}
+
+    {%- if settings.show_features and features != blank and features != empty -%}
+      <div class="p-card__tags">
+        {%- for f in features limit: 3 -%}<span class="tag">{{ f }}</span>{%- endfor -%}
       </div>
     {%- endif -%}
-    <div class="parcel-card__badges">
-      {%- if settings.show_acreage_badge and acreage != blank -%}
-        <span class="badge badge--acreage">{{ acreage }} {% if acreage == 1 %}acre{% else %}acres{% endif %}</span>
+
+    <div class="p-card__pricing">
+      <div class="price-fin">
+        {%- if settings.show_monthly_price and monthly != blank -%}
+          <div class="price-fin__label">Owner Financing</div>
+          <div class="price-fin__amount">${{ monthly }}<small>/mo</small></div>
+          {%- if down != blank -%}<div class="price-fin__down">Down: ${{ down }}</div>{%- endif -%}
+        {%- else -%}
+          <div class="price-fin__label">Price</div>
+          <div class="price-fin__amount">{{ product.price | money }}</div>
+        {%- endif -%}
+      </div>
+      {%- if settings.show_monthly_price and monthly != blank -%}
+        <div class="price-cash">
+          <div class="price-cash__label">Cash Price</div>
+          <div class="price-cash__amount">{{ product.price | money }}</div>
+        </div>
       {%- endif -%}
-      {%- if settings.show_financing_badge and financing -%}
-        <span class="badge badge--financing">Financing</span>
-      {%- endif -%}
-      {%- unless product.available -%}
-        <span class="badge badge--sold">Sold</span>
-      {%- endunless -%}
     </div>
-  </a>
-  <div class="parcel-card__body">
-    {%- if settings.show_state_label and location != blank -%}
-      <span class="parcel-card__location">{% render 'icon', icon: 'map-pin' %}{{ location }}</span>
+
+    {%- if status == 'available' -%}
+      <a href="{{ product.url }}" class="btn btn--primary btn--block">View Listing {% render 'icon', icon: 'arrow-right' %}</a>
+    {%- elsif status == 'pending' -%}
+      <span class="btn btn--block is-disabled" style="background:#e6b800;color:#fff">Under Contract</span>
+    {%- else -%}
+      <span class="btn btn--outline btn--block is-disabled">Sold</span>
     {%- endif -%}
-    <h3 class="parcel-card__title"><a href="{{ product.url }}">{{ product.title }}</a></h3>
-    <div class="parcel-card__meta">
-      {%- if acreage != blank -%}
-        <span>{% render 'icon', icon: 'ruler' %}{{ acreage }} {% if acreage == 1 %}acre{% else %}acres{% endif %}</span>
-      {%- endif -%}
-      {%- if product.type != blank -%}
-        <span>{% render 'icon', icon: 'tag' %}{{ product.type }}</span>
-      {%- endif -%}
-    </div>
-    <div class="parcel-card__footer">
-      {% render 'price', product: product %}
-      <span class="btn btn--ghost" aria-hidden="true">View {% render 'icon', icon: 'arrow-right' %}</span>
-    </div>
   </div>
 </article>

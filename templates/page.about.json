@@ -1,45 +1,47 @@
 {
   "sections": {
-    "banner": {
-      "type": "rich-text",
+    "hero": {
+      "type": "page-hero",
       "settings": {
-        "eyebrow": "About Tyleigh Capital",
-        "heading": "We make owning land simple",
-        "text": "<p>Tyleigh Capital sources, vets, and sells raw land across the country. Our mission is to make land ownership accessible — with transparent pricing, clear title, and flexible owner financing on every parcel.</p>"
+        "eyebrow": "Our Story",
+        "heading": "About Ty-Leigh Capital",
+        "subtext": "We're a family-owned land company dedicated to making land ownership affordable, simple, and accessible for everyday Americans."
       }
     },
-    "story": {
+    "mission": {
       "type": "media-text",
       "settings": {
+        "image_url": "https://tyleighcapital.com/cdn/shop/files/HAT_SALE_2048_x_1152_px_2.png?v=1711382951",
         "image_position": "left",
-        "eyebrow": "Our approach",
-        "heading": "Diligence you can trust",
-        "text": "<p>Before a parcel ever lists, we verify its title, confirm access and zoning, and photograph the land. What you see on the listing is exactly what you're buying — no auctions, no hidden fees, no surprises.</p>"
+        "eyebrow": "Our Mission",
+        "heading": "Land Ownership Made Easy",
+        "text": "<p>Ty-Leigh Capital Land Co. was founded with one goal: to make land ownership possible for people who've been told \"no\" by traditional banks. We specialize in owner financing — meaning we act as the bank, so you never need a credit check or a large down payment.</p><p>We source affordable vacant land across states like Colorado, Florida, Arizona, Arkansas, Nevada, and New Mexico — and offer flexible payment plans starting as low as $89/month. From the first call to receiving your deed, we walk with you every step of the way.</p>"
       }
     },
     "values": {
       "type": "value-props",
       "settings": {
-        "eyebrow": "What we stand for",
-        "heading": "Built on trust and transparency"
+        "muted_bg": true,
+        "eyebrow": "What We Stand For",
+        "heading": "Our Core Values"
       },
       "blocks": {
-        "v1": { "type": "prop", "settings": { "icon": "shield", "title": "Verified title", "text": "Clean, recorded deeds on every parcel." } },
-        "v2": { "type": "prop", "settings": { "icon": "tag", "title": "Honest pricing", "text": "One clear price. No games." } },
-        "v3": { "type": "prop", "settings": { "icon": "doc", "title": "Flexible financing", "text": "Own land without a bank." } }
+        "v1": { "type": "value", "settings": { "icon": "heart", "title": "People First", "text": "We believe land ownership should be accessible to everyone — not just those with perfect credit or deep pockets. Our owner-financing model was built with families in mind." } },
+        "v2": { "type": "value", "settings": { "icon": "shield", "title": "Transparent & Honest", "text": "No hidden fees. No tricks. What you see is what you get. We clearly outline all terms upfront so you can make an informed decision with confidence." } },
+        "v3": { "type": "value", "settings": { "icon": "users", "title": "Community Focused", "text": "From Mississippi roots, we've grown to help buyers across the country find their piece of land. Your success is our success." } },
+        "v4": { "type": "value", "settings": { "icon": "trending-up", "title": "Long-Term Investment", "text": "Land appreciates over time. We help you start building wealth today — even on a modest budget — with flexible monthly payments that fit your life." } }
       },
-      "block_order": ["v1", "v2", "v3"]
+      "block_order": ["v1", "v2", "v3", "v4"]
     },
-    "cta": {
+    "guarantee": {
       "type": "cta-band",
       "settings": {
-        "heading": "Ready to find your land?",
-        "subtext": "Browse available parcels or reach out to our team.",
-        "button_label": "Browse land",
-        "button_label_2": "Contact us",
-        "button_link_2": "/pages/contact"
+        "emoji": "🛡️",
+        "heading": "60-Day Money-Back Guarantee",
+        "subtext": "We're so confident you'll love your land that we back every purchase with a 60-day money-back guarantee. If you're not completely satisfied, we'll refund every payment you've made — no questions asked.",
+        "button_label": "Browse Available Properties"
       }
     }
   },
-  "order": ["banner", "story", "values", "cta"]
+  "order": ["hero", "mission", "values", "guarantee"]
 }

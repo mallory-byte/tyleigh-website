@@ -1,11 +1,20 @@
 {%- liquid
   assign brand = settings.brand_name | default: shop.name
+  assign phone = settings.contact_phone | default: settings.phone
+  assign phone_href = phone | remove: ' ' | remove: '(' | remove: ')' | remove: '-'
+  assign email = settings.contact_email
 -%}
 <footer class="site-footer">
   <div class="page-width">
     <div class="footer__grid">
       <div class="footer__brand">
-        <div class="footer__brand-name">{{ brand }}</div>
+        <div class="footer__brand-row">
+          {% render 'icon', icon: 'map-pin' %}
+          <div>
+            <div class="footer__brand-name">{{ brand }}</div>
+            <div class="footer__brand-sub">{{ settings.brand_suffix | default: 'Land Co.' }}</div>
+          </div>
+        </div>
         <p>{{ section.settings.about_text }}</p>
         <div class="footer__social">
           {%- if settings.social_facebook != blank -%}<a href="{{ settings.social_facebook }}" aria-label="Facebook">{% render 'icon', icon: 'facebook' %}</a>{%- endif -%}
@@ -15,11 +24,11 @@
         </div>
       </div>
 
-      {%- if section.settings.menu_1 != blank and linklists[section.settings.menu_1].links.size > 0 -%}
+      {%- if section.settings.menu != blank and linklists[section.settings.menu].links.size > 0 -%}
         <div>
-          <h4>{{ linklists[section.settings.menu_1].title }}</h4>
+          <h4>Quick Links</h4>
           <ul>
-            {%- for link in linklists[section.settings.menu_1].links -%}
+            {%- for link in linklists[section.settings.menu].links -%}
               <li><a href="{{ link.url }}">{{ link.title }}</a></li>
             {%- endfor -%}
           </ul>
@@ -27,23 +36,22 @@
       {%- endif -%}
 
       <div>
-        <h4>{{ section.settings.contact_heading | default: 'Get in touch' }}</h4>
+        <h4>Contact</h4>
         <ul>
-          {%- if settings.contact_email != blank -%}
-            <li><a href="mailto:{{ settings.contact_email }}">{{ settings.contact_email }}</a></li>
-          {%- endif -%}
-          {%- if settings.contact_phone != blank -%}
-            <li><a href="tel:{{ settings.contact_phone | remove: ' ' }}">{{ settings.contact_phone }}</a></li>
-          {%- endif -%}
+          {%- if phone != blank -%}<li><a href="tel:{{ phone_href }}">{% render 'icon', icon: 'phone' %}{{ phone }}</a></li>{%- endif -%}
+          {%- if email != blank -%}<li><a href="mailto:{{ email }}">{% render 'icon', icon: 'mail' %}{{ email }}</a></li>{%- endif -%}
         </ul>
+        {%- if section.settings.disclaimer != blank -%}
+          <div class="footer__disclaimer">{{ section.settings.disclaimer }}</div>
+        {%- endif -%}
       </div>
     </div>
 
     <div class="footer__bottom">
-      <span>&copy; {{ 'now' | date: '%Y' }} {{ brand }}. {{ 'footer.copyright' | t }}</span>
+      <span>&copy; {{ 'now' | date: '%Y' }} {{ brand }} {{ settings.brand_suffix }}. {{ 'footer.copyright' | t }}</span>
       <span>
-        {%- if shop.privacy_policy -%}<a href="{{ shop.privacy_policy.url }}">Privacy</a>{%- endif -%}
-        {%- if shop.terms_of_service -%} · <a href="{{ shop.terms_of_service.url }}">Terms</a>{%- endif -%}
+        {%- if shop.privacy_policy -%}<a href="{{ shop.privacy_policy.url }}">Privacy Policy</a>{%- endif -%}
+        {%- if shop.terms_of_service -%} &nbsp; <a href="{{ shop.terms_of_service.url }}">Terms of Service</a>{%- endif -%}
       </span>
     </div>
   </div>
@@ -53,24 +61,9 @@
 {
   "name": "Footer",
   "settings": [
-    {
-      "type": "textarea",
-      "id": "about_text",
-      "label": "About text",
-      "default": "Tyleigh Capital helps you own raw land across the country — vetted parcels, transparent pricing, and simple owner financing."
-    },
-    {
-      "type": "link_list",
-      "id": "menu_1",
-      "label": "Footer menu",
-      "default": "footer"
-    },
-    {
-      "type": "text",
-      "id": "contact_heading",
-      "label": "Contact heading",
-      "default": "Get in touch"
-    }
+    { "type": "textarea", "id": "about_text", "label": "About text", "default": "Affordable vacant land with owner financing across the United States. No credit check, no hassle — just land ownership made easy." },
+    { "type": "link_list", "id": "menu", "label": "Quick links menu", "default": "footer" },
+    { "type": "textarea", "id": "disclaimer", "label": "Disclaimer", "default": "Licensed Land Dealer. All properties sold as-is. Buyer responsible for due diligence. Financing subject to terms." }
   ]
 }
 {% endschema %}

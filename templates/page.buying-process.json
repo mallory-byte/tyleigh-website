@@ -1,0 +1,25 @@
+{
+  "sections": {
+    "hero": {
+      "type": "page-hero",
+      "settings": { "eyebrow": "How It Works", "heading": "Buying Process", "subtext": "Three simple ways to buy — pick what works best for you." }
+    },
+    "steps": {
+      "type": "prose",
+      "settings": {
+        "intro": "<p>Buying land with Ty-Leigh Capital is straightforward. Choose the option that fits you best — a cash purchase, owner financing, or working through a title company.</p>"
+      },
+      "blocks": {
+        "c1": { "type": "card", "settings": { "icon": "dollar", "heading": "I. Cash Purchase", "text": "<p>Once you complete your purchase, you'll promptly receive a receipt via email. We then send you an invoice for the full amount of the property, along with a fresh deed and any additional documentation the county requires to transfer the property.</p><p>Once you've given us the go-ahead on the new deed, we take it through signing, notarization, and dispatch it to the County for recording. Once the County officially records the new deed, they send it directly to you for safekeeping. On average, the entire process — from the initial transaction to receiving a hard copy of the recorded deed — wraps up in roughly two weeks.</p>" } },
+        "c2": { "type": "card", "settings": { "icon": "file-check", "heading": "II. Owner Financing", "text": "<p>Owner financing is like a payment plan for a property. You start with a smaller down payment instead of paying the whole price at once, then pay small amounts every month until the property is fully paid off.</p><p><strong>The Process:</strong> Once you reserve, you'll get a confirmation email. Within 24 hours, we prepare 3 documents for you to sign electronically (Promissory Note, Land Sale Contract, and Land Sale Agreement), sent via SignNow.com. These documents prove to the county that you're in contract with us and making payments to own the land. Once all payments have been made, the property is deeded over to you.</p>" } },
+        "c3": { "type": "card", "settings": { "icon": "file-text", "heading": "III. Title / Escrow Company", "text": "<p>As a buyer, you can opt to use a title company to reassure you of the legitimacy of the land title and to help with complex paperwork. Any costs associated with title company services are the buyer's responsibility.</p><p>Once you complete payment, you'll receive an email confirming the transaction and we'll send it to a title company. They'll record it under your name, finalize the property transfer, and release funds to us.</p>" } }
+      },
+      "block_order": ["c1", "c2", "c3"]
+    },
+    "cta": {
+      "type": "cta-band",
+      "settings": { "heading": "Ready to Own Land?", "subtext": "Browse available properties and start your land journey today.", "button_label": "Browse Available Properties" }
+    }
+  },
+  "order": ["hero", "steps", "cta"]
+}

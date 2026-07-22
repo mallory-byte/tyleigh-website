@@ -1,12 +1,16 @@
 {%- liquid
   assign menu = section.settings.menu
   assign brand = settings.brand_name | default: shop.name
+  assign phone = settings.phone
+  assign phone_href = phone | remove: ' ' | remove: '(' | remove: ')' | remove: '-'
 -%}
 <header class="site-header">
   <div class="page-width header__inner">
     <a href="{{ routes.root_url }}" class="header__logo">
       {%- if settings.logo != blank -%}
-        <img src="{{ settings.logo | image_url: width: 400 }}" alt="{{ brand | escape }}" width="{{ settings.logo_width }}" style="width:{{ settings.logo_width }}px">
+        <img src="{{ settings.logo | image_url: width: 500 }}" alt="{{ brand | escape }}" style="height:42px;width:auto;max-width:{{ settings.logo_width }}px">
+      {%- elsif settings.logo_url != blank -%}
+        <img src="{{ settings.logo_url }}" alt="{{ brand | escape }}" style="height:42px;width:auto;max-width:{{ settings.logo_width }}px">
       {%- else -%}
         {{ brand }}
       {%- endif -%}
@@ -14,11 +18,23 @@
 
     {%- if menu != blank and linklists[menu].links.size > 0 -%}
       <nav class="header__nav" aria-label="Primary">
-        <ul>
-          {%- for link in linklists[menu].links -%}
-            <li><a href="{{ link.url }}" {% if link.active %}aria-current="page"{% endif %}>{{ link.title }}</a></li>
-          {%- endfor -%}
-        </ul>
+        {%- for link in linklists[menu].links -%}
+          {%- if link.links.size > 0 -%}
+            <div class="nav-dd">
+              <button type="button" class="nav-dd__trigger" aria-haspopup="true">
+                {{ link.title }} {% render 'icon', icon: 'chevron-down' %}
+              </button>
+              <div class="nav-dd__menu">
+                {%- for child in link.links -%}
+                  <a href="{{ child.url }}">{{ child.title }}</a>
+                {%- endfor -%}
+              </div>
+            </div>
+          {%- else -%}
+            <a href="{{ link.url }}" {% if link.active %}aria-current="page"{% endif %}>{{ link.title }}</a>
+          {%- endif -%}
+        {%- endfor -%}
+        <a href="{{ routes.all_products_collection_url }}" class="btn btn--primary btn--pill" style="color:#fff;padding:0.55rem 1.1rem">{{ section.settings.cta_label | default: 'Browse Properties' }}</a>
       </nav>
     {%- endif -%}
 
@@ -49,14 +65,27 @@
     {%- if menu != blank -%}
       <ul class="mobile-nav__links">
         {%- for link in linklists[menu].links -%}
-          <li><a href="{{ link.url }}">{{ link.title }}</a></li>
-          {%- for child in link.links -%}
-            <li><a href="{{ child.url }}" style="padding-left:1rem;font-size:1rem">{{ child.title }}</a></li>
-          {%- endfor -%}
+          {%- if link.links.size > 0 -%}
+            <li>
+              <details class="mobile-nav__group">
+                <summary>{{ link.title }}</summary>
+                <ul class="mobile-nav__sub">
+                  {%- for child in link.links -%}
+                    <li><a href="{{ child.url }}">{{ child.title }}</a></li>
+                  {%- endfor -%}
+                </ul>
+              </details>
+            </li>
+          {%- else -%}
+            <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+          {%- endif -%}
         {%- endfor -%}
       </ul>
     {%- endif -%}
-    <a href="{{ routes.cart_url }}" class="btn btn--outline btn--block">{{ 'accessibility.cart' | t }} ({{ cart.item_count }})</a>
+    <a href="{{ routes.all_products_collection_url }}" class="btn btn--primary btn--block" style="margin-top:var(--space-4)">{{ section.settings.cta_label | default: 'Browse Properties' }}</a>
+    {%- if phone != blank -%}
+      <a href="tel:{{ phone_href }}" class="mobile-nav__phone">{% render 'icon', icon: 'phone' %} {{ phone }}</a>
+    {%- endif -%}
   </div>
 </div>
 
@@ -87,6 +116,12 @@
       "id": "menu",
       "label": "Navigation menu",
       "default": "main-menu"
+    },
+    {
+      "type": "text",
+      "id": "cta_label",
+      "label": "Call-to-action button label",
+      "default": "Browse Properties"
     }
   ]
 }

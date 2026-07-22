@@ -1,9 +1,9 @@
 [
   {
     "name": "theme_info",
-    "theme_name": "Tyleigh Capital",
+    "theme_name": "Ty-Leigh Capital Land Co.",
     "theme_version": "1.0.0",
-    "theme_author": "Tyleigh Capital",
+    "theme_author": "Ty-Leigh Capital",
     "theme_documentation_url": "https://tyleighcapital.com",
     "theme_support_url": "https://tyleighcapital.com"
   },
@@ -14,13 +14,26 @@
         "type": "text",
         "id": "brand_name",
         "label": "Brand name",
-        "default": "Tyleigh Capital"
+        "default": "Ty-Leigh Capital"
+      },
+      {
+        "type": "text",
+        "id": "brand_suffix",
+        "label": "Brand suffix",
+        "default": "Land Co."
       },
       {
         "type": "image_picker",
         "id": "logo",
         "label": "Logo image",
         "info": "Optional. If empty, the brand name is shown as text."
+      },
+      {
+        "type": "text",
+        "id": "logo_url",
+        "label": "Logo image URL (fallback)",
+        "info": "Used if no logo image is uploaded above.",
+        "default": "https://tyleighcapital.com/cdn/shop/files/Ty-Leigh_Logo_Horizontal_3a69b52f-3b43-4873-8954-0c162d9ce6b1.png?v=1720196662"
       },
       {
         "type": "range",
@@ -30,7 +43,7 @@
         "step": 10,
         "unit": "px",
         "label": "Logo width",
-        "default": 160
+        "default": 170
       },
       {
         "type": "image_picker",
@@ -41,7 +54,13 @@
         "type": "text",
         "id": "tagline",
         "label": "Tagline",
-        "default": "Own a piece of the land."
+        "default": "Own Land. Start Today."
+      },
+      {
+        "type": "text",
+        "id": "phone",
+        "label": "Phone (call or text)",
+        "default": "(662) 442-4362"
       }
     ]
   },
@@ -55,38 +74,38 @@
       {
         "type": "color",
         "id": "color_primary",
-        "label": "Primary (deep green)",
-        "default": "#2f4a3c"
+        "label": "Primary (deep teal)",
+        "default": "#024e5f"
       },
       {
         "type": "color",
         "id": "color_primary_dark",
-        "label": "Primary dark",
-        "default": "#22362b"
+        "label": "Primary dark / footer",
+        "default": "#042028"
       },
       {
         "type": "color",
         "id": "color_accent",
-        "label": "Accent (gold)",
-        "default": "#c29b40"
+        "label": "Accent (orange)",
+        "default": "#f16522"
       },
       {
         "type": "color",
         "id": "color_text",
         "label": "Body text",
-        "default": "#20261f"
+        "default": "#042028"
       },
       {
         "type": "color",
         "id": "color_muted",
         "label": "Muted text",
-        "default": "#6b7268"
+        "default": "#4b7c86"
       },
       {
         "type": "color",
         "id": "color_bg",
         "label": "Page background",
-        "default": "#f7f5ef"
+        "default": "#f3f6fb"
       },
       {
         "type": "color",
@@ -98,7 +117,7 @@
         "type": "color",
         "id": "color_border",
         "label": "Borders",
-        "default": "#e3ded2"
+        "default": "#dbe1e9"
       }
     ]
   },
@@ -106,16 +125,8 @@
     "name": "Typography",
     "settings": [
       {
-        "type": "font_picker",
-        "id": "font_heading",
-        "label": "Heading font",
-        "default": "assistant_n4"
-      },
-      {
-        "type": "font_picker",
-        "id": "font_body",
-        "label": "Body font",
-        "default": "assistant_n4"
+        "type": "paragraph",
+        "content": "Headings use Playfair Display and body text uses Inter (loaded from Google Fonts) to match the Ty-Leigh Capital brand."
       },
       {
         "type": "range",
@@ -125,7 +136,7 @@
         "step": 5,
         "unit": "%",
         "label": "Heading size scale",
-        "default": 105
+        "default": 100
       }
     ]
   },
@@ -166,13 +177,25 @@
       {
         "type": "checkbox",
         "id": "show_state_label",
-        "label": "Show state / location label",
+        "label": "Show county / state label",
         "default": true
       },
       {
         "type": "checkbox",
-        "id": "show_financing_badge",
-        "label": "Show \"Financing available\" badge",
+        "id": "show_status_badge",
+        "label": "Show status badge (available / pending / sold)",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "show_features",
+        "label": "Show feature tags",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "show_monthly_price",
+        "label": "Show owner-financing (monthly) pricing",
         "default": true
       }
     ]
@@ -184,12 +207,25 @@
         "type": "text",
         "id": "contact_email",
         "label": "Contact email",
-        "default": "hello@tyleighcapital.com"
+        "default": "info@tyleighcapital.com"
       },
       {
         "type": "text",
         "id": "contact_phone",
-        "label": "Contact phone"
+        "label": "Contact phone",
+        "default": "(662) 442-4362"
+      },
+      {
+        "type": "text",
+        "id": "hours_weekday",
+        "label": "Weekday hours",
+        "default": "Mon–Fri: 9am–6pm CT"
+      },
+      {
+        "type": "text",
+        "id": "hours_weekend",
+        "label": "Weekend hours",
+        "default": "Sat: 10am–4pm CT"
       },
       {
         "type": "url",

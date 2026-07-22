@@ -1,0 +1,25 @@
+{
+  "sections": {
+    "hero": {
+      "type": "page-hero",
+      "settings": { "eyebrow": "Earn Rewards", "heading": "Referral Program", "subtext": "Love your land? Share Ty-Leigh Capital and earn rewards." }
+    },
+    "content": {
+      "type": "prose",
+      "settings": {
+        "intro": "<p>When someone you refer buys a property, we'll send you a referral reward as a thank-you for spreading the word. It's our way of showing appreciation for your trust — it's that simple.</p>"
+      },
+      "blocks": {
+        "b1": { "type": "card", "settings": { "icon": "users", "heading": "Step 1 — Refer a Friend", "text": "<p>Tell a friend or family member about Ty-Leigh Capital and the affordable, owner-financed land we offer.</p>" } },
+        "b2": { "type": "card", "settings": { "icon": "dollar", "heading": "Step 2 — They Purchase", "text": "<p>When your referral buys a property from us, just have them mention your name at the time of purchase.</p>" } },
+        "b3": { "type": "card", "settings": { "icon": "gift", "heading": "Step 3 — Earn Your Reward", "text": "<p>We'll send you a referral reward as a thank-you for spreading the word about Ty-Leigh Capital.</p>" } }
+      },
+      "block_order": ["b1", "b2", "b3"]
+    },
+    "cta": {
+      "type": "cta-band",
+      "settings": { "heading": "Ready to Refer Someone?", "subtext": "Call or text us at (662) 442-4362 to learn more about current referral rewards and program details.", "button_label": "Contact Us", "button_link": "/pages/contact", "button_label_2": "Browse Land" }
+    }
+  },
+  "order": ["hero", "content", "cta"]
+}

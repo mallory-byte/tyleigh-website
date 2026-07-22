@@ -3,126 +3,88 @@
     "hero": {
       "type": "hero",
       "blocks": {
-        "s1": { "type": "stat", "settings": { "value": "500+", "label": "Parcels sold" } },
-        "s2": { "type": "stat", "settings": { "value": "30+", "label": "States" } },
-        "s3": { "type": "stat", "settings": { "value": "Flexible", "label": "Owner financing" } }
+        "p1": { "type": "perk", "settings": { "text": "No Credit Check Required" } },
+        "p2": { "type": "perk", "settings": { "text": "Starting at $99/mo" } },
+        "p3": { "type": "perk", "settings": { "text": "60-Day Money-Back Guarantee" } },
+        "p4": { "type": "perk", "settings": { "text": "Owner Financing Available" } }
       },
-      "block_order": ["s1", "s2", "s3"],
+      "block_order": ["p1", "p2", "p3", "p4"],
       "settings": {
-        "eyebrow": "Raw land, made simple",
-        "heading": "Own a piece of the land.",
-        "subtext": "Vetted parcels across the country with transparent pricing and flexible owner financing. Find your acreage and buy with confidence.",
-        "show_search": true,
-        "button_label": "Browse available land",
-        "button_label_2": "How it works"
+        "eyebrow": "Ty-Leigh Capital Land Co.",
+        "heading": "Own Land.",
+        "heading_emphasis": "Start Today.",
+        "subtext": "Affordable vacant land across the US with flexible owner financing. No credit check. No hassle.",
+        "button_label": "Browse Available Properties",
+        "button_label_2": "View on Map",
+        "button_link_2": "#map"
       }
     },
-    "value-props": {
-      "type": "value-props",
-      "blocks": {
-        "v1": { "type": "prop", "settings": { "icon": "shield", "title": "Clear, verified title", "text": "Every parcel is title-checked before it lists. You get a clean deed, recorded in your name." } },
-        "v2": { "type": "prop", "settings": { "icon": "tag", "title": "Transparent pricing", "text": "The price you see is the price you pay. No hidden fees, no auctions, no surprises." } },
-        "v3": { "type": "prop", "settings": { "icon": "doc", "title": "Simple owner financing", "text": "Skip the bank. Put money down and pay monthly with straightforward, flexible terms." } },
-        "v4": { "type": "prop", "settings": { "icon": "map-pin", "title": "Land you can actually use", "text": "Detailed specs on access, zoning, and utilities so you know exactly what you're buying." } }
-      },
-      "block_order": ["v1", "v2", "v3", "v4"],
-      "settings": {
-        "eyebrow": "Why Tyleigh",
-        "heading": "Land ownership without the headaches",
-        "subtext": "We handle the diligence so you can buy with clarity and confidence."
-      }
-    },
-    "featured-parcels": {
+    "listings": {
       "type": "featured-parcels",
       "settings": {
-        "eyebrow": "Featured land",
-        "heading": "Newly listed parcels",
-        "products_to_show": 4
+        "eyebrow": "Available Now",
+        "heading": "Find Your Perfect Property",
+        "subtext": "Browse owner-financed land across 6 states. New properties added weekly.",
+        "products_to_show": 8,
+        "show_search": true,
+        "states": "Arizona, Arkansas, Colorado, Florida, Nevada, New Mexico"
+      }
+    },
+    "map": {
+      "type": "map",
+      "settings": {
+        "eyebrow": "Explore Properties",
+        "heading": "Properties Across the USA",
+        "subtext": "Click a state marker to see available properties. Owner financing on all listings."
       }
     },
     "how-it-works": {
       "type": "how-it-works",
       "blocks": {
-        "h1": { "type": "step", "settings": { "title": "Find your parcel", "text": "Filter by state, acreage, and price to find land that fits your plans." } },
-        "h2": { "type": "step", "settings": { "title": "Reserve online", "text": "Secure your parcel in minutes — pay in full or choose owner financing." } },
-        "h3": { "type": "step", "settings": { "title": "We prepare the deed", "text": "We handle title, documents, and recording. You review and sign." } },
-        "h4": { "type": "step", "settings": { "title": "Own your land", "text": "The deed is recorded in your name. The land is yours to use, hold, or build on." } }
+        "s1": { "type": "step", "settings": { "icon": "search", "title": "Browse & Find", "text": "Explore our listings on the map or grid. Filter by state, price, or acreage to find your perfect land." } },
+        "s2": { "type": "step", "settings": { "icon": "file-check", "title": "Reserve It", "text": "Call or text us at (662) 442-4362. No credit check required. We hold your property with a simple down payment." } },
+        "s3": { "type": "step", "settings": { "icon": "credit-card", "title": "Sign & Finance", "text": "Sign the land contract online. Choose owner financing starting as low as $89/month — no bank needed." } },
+        "s4": { "type": "step", "settings": { "icon": "key", "title": "Own Your Land", "text": "Once paid in full, we transfer the deed to your name. Start building your legacy from day one." } }
       },
-      "block_order": ["h1", "h2", "h3", "h4"],
+      "block_order": ["s1", "s2", "s3", "s4"],
       "settings": {
-        "eyebrow": "The process",
-        "heading": "Buying land, in four steps",
-        "subtext": "From browsing to deed in hand — here's how it works.",
-        "button_label": "Start browsing"
+        "eyebrow": "Simple Process",
+        "heading": "How It Works",
+        "subtext": "Own land in 4 easy steps — faster than you think.",
+        "guarantee_title": "Our 60-Day Money-Back Guarantee",
+        "guarantee_text": "If you're not happy with your purchase for any reason within 60 days, we'll refund every payment you've made. No questions asked. That's our promise to you."
       }
     },
-    "media-text": {
-      "type": "media-text",
-      "settings": {
-        "image_position": "right",
-        "eyebrow": "About Tyleigh Capital",
-        "heading": "Land people, not just a listing site",
-        "text": "<p>Tyleigh Capital was built on a simple idea: owning land should be within reach. We source, vet, and price parcels so buyers can invest in real property without the complexity of traditional real estate.</p><p>From your first click to the deed in your hands, real people are behind every step.</p>",
-        "button_label": "Learn more",
-        "button_link": "/pages/about"
-      }
-    },
-    "testimonials": {
-      "type": "testimonials",
+    "why-us": {
+      "type": "why-us",
       "blocks": {
-        "t1": { "type": "quote", "settings": { "quote": "The whole process was transparent and quick. I had the deed to my 5 acres in a few weeks.", "author": "Dana R.", "detail": "Costilla County, CO" } },
-        "t2": { "type": "quote", "settings": { "quote": "Owner financing made it possible for us to buy land we'd otherwise have to save years for.", "author": "Marcus & Lena T.", "detail": "Apache County, AZ" } },
-        "t3": { "type": "quote", "settings": { "quote": "Every detail on the listing was accurate. No surprises when I walked the parcel.", "author": "Priya S.", "detail": "Elko County, NV" } }
+        "r1": { "type": "reason", "settings": { "icon": "credit-card", "title": "No Credit Check", "text": "We never run a credit check. Anyone can qualify for owner financing with us." } },
+        "r2": { "type": "reason", "settings": { "icon": "zap", "title": "Fast Closing", "text": "Close on your land in days — sometimes hours. No banks, no red tape." } },
+        "r3": { "type": "reason", "settings": { "icon": "shield", "title": "60-Day Guarantee", "text": "Full refund within 60 days if you change your mind. Zero risk." } },
+        "r4": { "type": "reason", "settings": { "icon": "handshake", "title": "No Prepayment Penalty", "text": "Pay off your land early anytime. No fees, no penalties, ever." } },
+        "r5": { "type": "reason", "settings": { "icon": "trending-up", "title": "Appreciating Asset", "text": "Land is a finite resource. Your investment grows as demand increases." } },
+        "r6": { "type": "reason", "settings": { "icon": "map-pin", "title": "Multiple States", "text": "Choose from Arizona, Arkansas, Colorado, Florida, Nevada & New Mexico." } }
       },
-      "block_order": ["t1", "t2", "t3"],
+      "block_order": ["r1", "r2", "r3", "r4", "r5", "r6"],
       "settings": {
-        "eyebrow": "Buyers",
-        "heading": "Land owners who started here"
+        "eyebrow": "Why Ty-Leigh Capital",
+        "heading": "Land Ownership Made",
+        "heading_emphasis": "Accessible for Everyone",
+        "text": "We believe everyone deserves the chance to own a piece of America. That's why we offer flexible owner financing with no credit checks — making it possible for anyone to start building their legacy.",
+        "stat_1_num": "200+",
+        "stat_1_label": "Properties Sold",
+        "stat_2_num": "6",
+        "stat_2_label": "States"
       }
     },
-    "faq": {
-      "type": "faq",
-      "blocks": {
-        "f1": { "type": "qa", "settings": { "question": "How does owner financing work?", "answer": "<p>You make a down payment and pay the balance in fixed monthly installments. There's no bank, no credit check, and no prepayment penalty.</p>" } },
-        "f2": { "type": "qa", "settings": { "question": "Do I get a real deed?", "answer": "<p>Yes. Once the parcel is paid in full (or at closing for cash purchases), a deed is recorded in your name with the county.</p>" } },
-        "f3": { "type": "qa", "settings": { "question": "Can I visit the land before buying?", "answer": "<p>Absolutely. We provide GPS coordinates and parcel maps so you can walk the property. Reach out and we'll help you plan a visit.</p>" } },
-        "f4": { "type": "qa", "settings": { "question": "What can I do with the land?", "answer": "<p>It depends on the parcel's zoning, which we list on every listing. Common uses include recreation, camping, building, and long-term investment.</p>" } }
-      },
-      "block_order": ["f1", "f2", "f3", "f4"],
+    "contact": {
+      "type": "contact-section",
       "settings": {
-        "eyebrow": "Questions",
-        "heading": "Frequently asked questions"
-      }
-    },
-    "cta-band": {
-      "type": "cta-band",
-      "settings": {
-        "eyebrow": "Ready when you are",
-        "heading": "Find the land that's right for you",
-        "subtext": "Browse available parcels or talk to our team about financing. No pressure, no obligation.",
-        "button_label": "Browse land",
-        "button_label_2": "Contact us",
-        "button_link_2": "/pages/contact"
-      }
-    },
-    "newsletter": {
-      "type": "newsletter",
-      "settings": {
-        "eyebrow": "Stay in the loop",
-        "heading": "New parcels, in your inbox",
-        "subtext": "Get an email the moment new land lists. No spam — just parcels."
+        "eyebrow": "Get In Touch",
+        "heading": "Ready to Own Land?",
+        "subtext": "We're here to help you find the perfect property and get you into owner financing today."
       }
     }
   },
-  "order": [
-    "hero",
-    "value-props",
-    "featured-parcels",
-    "how-it-works",
-    "media-text",
-    "testimonials",
-    "faq",
-    "cta-band",
-    "newsletter"
-  ]
+  "order": ["hero", "listings", "map", "how-it-works", "why-us", "contact"]
 }

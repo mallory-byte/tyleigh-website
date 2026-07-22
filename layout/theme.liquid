@@ -11,9 +11,9 @@
       <link rel="icon" type="image/png" href="{{ settings.favicon | image_url: width: 32, height: 32 }}">
     {%- endif -%}
 
-    {%- unless settings.font_body.system? -%}
-      <link rel="preconnect" href="https://fonts.shopifycdn.com" crossorigin>
-    {%- endunless -%}
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&display=swap">
 
     <title>
       {{ page_title }}
@@ -30,17 +30,6 @@
 
     {{ content_for_header }}
 
-    {%- liquid
-      assign body_font = settings.font_body
-      assign heading_font = settings.font_heading
-      assign body_font_bold = body_font | font_modify: 'weight', 'bold'
-      assign body_font_italic = body_font | font_modify: 'style', 'italic'
-    -%}
-    {{ body_font | font_face: font_display: 'swap' }}
-    {{ body_font_bold | font_face: font_display: 'swap' }}
-    {{ body_font_italic | font_face: font_display: 'swap' }}
-    {{ heading_font | font_face: font_display: 'swap' }}
-
     <style>
       :root {
         --color-primary: {{ settings.color_primary }};
@@ -51,13 +40,9 @@
         --color-bg: {{ settings.color_bg }};
         --color-surface: {{ settings.color_surface }};
         --color-border: {{ settings.color_border }};
-        --page-width: {{ settings.page_width }}px;
-        --card-radius: {{ settings.card_radius }}px;
-        --heading-scale: {{ settings.heading_scale | divided_by: 100.0 }};
-        --font-body-family: {{ body_font.family }}, {{ body_font.fallback_families }};
-        --font-body-weight: {{ body_font.weight }};
-        --font-heading-family: {{ heading_font.family }}, {{ heading_font.fallback_families }};
-        --font-heading-weight: {{ heading_font.weight }};
+        --page-width: {{ settings.page_width | default: 1280 }}px;
+        --card-radius: {{ settings.card_radius | default: 12 }}px;
+        --heading-scale: {{ settings.heading_scale | default: 100 | divided_by: 100.0 }};
       }
     </style>
 

@@ -1,15 +1,15 @@
 <div class="page-width section">
-  <div class="section-head section-head--center">
+  <div class="section-head">
     {%- if section.settings.eyebrow != blank -%}<span class="eyebrow">{{ section.settings.eyebrow }}</span>{%- endif -%}
     <h2>{{ section.settings.heading }}</h2>
   </div>
-  <div class="testimonials">
+  <div class="card-grid">
     {%- for block in section.blocks -%}
-      <figure class="testimonial" {{ block.shopify_attributes }}>
-        <blockquote class="testimonial__quote">"{{ block.settings.quote }}"</blockquote>
+      <figure class="prose-card" style="margin-bottom:0" {{ block.shopify_attributes }}>
+        <blockquote style="font-size:1.05rem;margin:0 0 var(--space-4)">"{{ block.settings.quote }}"</blockquote>
         <figcaption>
-          <div class="testimonial__author">{{ block.settings.author }}</div>
-          {%- if block.settings.detail != blank -%}<div class="testimonial__meta">{{ block.settings.detail }}</div>{%- endif -%}
+          <div style="font-weight:700;color:var(--color-text)">{{ block.settings.author }}</div>
+          {%- if block.settings.detail != blank -%}<div class="text-muted" style="font-size:0.88rem">{{ block.settings.detail }}</div>{%- endif -%}
         </figcaption>
       </figure>
     {%- endfor -%}
@@ -28,7 +28,7 @@
       "type": "quote",
       "name": "Testimonial",
       "settings": [
-        { "type": "textarea", "id": "quote", "label": "Quote", "default": "The whole process was transparent and quick. I had the deed to my 5 acres in a few weeks." },
+        { "type": "textarea", "id": "quote", "label": "Quote", "default": "The whole process was transparent and quick. I had the deed to my land in a few weeks." },
         { "type": "text", "id": "author", "label": "Author", "default": "Dana R." },
         { "type": "text", "id": "detail", "label": "Detail", "default": "Costilla County, CO" }
       ]
@@ -36,14 +36,7 @@
   ],
   "max_blocks": 6,
   "presets": [
-    {
-      "name": "Testimonials",
-      "blocks": [
-        { "type": "quote" },
-        { "type": "quote", "settings": { "quote": "Owner financing made it possible for us to buy land we'd otherwise have to save years for.", "author": "Marcus & Lena T.", "detail": "Apache County, AZ" } },
-        { "type": "quote", "settings": { "quote": "Every detail on the listing was accurate. No surprises when I walked the parcel.", "author": "Priya S.", "detail": "Elko County, NV" } }
-      ]
-    }
+    { "name": "Testimonials", "blocks": [ { "type": "quote" }, { "type": "quote" }, { "type": "quote" } ] }
   ]
 }
 {% endschema %}

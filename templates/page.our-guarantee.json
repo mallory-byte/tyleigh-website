@@ -1,0 +1,24 @@
+{
+  "sections": {
+    "hero": {
+      "type": "page-hero",
+      "settings": { "eyebrow": "Our Promise", "heading": "Our 60-Day Guarantee", "subtext": "Shop with total confidence. Every purchase is backed by our money-back guarantee." }
+    },
+    "content": {
+      "type": "prose",
+      "settings": {
+        "intro": "<p>🛡️ We're so confident you'll love your land that we back every purchase with a <strong>60-day money-back guarantee</strong>. If you're not completely happy for any reason, we'll refund every payment you've made.</p>"
+      },
+      "blocks": {
+        "b1": { "type": "card", "settings": { "icon": "shield", "heading": "What's Covered", "text": "<ul><li>No complicated forms or hoops to jump through</li><li>No questions asked — just let us know</li><li>Applies to all owner-financed properties</li><li>Refund processed promptly upon request</li></ul>" } },
+        "b2": { "type": "card", "settings": { "icon": "check-circle", "heading": "How to Claim a Refund", "text": "<p>Simply reach out by phone at (662) 442-4362 or email info@tyleighcapital.com and let us know you'd like a refund within your first 60 days. We'll process your refund promptly. It's that simple — you have nothing to lose. Browse our available properties today.</p>" } }
+      },
+      "block_order": ["b1", "b2"]
+    },
+    "cta": {
+      "type": "cta-band",
+      "settings": { "emoji": "🛡️", "heading": "Shop With Confidence", "subtext": "With our 60-day guarantee, there's nothing to lose. Find your land today.", "button_label": "Browse Available Properties" }
+    }
+  },
+  "order": ["hero", "content", "cta"]
+}

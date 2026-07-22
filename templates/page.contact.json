@@ -1,11 +1,11 @@
 {
   "sections": {
     "main": {
-      "type": "contact-form",
+      "type": "contact-section",
       "settings": {
-        "eyebrow": "Contact",
-        "heading": "Talk to our land team",
-        "subtext": "Questions about a parcel, financing, or the buying process? Send us a note and we'll respond within one business day."
+        "eyebrow": "Get In Touch",
+        "heading": "Ready to Own Land?",
+        "subtext": "We're here to help you find the perfect property and get you into owner financing today."
       }
     }
   },

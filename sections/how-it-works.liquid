@@ -1,56 +1,77 @@
-<div class="page-width section">
-  <div class="section-head section-head--center">
-    {%- if section.settings.eyebrow != blank -%}<span class="eyebrow">{{ section.settings.eyebrow }}</span>{%- endif -%}
-    <h2>{{ section.settings.heading }}</h2>
-    {%- if section.settings.subtext != blank -%}<p>{{ section.settings.subtext }}</p>{%- endif -%}
-  </div>
-
-  <div class="steps">
-    {%- for block in section.blocks -%}
-      <div class="step" {{ block.shopify_attributes }}>
-        <div class="step__num">{{ forloop.index }}</div>
-        <h3>{{ block.settings.title }}</h3>
-        <p>{{ block.settings.text }}</p>
-      </div>
-    {%- endfor -%}
-  </div>
-
-  {%- if section.settings.button_label != blank -%}
-    <div class="text-center" style="margin-top:var(--space-7)">
-      <a href="{{ section.settings.button_link | default: routes.all_products_collection_url }}" class="btn btn--primary btn--lg">{{ section.settings.button_label }}</a>
+<section id="how-it-works" class="hiw section">
+  <div class="page-width">
+    <div class="section-head">
+      {%- if section.settings.eyebrow != blank -%}<span class="eyebrow">{{ section.settings.eyebrow }}</span>{%- endif -%}
+      <h2>{{ section.settings.heading }}</h2>
+      {%- if section.settings.subtext != blank -%}<p>{{ section.settings.subtext }}</p>{%- endif -%}
     </div>
-  {%- endif -%}
-</div>
+
+    <div class="hiw__steps">
+      <div class="hiw__line"></div>
+      {%- for block in section.blocks -%}
+        <div class="hiw-step" {{ block.shopify_attributes }}>
+          <div class="hiw-step__icon">
+            {% render 'icon', icon: block.settings.icon %}
+            <span class="hiw-step__num">{{ forloop.index }}</span>
+          </div>
+          <h3>{{ block.settings.title }}</h3>
+          <p>{{ block.settings.text }}</p>
+        </div>
+      {%- endfor -%}
+    </div>
+
+    {%- if section.settings.guarantee_title != blank -%}
+      <div class="guarantee-bar">
+        <h3>🛡️ {{ section.settings.guarantee_title }}</h3>
+        <p>{{ section.settings.guarantee_text }}</p>
+      </div>
+    {%- endif -%}
+  </div>
+</section>
 
 {% schema %}
 {
   "name": "How it works",
   "settings": [
-    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "The process" },
-    { "type": "text", "id": "heading", "label": "Heading", "default": "Buying land, in four steps" },
-    { "type": "textarea", "id": "subtext", "label": "Subtext", "default": "From browsing to deed in hand — here's how it works." },
-    { "type": "text", "id": "button_label", "label": "Button label", "default": "Start browsing" },
-    { "type": "url", "id": "button_link", "label": "Button link" }
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Simple Process" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "How It Works" },
+    { "type": "textarea", "id": "subtext", "label": "Subtext", "default": "Own land in 4 easy steps — faster than you think." },
+    { "type": "text", "id": "guarantee_title", "label": "Guarantee title", "default": "Our 60-Day Money-Back Guarantee" },
+    { "type": "textarea", "id": "guarantee_text", "label": "Guarantee text", "default": "If you're not happy with your purchase for any reason within 60 days, we'll refund every payment you've made. No questions asked. That's our promise to you." }
   ],
   "blocks": [
     {
       "type": "step",
       "name": "Step",
       "settings": [
-        { "type": "text", "id": "title", "label": "Title", "default": "Find your parcel" },
-        { "type": "textarea", "id": "text", "label": "Text", "default": "Filter by state, acreage, and price to find land that fits your plans." }
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icon",
+          "default": "search",
+          "options": [
+            { "value": "search", "label": "Search" },
+            { "value": "file-check", "label": "Document" },
+            { "value": "credit-card", "label": "Credit card" },
+            { "value": "key", "label": "Key" },
+            { "value": "map-pin", "label": "Map pin" },
+            { "value": "shield", "label": "Shield" }
+          ]
+        },
+        { "type": "text", "id": "title", "label": "Title", "default": "Browse & Find" },
+        { "type": "textarea", "id": "text", "label": "Text", "default": "Explore our listings on the map or grid. Filter by state, price, or acreage to find your perfect land." }
       ]
     }
   ],
-  "max_blocks": 6,
+  "max_blocks": 4,
   "presets": [
     {
       "name": "How it works",
       "blocks": [
-        { "type": "step", "settings": { "title": "Find your parcel", "text": "Filter by state, acreage, and price to find land that fits your plans." } },
-        { "type": "step", "settings": { "title": "Reserve online", "text": "Secure your parcel in minutes — pay in full or choose owner financing." } },
-        { "type": "step", "settings": { "title": "We prepare the deed", "text": "We handle title, documents, and recording. You review and sign." } },
-        { "type": "step", "settings": { "title": "Own your land", "text": "The deed is recorded in your name. The land is yours to use, hold, or build on." } }
+        { "type": "step", "settings": { "icon": "search", "title": "Browse & Find", "text": "Explore our listings on the map or grid. Filter by state, price, or acreage to find your perfect land." } },
+        { "type": "step", "settings": { "icon": "file-check", "title": "Reserve It", "text": "Call or text us at (662) 442-4362. No credit check required. We hold your property with a simple down payment." } },
+        { "type": "step", "settings": { "icon": "credit-card", "title": "Sign & Finance", "text": "Sign the land contract online. Choose owner financing starting as low as $89/month — no bank needed." } },
+        { "type": "step", "settings": { "icon": "key", "title": "Own Your Land", "text": "Once paid in full, we transfer the deed to your name. Start building your legacy from day one." } }
       ]
     }
   ]

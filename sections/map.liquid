@@ -1,0 +1,55 @@
+{%- liquid
+  assign states = section.settings.states | split: ','
+-%}
+<section id="map" class="section contact-section">
+  <div class="page-width">
+    <div class="section-head">
+      {%- if section.settings.eyebrow != blank -%}<span class="eyebrow">{{ section.settings.eyebrow }}</span>{%- endif -%}
+      <h2>{{ section.settings.heading }}</h2>
+      {%- if section.settings.subtext != blank -%}<p>{{ section.settings.subtext }}</p>{%- endif -%}
+    </div>
+
+    <div class="map-card">
+      <div class="map-card__grid">
+        <div class="map-card__map">
+          {%- if section.settings.map_embed_url != blank -%}
+            <div class="map-embed">
+              <iframe src="{{ section.settings.map_embed_url }}" allowfullscreen loading="lazy" title="{{ section.settings.heading | escape }}"></iframe>
+            </div>
+          {%- endif -%}
+          <p class="text-muted" style="font-size:0.78rem;text-align:center;margin:var(--space-3) 0 0">📍 Click pins on the map to see individual properties</p>
+        </div>
+
+        <div class="map-card__states">
+          <div class="map-card__states-head">
+            <h3>Browse by State</h3>
+            <p>Select a state to see available listings</p>
+          </div>
+          {%- for s in states -%}
+            {%- assign st = s | strip -%}
+            <a href="{{ routes.search_url }}?q={{ st | url_encode }}&type=product" class="map-state">
+              <span>{% render 'icon', icon: 'map-pin' %}{{ st }}</span>
+              <span class="count">View</span>
+            </a>
+          {%- endfor -%}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Property map",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Explore Properties" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Properties Across the USA" },
+    { "type": "textarea", "id": "subtext", "label": "Subtext", "default": "Click a state marker to see available properties. Owner financing on all listings." },
+    { "type": "textarea", "id": "map_embed_url", "label": "Google My Maps embed URL", "default": "https://www.google.com/maps/d/u/0/embed?mid=1KY4PJ3Tql8nCFIpYV4R9fezp_0LTETc&ehbc=025460&noprof=1" },
+    { "type": "text", "id": "states", "label": "States (comma separated)", "default": "Arizona, Arkansas, Colorado, Florida, Nevada, New Mexico" }
+  ],
+  "presets": [
+    { "name": "Property map" }
+  ]
+}
+{% endschema %}

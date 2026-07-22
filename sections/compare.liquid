@@ -1,0 +1,35 @@
+<div class="page-width section--sm">
+  {%- if section.settings.heading != blank -%}
+    <div class="section-head"><h2>{{ section.settings.heading }}</h2></div>
+  {%- endif -%}
+  <div class="compare-grid prose" style="max-width:52rem">
+    <div class="compare-card compare-card--yes">
+      <h3>{% render 'icon', icon: 'check-circle' %} {{ section.settings.yes_title }}</h3>
+      <ul class="compare-list compare-list--yes">
+        {%- assign yes = section.settings.yes_items | newline_to_br | split: '<br />' -%}
+        {%- for item in yes -%}{%- assign t = item | strip -%}{%- if t != blank -%}<li>{% render 'icon', icon: 'check-circle' %}{{ t }}</li>{%- endif -%}{%- endfor -%}
+      </ul>
+    </div>
+    <div class="compare-card compare-card--no">
+      <h3>{% render 'icon', icon: 'x-circle' %} {{ section.settings.no_title }}</h3>
+      <ul class="compare-list compare-list--no">
+        {%- assign no = section.settings.no_items | newline_to_br | split: '<br />' -%}
+        {%- for item in no -%}{%- assign t = item | strip -%}{%- if t != blank -%}<li>{% render 'icon', icon: 'x-circle' %}{{ t }}</li>{%- endif -%}{%- endfor -%}
+      </ul>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Comparison",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading" },
+    { "type": "text", "id": "yes_title", "label": "Left title", "default": "Ty-Leigh Owner Financing" },
+    { "type": "textarea", "id": "yes_items", "label": "Left items (one per line)", "default": "Low down payments starting at $249\nMonthly payments as low as $89/month\nNo bank approval or waiting period\nFlexible terms to fit your budget\nEarly payoff allowed at any time" },
+    { "type": "text", "id": "no_title", "label": "Right title", "default": "Traditional Bank Financing" },
+    { "type": "textarea", "id": "no_items", "label": "Right items (one per line)", "default": "Credit score of 680+ typically required\nDown payments of 20–30% common\nBank approval can take weeks or months\nClosing costs add thousands to the price\nStrict income verification required\nMany vacant land loans simply aren't available" }
+  ],
+  "presets": [ { "name": "Comparison" } ]
+}
+{% endschema %}

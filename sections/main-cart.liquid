@@ -25,7 +25,8 @@
                 {%- endunless -%}
                 <div class="cart-item__meta">
                   {%- if item.product.metafields.custom.state.value != blank -%}{{ item.product.metafields.custom.state.value }}{%- endif -%}
-                  {%- if item.product.metafields.custom.acreage.value != blank -%} · {{ item.product.metafields.custom.acreage.value }} acres{%- endif -%}
+                  {%- assign it_acres = item.product.metafields.custom.acres.value | default: item.product.metafields.custom.acreage.value -%}
+                  {%- if it_acres != blank -%} · {{ it_acres }} acres{%- endif -%}
                 </div>
                 <div style="margin-top:var(--space-2)">
                   <a href="{{ item.url_to_remove }}" class="btn btn--ghost" style="padding-left:0">{{ 'cart.general.remove' | t }}</a>

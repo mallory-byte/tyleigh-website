@@ -1,26 +1,33 @@
 {
   "current": {
-    "brand_name": "Tyleigh Capital",
-    "tagline": "Own a piece of the land.",
-    "color_primary": "#2f4a3c",
-    "color_primary_dark": "#22362b",
-    "color_accent": "#c29b40",
-    "color_text": "#20261f",
-    "color_muted": "#6b7268",
-    "color_bg": "#f7f5ef",
+    "brand_name": "Ty-Leigh Capital",
+    "brand_suffix": "Land Co.",
+    "logo_url": "https://tyleighcapital.com/cdn/shop/files/Ty-Leigh_Logo_Horizontal_3a69b52f-3b43-4873-8954-0c162d9ce6b1.png?v=1720196662",
+    "logo_width": 170,
+    "tagline": "Own Land. Start Today.",
+    "phone": "(662) 442-4362",
+    "color_primary": "#024e5f",
+    "color_primary_dark": "#042028",
+    "color_accent": "#f16522",
+    "color_text": "#042028",
+    "color_muted": "#4b7c86",
+    "color_bg": "#f3f6fb",
     "color_surface": "#ffffff",
-    "color_border": "#e3ded2",
-    "font_heading": "assistant_n7",
-    "font_body": "assistant_n4",
-    "heading_scale": 105,
+    "color_border": "#dbe1e9",
+    "heading_scale": 100,
     "page_width": 1280,
-    "card_radius": 10,
+    "card_radius": 12,
     "show_acreage_badge": true,
     "show_state_label": true,
-    "show_financing_badge": true,
-    "contact_email": "hello@tyleighcapital.com"
+    "show_status_badge": true,
+    "show_features": true,
+    "show_monthly_price": true,
+    "contact_email": "info@tyleighcapital.com",
+    "contact_phone": "(662) 442-4362",
+    "hours_weekday": "Mon–Fri: 9am–6pm CT",
+    "hours_weekend": "Sat: 10am–4pm CT"
   },
   "presets": {
-    "Tyleigh Capital": {}
+    "Ty-Leigh Capital": {}
   }
 }

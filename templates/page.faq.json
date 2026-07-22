@@ -1,0 +1,38 @@
+{
+  "sections": {
+    "hero": {
+      "type": "page-hero",
+      "settings": {
+        "heading": "Frequently Asked Questions",
+        "subtext": "Everything you need to know about buying land with Ty-Leigh Capital."
+      }
+    },
+    "faq": {
+      "type": "faq",
+      "settings": {
+        "heading": "",
+        "cta_heading": "Still have questions?",
+        "cta_text": "Our team is happy to help. Reach out and we'll get back to you quickly."
+      },
+      "blocks": {
+        "q1": { "type": "qa", "settings": { "category": "Purchasing & Financing", "question": "Do I need good credit to buy land from Ty-Leigh Capital?", "answer": "<p>No credit check is required — ever. We offer owner financing directly, so your credit score has zero impact on your ability to purchase land with us. All you need is a small down payment and the monthly payment.</p>" } },
+        "q2": { "type": "qa", "settings": { "category": "Purchasing & Financing", "question": "What is the $249 document fee?", "answer": "<p>The $249 document fee covers the cost of preparing your land contract, deed, and all associated paperwork to transfer the property into your name. This fee is collected at the time of reservation to secure the property for you.</p>" } },
+        "q3": { "type": "qa", "settings": { "category": "Purchasing & Financing", "question": "What is the difference between owner financing and cash purchase?", "answer": "<p>With owner financing, you pay a small down payment today plus a monthly payment until the land is paid off — no bank required. With a cash purchase, you pay the full price upfront in a single payment and receive your deed immediately.</p>" } },
+        "q4": { "type": "qa", "settings": { "category": "Purchasing & Financing", "question": "Is there a pre-payment penalty if I pay off my land early?", "answer": "<p>Absolutely not. You can pay off your land at any time with no penalty. Many of our customers choose to pay extra each month or pay it off in a lump sum when they're ready.</p>" } },
+        "q5": { "type": "qa", "settings": { "category": "Purchasing & Financing", "question": "How long are the financing terms?", "answer": "<p>Financing terms vary by property but typically range from 36 to 84 months. The monthly payment shown on each listing reflects the standard term for that property. Contact us if you'd like to discuss a custom term.</p>" } },
+        "q6": { "type": "qa", "settings": { "category": "The Buying Process", "question": "How do I reserve a property?", "answer": "<p>Click \"Reserve This Property\" on any available listing, choose your purchase method (owner finance or cash), fill in your contact information, and complete secure checkout. We'll reach out within 24 hours to finalize your contract.</p>" } },
+        "q7": { "type": "qa", "settings": { "category": "The Buying Process", "question": "What happens after I pay the document fee?", "answer": "<p>Our team will contact you within 24 hours to review your land contract, answer any questions, and walk you through the signing process. Once the contract is signed and your first payment is received, the property is officially yours.</p>" } },
+        "q8": { "type": "qa", "settings": { "category": "The Buying Process", "question": "When will I receive the deed to my land?", "answer": "<p>For cash purchases, the deed is transferred shortly after full payment is confirmed. For owner-financed purchases, the deed is transferred once the final payment is made and the land is paid off in full.</p>" } },
+        "q9": { "type": "qa", "settings": { "category": "The Buying Process", "question": "Can I visit the property before purchasing?", "answer": "<p>Yes! We encourage you to visit any property before buying. Each listing includes GPS coordinates so you can navigate directly to the parcel. Our land is sold as-is, and visiting in person is a great way to see the land for yourself.</p>" } },
+        "q10": { "type": "qa", "settings": { "category": "Property & Land Use", "question": "Can I build a home on the land?", "answer": "<p>It depends on the property's zoning and county regulations. Most of our rural parcels are zoned agricultural or rural residential, which may allow for manufactured homes, cabins, or site-built homes with the appropriate permits. Always check with the county for current building requirements.</p>" } },
+        "q11": { "type": "qa", "settings": { "category": "Property & Land Use", "question": "Are there utilities available on the land?", "answer": "<p>Utility availability varies by property and is listed in each property's details under Power, Water, and Septic. Many of our rural parcels are off-grid, meaning you'd need solar power, a well, and a septic system — a popular choice for self-sufficient, off-grid living.</p>" } },
+        "q12": { "type": "qa", "settings": { "category": "Property & Land Use", "question": "Can I camp or stay on the land right away?", "answer": "<p>In most cases, yes — once you're under contract you can begin using the land. However, camping rules vary by county, so we recommend checking local ordinances. Contact us and we'll share what we know about each specific parcel.</p>" } },
+        "q13": { "type": "qa", "settings": { "category": "Property & Land Use", "question": "Do the properties have clear title?", "answer": "<p>Yes. All of our properties are thoroughly researched to ensure clear, marketable title before we list them for sale. You will receive a warranty deed or contract for deed upon purchase.</p>" } },
+        "q14": { "type": "qa", "settings": { "category": "Guarantees & Refunds", "question": "What is the 60-day money-back guarantee?", "answer": "<p>If for any reason you are not satisfied with your land purchase within 60 days, we will refund 100% of the payments you've made — including the document fee. No questions asked. We stand behind every property we sell.</p>" } },
+        "q15": { "type": "qa", "settings": { "category": "Guarantees & Refunds", "question": "What if I want to cancel my financing after 60 days?", "answer": "<p>After the 60-day guarantee period, you may still cancel your contract. In that case, any payments made beyond the document fee are forfeited and the property reverts back to us. Please contact us as soon as possible if you're having trouble making payments.</p>" } }
+      },
+      "block_order": ["q1","q2","q3","q4","q5","q6","q7","q8","q9","q10","q11","q12","q13","q14","q15"]
+    }
+  },
+  "order": ["hero", "faq"]
+}

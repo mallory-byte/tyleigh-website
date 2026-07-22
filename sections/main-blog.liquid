@@ -1,28 +1,26 @@
-<section class="collection-hero">
+<section class="page-hero">
   <div class="page-width">
     <h1>{{ blog.title }}</h1>
     <p>Guides, tips, and stories about buying and owning land.</p>
   </div>
 </section>
 
-<div class="page-width section">
+<div class="page-width section--sm">
   {%- paginate blog.articles by 9 -%}
     {%- if blog.articles.size > 0 -%}
-      <div class="product-grid product-grid--4">
+      <div class="card-grid card-grid--4">
         {%- for article in blog.articles -%}
-          <article class="parcel-card">
+          <article class="p-card">
             {%- if article.image -%}
-              <a href="{{ article.url }}" class="parcel-card__media">
+              <a href="{{ article.url }}" class="p-card__media">
                 {{ article.image | image_url: width: 600 | image_tag: loading: 'lazy', alt: article.title | escape }}
               </a>
             {%- endif -%}
-            <div class="parcel-card__body">
-              <span class="parcel-card__location">{{ article.published_at | date: '%b %d, %Y' }}</span>
-              <h3 class="parcel-card__title"><a href="{{ article.url }}">{{ article.title }}</a></h3>
-              <p class="text-muted">{{ article.excerpt_or_content | strip_html | truncatewords: 22 }}</p>
-              <div class="parcel-card__footer">
-                <a href="{{ article.url }}" class="btn btn--ghost" style="padding-left:0">Read more {% render 'icon', icon: 'arrow-right' %}</a>
-              </div>
+            <div class="p-card__body">
+              <span class="p-card__loc">{{ article.published_at | date: '%b %d, %Y' }}</span>
+              <h3 class="p-card__title"><a href="{{ article.url }}">{{ article.title }}</a></h3>
+              <p class="p-card__desc">{{ article.excerpt_or_content | strip_html | truncatewords: 22 }}</p>
+              <a href="{{ article.url }}" class="btn btn--outline btn--block" style="margin-top:auto">Read more {% render 'icon', icon: 'arrow-right' %}</a>
             </div>
           </article>
         {%- endfor -%}
