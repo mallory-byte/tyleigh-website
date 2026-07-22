@@ -1,0 +1,26 @@
+{
+  "current": {
+    "brand_name": "Tyleigh Capital",
+    "tagline": "Own a piece of the land.",
+    "color_primary": "#2f4a3c",
+    "color_primary_dark": "#22362b",
+    "color_accent": "#c29b40",
+    "color_text": "#20261f",
+    "color_muted": "#6b7268",
+    "color_bg": "#f7f5ef",
+    "color_surface": "#ffffff",
+    "color_border": "#e3ded2",
+    "font_heading": "assistant_n7",
+    "font_body": "assistant_n4",
+    "heading_scale": 105,
+    "page_width": 1280,
+    "card_radius": 10,
+    "show_acreage_badge": true,
+    "show_state_label": true,
+    "show_financing_badge": true,
+    "contact_email": "hello@tyleighcapital.com"
+  },
+  "presets": {
+    "Tyleigh Capital": {}
+  }
+}

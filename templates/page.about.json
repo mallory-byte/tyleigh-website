@@ -1,0 +1,45 @@
+{
+  "sections": {
+    "banner": {
+      "type": "rich-text",
+      "settings": {
+        "eyebrow": "About Tyleigh Capital",
+        "heading": "We make owning land simple",
+        "text": "<p>Tyleigh Capital sources, vets, and sells raw land across the country. Our mission is to make land ownership accessible — with transparent pricing, clear title, and flexible owner financing on every parcel.</p>"
+      }
+    },
+    "story": {
+      "type": "media-text",
+      "settings": {
+        "image_position": "left",
+        "eyebrow": "Our approach",
+        "heading": "Diligence you can trust",
+        "text": "<p>Before a parcel ever lists, we verify its title, confirm access and zoning, and photograph the land. What you see on the listing is exactly what you're buying — no auctions, no hidden fees, no surprises.</p>"
+      }
+    },
+    "values": {
+      "type": "value-props",
+      "settings": {
+        "eyebrow": "What we stand for",
+        "heading": "Built on trust and transparency"
+      },
+      "blocks": {
+        "v1": { "type": "prop", "settings": { "icon": "shield", "title": "Verified title", "text": "Clean, recorded deeds on every parcel." } },
+        "v2": { "type": "prop", "settings": { "icon": "tag", "title": "Honest pricing", "text": "One clear price. No games." } },
+        "v3": { "type": "prop", "settings": { "icon": "doc", "title": "Flexible financing", "text": "Own land without a bank." } }
+      },
+      "block_order": ["v1", "v2", "v3"]
+    },
+    "cta": {
+      "type": "cta-band",
+      "settings": {
+        "heading": "Ready to find your land?",
+        "subtext": "Browse available parcels or reach out to our team.",
+        "button_label": "Browse land",
+        "button_label_2": "Contact us",
+        "button_link_2": "/pages/contact"
+      }
+    }
+  },
+  "order": ["banner", "story", "values", "cta"]
+}

@@ -1,0 +1,19 @@
+{%- comment -%}
+  Renders a product price with optional compare-at.
+  Params: product (required), placeholder (bool)
+{%- endcomment -%}
+{%- liquid
+  assign target = product
+  assign compare_at = target.compare_at_price
+  assign price = target.price
+-%}
+{%- if target.price_varies -%}
+  <span class="parcel-card__price">{{ 'products.product.from_price' | t: price: price | money }}</span>
+{%- else -%}
+  <span class="parcel-card__price">
+    {{ price | money }}
+    {%- if compare_at > price -%}
+      <s class="price--compare">{{ compare_at | money }}</s>
+    {%- endif -%}
+  </span>
+{%- endif -%}

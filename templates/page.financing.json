@@ -1,0 +1,51 @@
+{
+  "sections": {
+    "banner": {
+      "type": "rich-text",
+      "settings": {
+        "eyebrow": "Owner financing",
+        "heading": "Buy land, no bank required",
+        "text": "<p>Most of our parcels are available with simple owner financing. Put a down payment on the land you want and pay the rest in fixed monthly installments — no credit check and no prepayment penalty.</p>"
+      }
+    },
+    "steps": {
+      "type": "how-it-works",
+      "settings": {
+        "eyebrow": "How financing works",
+        "heading": "Four simple steps",
+        "button_label": "Browse financeable land"
+      },
+      "blocks": {
+        "s1": { "type": "step", "settings": { "title": "Pick your parcel", "text": "Choose land marked “Financing available.”" } },
+        "s2": { "type": "step", "settings": { "title": "Put money down", "text": "Reserve with a down payment at checkout." } },
+        "s3": { "type": "step", "settings": { "title": "Pay monthly", "text": "Fixed installments, no credit check, no penalty for paying early." } },
+        "s4": { "type": "step", "settings": { "title": "Get your deed", "text": "Once paid in full, the deed is recorded in your name." } }
+      },
+      "block_order": ["s1", "s2", "s3", "s4"]
+    },
+    "faq": {
+      "type": "faq",
+      "settings": {
+        "eyebrow": "Questions",
+        "heading": "Financing FAQ"
+      },
+      "blocks": {
+        "f1": { "type": "qa", "settings": { "question": "Is there a credit check?", "answer": "<p>No. Owner financing does not require a credit check.</p>" } },
+        "f2": { "type": "qa", "settings": { "question": "Can I pay off early?", "answer": "<p>Yes — there is no prepayment penalty. Pay off your balance whenever you like.</p>" } },
+        "f3": { "type": "qa", "settings": { "question": "When do I get the deed?", "answer": "<p>The deed is recorded in your name once the parcel is paid in full.</p>" } }
+      },
+      "block_order": ["f1", "f2", "f3"]
+    },
+    "cta": {
+      "type": "cta-band",
+      "settings": {
+        "heading": "Start with a down payment",
+        "subtext": "Find a parcel that fits your budget and reserve it today.",
+        "button_label": "Browse land",
+        "button_label_2": "Ask a question",
+        "button_link_2": "/pages/contact"
+      }
+    }
+  },
+  "order": ["banner", "steps", "faq", "cta"]
+}

@@ -1,0 +1,15 @@
+<div class="page-width section" style="text-align:center">
+  <div class="empty-state">
+    {% render 'icon', icon: 'map-pin' %}
+    <h1>{{ 'general.404.title' | t }}</h1>
+    <p class="text-muted">{{ 'general.404.subtext' | t }}</p>
+    <a href="{{ routes.all_products_collection_url }}" class="btn btn--primary btn--lg">{{ 'general.404.link' | t }}</a>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "404",
+  "settings": []
+}
+{% endschema %}

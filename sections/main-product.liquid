@@ -1,0 +1,162 @@
+{%- liquid
+  assign p = product
+  assign m = product.metafields.custom
+  assign acreage = m.acreage.value
+  assign state = m.state.value
+  assign county = m.county.value
+  assign apn = m.apn.value
+  assign zoning = m.zoning.value
+  assign road = m.road_access.value
+  assign utilities = m.utilities.value
+  assign financing = m.financing_available.value
+  assign financing_terms = m.financing_terms.value
+  assign map_embed = m.map_embed_url.value
+  assign lat = m.latitude.value
+  assign lng = m.longitude.value
+
+  assign location = ''
+  if county != blank and state != blank
+    assign location = county | append: ', ' | append: state
+  elsif state != blank
+    assign location = state
+  elsif county != blank
+    assign location = county
+  endif
+-%}
+
+<div class="page-width section">
+  <nav class="breadcrumb" aria-label="Breadcrumb">
+    <a href="{{ routes.root_url }}">Home</a><span>/</span>
+    {%- if collection -%}<a href="{{ collection.url }}">{{ collection.title }}</a><span>/</span>{%- else -%}<a href="{{ routes.all_products_collection_url }}">Land</a><span>/</span>{%- endif -%}
+    {{ p.title }}
+  </nav>
+
+  <div class="parcel">
+    {%- comment -%} ---- Gallery ---- {%- endcomment -%}
+    <div class="parcel-gallery" data-gallery>
+      <div class="parcel-gallery__main" data-gallery-main>
+        {%- if p.featured_media -%}
+          {{ p.featured_media | image_url: width: 1200 | image_tag: alt: p.featured_media.alt | default: p.title | escape, fetchpriority: 'high' }}
+        {%- else -%}
+          <div style="display:grid;place-items:center;height:100%;color:var(--color-muted)">{% render 'icon', icon: 'tree' %}</div>
+        {%- endif -%}
+      </div>
+      {%- if p.media.size > 1 -%}
+        <div class="parcel-gallery__thumbs">
+          {%- for media in p.media -%}
+            <button type="button" class="parcel-gallery__thumb"
+              data-gallery-thumb
+              data-full="{{ media | image_url: width: 1200 }}"
+              data-alt="{{ media.alt | default: p.title | escape }}"
+              aria-current="{% if forloop.first %}true{% else %}false{% endif %}">
+              {{ media | image_url: width: 200 | image_tag: loading: 'lazy', alt: media.alt | default: p.title | escape }}
+            </button>
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+    </div>
+
+    {%- comment -%} ---- Info / buy ---- {%- endcomment -%}
+    <div class="parcel-info">
+      {%- if location != blank -%}
+        <span class="parcel-info__location">{% render 'icon', icon: 'map-pin' %}{{ location }}</span>
+      {%- endif -%}
+      <h1>{{ p.title }}</h1>
+
+      <div class="parcel-info__price">
+        <span class="amount">{{ p.price | money }}</span>
+        {%- if p.compare_at_price > p.price -%}
+          <s class="price--compare">{{ p.compare_at_price | money }}</s>
+        {%- endif -%}
+      </div>
+
+      {%- comment -%} ---- Spec grid ---- {%- endcomment -%}
+      {%- if acreage != blank or apn != blank or zoning != blank or road != blank or utilities != blank or state != blank -%}
+        <dl class="spec-grid">
+          {%- if acreage != blank -%}<div class="spec"><dt>Acreage</dt><dd>{{ acreage }} {% if acreage == 1 %}acre{% else %}acres{% endif %}</dd></div>{%- endif -%}
+          {%- if state != blank -%}<div class="spec"><dt>State</dt><dd>{{ state }}</dd></div>{%- endif -%}
+          {%- if county != blank -%}<div class="spec"><dt>County</dt><dd>{{ county }}</dd></div>{%- endif -%}
+          {%- if apn != blank -%}<div class="spec"><dt>Parcel / APN</dt><dd>{{ apn }}</dd></div>{%- endif -%}
+          {%- if zoning != blank -%}<div class="spec"><dt>Zoning</dt><dd>{{ zoning }}</dd></div>{%- endif -%}
+          {%- if road != blank -%}<div class="spec"><dt>Road access</dt><dd>{{ road }}</dd></div>{%- endif -%}
+          {%- if utilities != blank -%}<div class="spec"><dt>Utilities</dt><dd>{{ utilities }}</dd></div>{%- endif -%}
+        </dl>
+      {%- endif -%}
+
+      {%- if financing and financing_terms != blank -%}
+        <p class="text-muted" style="margin-bottom:var(--space-5)">
+          {% render 'icon', icon: 'tag' %} <strong>Owner financing:</strong> {{ financing_terms }}
+        </p>
+      {%- endif -%}
+
+      {%- comment -%} ---- Buy box ---- {%- endcomment -%}
+      <div class="parcel-buy">
+        {%- if p.available -%}
+          {%- form 'product', p, id: 'ParcelForm' -%}
+            {%- unless p.has_only_default_variant -%}
+              <div class="form-field">
+                <label for="Variant">Option</label>
+                <select name="id" id="Variant">
+                  {%- for variant in p.variants -%}
+                    <option value="{{ variant.id }}" {% if variant == p.selected_or_first_available_variant %}selected{% endif %} {% unless variant.available %}disabled{% endunless %}>
+                      {{ variant.title }} — {{ variant.price | money }}{% unless variant.available %} ({{ 'products.product.sold_out' | t }}){% endunless %}
+                    </option>
+                  {%- endfor -%}
+                </select>
+              </div>
+            {%- else -%}
+              <input type="hidden" name="id" value="{{ p.selected_or_first_available_variant.id }}">
+            {%- endunless -%}
+            <button type="submit" name="add" class="btn btn--primary btn--lg btn--block">
+              {{ 'products.product.add_to_cart' | t }}
+            </button>
+          {%- endform -%}
+        {%- else -%}
+          <button type="button" class="btn btn--lg btn--block" disabled>{{ 'products.product.sold_out' | t }}</button>
+        {%- endif -%}
+
+        {%- assign inquiry_subject = p.title | url_encode -%}
+        <a href="{{ routes.root_url }}pages/contact?parcel={{ inquiry_subject }}" class="btn btn--outline btn--lg btn--block">
+          {{ 'products.product.inquire' | t }}
+        </a>
+
+        <div class="parcel-trust">
+          <span>{% render 'icon', icon: 'shield' %} Clear title</span>
+          <span>{% render 'icon', icon: 'doc' %} Deed included</span>
+          {%- if financing -%}<span>{% render 'icon', icon: 'check' %} Financing available</span>{%- endif -%}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {%- comment -%} ---- Description ---- {%- endcomment -%}
+  {%- if p.description != blank -%}
+    <div class="parcel-description rte">
+      <h2>About this parcel</h2>
+      {{ p.description }}
+    </div>
+  {%- endif -%}
+
+  {%- comment -%} ---- Map ---- {%- endcomment -%}
+  {%- if map_embed != blank -%}
+    <div class="parcel-map">
+      <iframe src="{{ map_embed }}" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Map of {{ p.title | escape }}"></iframe>
+    </div>
+  {%- elsif lat != blank and lng != blank -%}
+    <div class="parcel-map">
+      <iframe src="https://maps.google.com/maps?q={{ lat }},{{ lng }}&z=13&output=embed" loading="lazy" title="Map of {{ p.title | escape }}"></iframe>
+    </div>
+  {%- endif -%}
+</div>
+
+{% schema %}
+{
+  "name": "Parcel details",
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "Parcel data (acreage, state, county, APN, zoning, financing, map) is pulled from product metafields in the `custom` namespace. See README for setup."
+    }
+  ]
+}
+{% endschema %}

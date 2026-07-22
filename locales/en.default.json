@@ -1,0 +1,96 @@
+{
+  "accessibility": {
+    "skip_to_content": "Skip to content",
+    "menu": "Menu",
+    "close": "Close",
+    "search": "Search",
+    "cart": "Cart",
+    "previous": "Previous",
+    "next": "Next",
+    "loading": "Loading"
+  },
+  "general": {
+    "meta": {
+      "tags": "Tagged \"{{ tags }}\"",
+      "page": "Page {{ page }}"
+    },
+    "search": {
+      "search": "Search",
+      "placeholder": "Search parcels by state, county, acreage…",
+      "no_results": "No parcels found for \"{{ terms }}\". Try a different search.",
+      "results_count": "{{ count }} results for \"{{ terms }}\"",
+      "submit": "Search",
+      "reset": "Clear"
+    },
+    "pagination": {
+      "label": "Pagination",
+      "previous": "Previous",
+      "next": "Next"
+    },
+    "newsletter": {
+      "success": "Thanks for subscribing. We'll send you new parcels as they list.",
+      "label": "Email",
+      "placeholder": "you@email.com",
+      "button": "Notify me"
+    },
+    "404": {
+      "title": "Page not found",
+      "subtext": "The parcel or page you were looking for doesn't exist or has been sold.",
+      "link": "Browse available land"
+    }
+  },
+  "products": {
+    "product": {
+      "add_to_cart": "Reserve this parcel",
+      "sold_out": "Sold",
+      "unavailable": "Unavailable",
+      "on_sale": "On sale",
+      "from_price": "From {{ price }}",
+      "quantity": "Quantity",
+      "view_details": "View parcel",
+      "inquire": "Ask about this parcel",
+      "price": "Price",
+      "vendor": "Listed by"
+    },
+    "facets": {
+      "filter_and_sort": "Filter & sort",
+      "filter_by": "Filter",
+      "sort_by": "Sort by",
+      "all": "All",
+      "clear": "Clear",
+      "clear_all": "Clear all",
+      "apply": "Apply",
+      "price_from": "From",
+      "price_to": "To",
+      "results": "{{ count }} parcels",
+      "no_results": "No parcels match these filters."
+    }
+  },
+  "cart": {
+    "general": {
+      "title": "Your cart",
+      "empty": "Your cart is empty.",
+      "continue_shopping": "Browse land",
+      "subtotal": "Subtotal",
+      "checkout": "Checkout",
+      "remove": "Remove",
+      "note": "Add a note or questions for our team",
+      "taxes_and_shipping": "Taxes and closing costs calculated at checkout."
+    }
+  },
+  "contact": {
+    "form": {
+      "name": "Name",
+      "email": "Email",
+      "phone": "Phone",
+      "message": "Message",
+      "send": "Send message",
+      "success": "Thanks — we'll be in touch shortly.",
+      "parcel": "Parcel of interest"
+    }
+  },
+  "footer": {
+    "newsletter_title": "New parcels, first",
+    "copyright": "All rights reserved."
+  }
+}

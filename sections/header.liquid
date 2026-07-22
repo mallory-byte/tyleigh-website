@@ -1,0 +1,93 @@
+{%- liquid
+  assign menu = section.settings.menu
+  assign brand = settings.brand_name | default: shop.name
+-%}
+<header class="site-header">
+  <div class="page-width header__inner">
+    <a href="{{ routes.root_url }}" class="header__logo">
+      {%- if settings.logo != blank -%}
+        <img src="{{ settings.logo | image_url: width: 400 }}" alt="{{ brand | escape }}" width="{{ settings.logo_width }}" style="width:{{ settings.logo_width }}px">
+      {%- else -%}
+        {{ brand }}
+      {%- endif -%}
+    </a>
+
+    {%- if menu != blank and linklists[menu].links.size > 0 -%}
+      <nav class="header__nav" aria-label="Primary">
+        <ul>
+          {%- for link in linklists[menu].links -%}
+            <li><a href="{{ link.url }}" {% if link.active %}aria-current="page"{% endif %}>{{ link.title }}</a></li>
+          {%- endfor -%}
+        </ul>
+      </nav>
+    {%- endif -%}
+
+    <div class="header__actions">
+      <button type="button" class="header-icon" data-open-search aria-label="{{ 'accessibility.search' | t }}">
+        {% render 'icon', icon: 'search' %}
+      </button>
+      <a href="{{ routes.cart_url }}" class="header-icon" aria-label="{{ 'accessibility.cart' | t }}">
+        {% render 'icon', icon: 'cart' %}
+        <span class="cart-count" data-cart-count {% if cart.item_count == 0 %}hidden{% endif %}>{{ cart.item_count }}</span>
+      </a>
+      <button type="button" class="header-icon menu-toggle" data-open-menu aria-label="{{ 'accessibility.menu' | t }}">
+        {% render 'icon', icon: 'menu' %}
+      </button>
+    </div>
+  </div>
+</header>
+
+{%- comment -%} Mobile navigation drawer {%- endcomment -%}
+<div class="mobile-nav" id="MobileNav" aria-hidden="true">
+  <div class="mobile-nav__panel">
+    <div class="mobile-nav__head">
+      <span class="header__logo">{{ brand }}</span>
+      <button type="button" class="header-icon" data-close aria-label="{{ 'accessibility.close' | t }}">
+        {% render 'icon', icon: 'close' %}
+      </button>
+    </div>
+    {%- if menu != blank -%}
+      <ul class="mobile-nav__links">
+        {%- for link in linklists[menu].links -%}
+          <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+          {%- for child in link.links -%}
+            <li><a href="{{ child.url }}" style="padding-left:1rem;font-size:1rem">{{ child.title }}</a></li>
+          {%- endfor -%}
+        {%- endfor -%}
+      </ul>
+    {%- endif -%}
+    <a href="{{ routes.cart_url }}" class="btn btn--outline btn--block">{{ 'accessibility.cart' | t }} ({{ cart.item_count }})</a>
+  </div>
+</div>
+
+{%- comment -%} Search overlay {%- endcomment -%}
+<div class="search-overlay" id="SearchOverlay" aria-hidden="true">
+  <div class="search-overlay__panel">
+    <form action="{{ routes.search_url }}" method="get" class="search-form" role="search">
+      <input type="hidden" name="type" value="product">
+      <label class="search-form__field">
+        <span class="visually-hidden">{{ 'general.search.search' | t }}</span>
+        {% render 'icon', icon: 'search' %}
+        <input type="search" name="q" value="{{ search.terms | escape }}" placeholder="{{ 'general.search.placeholder' | t }}" autocomplete="off">
+      </label>
+      <button type="submit" class="btn btn--primary">{{ 'general.search.submit' | t }}</button>
+      <button type="button" class="header-icon" data-close aria-label="{{ 'accessibility.close' | t }}">
+        {% render 'icon', icon: 'close' %}
+      </button>
+    </form>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Header",
+  "settings": [
+    {
+      "type": "link_list",
+      "id": "menu",
+      "label": "Navigation menu",
+      "default": "main-menu"
+    }
+  ]
+}
+{% endschema %}

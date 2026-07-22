@@ -1,0 +1,13 @@
+{
+  "sections": {
+    "main": {
+      "type": "contact-form",
+      "settings": {
+        "eyebrow": "Contact",
+        "heading": "Talk to our land team",
+        "subtext": "Questions about a parcel, financing, or the buying process? Send us a note and we'll respond within one business day."
+      }
+    }
+  },
+  "order": ["main"]
+}

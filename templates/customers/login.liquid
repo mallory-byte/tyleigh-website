@@ -1,0 +1,31 @@
+<div class="page-width section" style="max-width:26rem">
+  <h1 class="text-center">Log in</h1>
+
+  {%- form 'customer_login', id: 'CustomerLogin' -%}
+    {%- if form.errors -%}<div class="form-note form-note--error">{{ form.errors | default_errors }}</div>{%- endif -%}
+    <div class="form-field">
+      <label for="CustomerEmail">Email</label>
+      <input type="email" name="customer[email]" id="CustomerEmail" autocomplete="email" required>
+    </div>
+    <div class="form-field">
+      <label for="CustomerPassword">Password</label>
+      <input type="password" name="customer[password]" id="CustomerPassword" autocomplete="current-password" required>
+    </div>
+    <button type="submit" class="btn btn--primary btn--block btn--lg">Log in</button>
+    <p class="text-center" style="margin-top:var(--space-4)">
+      <a href="#recover" onclick="document.getElementById('RecoverForm').hidden=false;return false;">Forgot password?</a>
+      · <a href="{{ routes.account_register_url }}">Create account</a>
+    </p>
+  {%- endform -%}
+
+  <div id="RecoverForm" hidden style="margin-top:var(--space-5)">
+    {%- form 'recover_customer_password' -%}
+      {%- if form.posted_successfully? -%}<div class="form-note form-note--success">We've sent you a reset link.</div>{%- endif -%}
+      <div class="form-field">
+        <label for="RecoverEmail">Reset your password</label>
+        <input type="email" name="email" id="RecoverEmail" placeholder="Email" required>
+      </div>
+      <button type="submit" class="btn btn--outline btn--block">Send reset link</button>
+    {%- endform -%}
+  </div>
+</div>

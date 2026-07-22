@@ -1,0 +1,216 @@
+[
+  {
+    "name": "theme_info",
+    "theme_name": "Tyleigh Capital",
+    "theme_version": "1.0.0",
+    "theme_author": "Tyleigh Capital",
+    "theme_documentation_url": "https://tyleighcapital.com",
+    "theme_support_url": "https://tyleighcapital.com"
+  },
+  {
+    "name": "Brand",
+    "settings": [
+      {
+        "type": "text",
+        "id": "brand_name",
+        "label": "Brand name",
+        "default": "Tyleigh Capital"
+      },
+      {
+        "type": "image_picker",
+        "id": "logo",
+        "label": "Logo image",
+        "info": "Optional. If empty, the brand name is shown as text."
+      },
+      {
+        "type": "range",
+        "id": "logo_width",
+        "min": 80,
+        "max": 320,
+        "step": 10,
+        "unit": "px",
+        "label": "Logo width",
+        "default": 160
+      },
+      {
+        "type": "image_picker",
+        "id": "favicon",
+        "label": "Favicon"
+      },
+      {
+        "type": "text",
+        "id": "tagline",
+        "label": "Tagline",
+        "default": "Own a piece of the land."
+      }
+    ]
+  },
+  {
+    "name": "Colors",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Brand palette"
+      },
+      {
+        "type": "color",
+        "id": "color_primary",
+        "label": "Primary (deep green)",
+        "default": "#2f4a3c"
+      },
+      {
+        "type": "color",
+        "id": "color_primary_dark",
+        "label": "Primary dark",
+        "default": "#22362b"
+      },
+      {
+        "type": "color",
+        "id": "color_accent",
+        "label": "Accent (gold)",
+        "default": "#c29b40"
+      },
+      {
+        "type": "color",
+        "id": "color_text",
+        "label": "Body text",
+        "default": "#20261f"
+      },
+      {
+        "type": "color",
+        "id": "color_muted",
+        "label": "Muted text",
+        "default": "#6b7268"
+      },
+      {
+        "type": "color",
+        "id": "color_bg",
+        "label": "Page background",
+        "default": "#f7f5ef"
+      },
+      {
+        "type": "color",
+        "id": "color_surface",
+        "label": "Card surface",
+        "default": "#ffffff"
+      },
+      {
+        "type": "color",
+        "id": "color_border",
+        "label": "Borders",
+        "default": "#e3ded2"
+      }
+    ]
+  },
+  {
+    "name": "Typography",
+    "settings": [
+      {
+        "type": "font_picker",
+        "id": "font_heading",
+        "label": "Heading font",
+        "default": "assistant_n4"
+      },
+      {
+        "type": "font_picker",
+        "id": "font_body",
+        "label": "Body font",
+        "default": "assistant_n4"
+      },
+      {
+        "type": "range",
+        "id": "heading_scale",
+        "min": 90,
+        "max": 130,
+        "step": 5,
+        "unit": "%",
+        "label": "Heading size scale",
+        "default": 105
+      }
+    ]
+  },
+  {
+    "name": "Layout",
+    "settings": [
+      {
+        "type": "range",
+        "id": "page_width",
+        "min": 1100,
+        "max": 1500,
+        "step": 20,
+        "unit": "px",
+        "label": "Max content width",
+        "default": 1280
+      },
+      {
+        "type": "range",
+        "id": "card_radius",
+        "min": 0,
+        "max": 24,
+        "step": 2,
+        "unit": "px",
+        "label": "Corner radius",
+        "default": 10
+      }
+    ]
+  },
+  {
+    "name": "Product cards",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "show_acreage_badge",
+        "label": "Show acreage badge",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "show_state_label",
+        "label": "Show state / location label",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "show_financing_badge",
+        "label": "Show \"Financing available\" badge",
+        "default": true
+      }
+    ]
+  },
+  {
+    "name": "Social & contact",
+    "settings": [
+      {
+        "type": "text",
+        "id": "contact_email",
+        "label": "Contact email",
+        "default": "hello@tyleighcapital.com"
+      },
+      {
+        "type": "text",
+        "id": "contact_phone",
+        "label": "Contact phone"
+      },
+      {
+        "type": "url",
+        "id": "social_facebook",
+        "label": "Facebook URL"
+      },
+      {
+        "type": "url",
+        "id": "social_instagram",
+        "label": "Instagram URL"
+      },
+      {
+        "type": "url",
+        "id": "social_youtube",
+        "label": "YouTube URL"
+      },
+      {
+        "type": "url",
+        "id": "social_linkedin",
+        "label": "LinkedIn URL"
+      }
+    ]
+  }
+]

@@ -1,0 +1,76 @@
+{%- liquid
+  assign brand = settings.brand_name | default: shop.name
+-%}
+<footer class="site-footer">
+  <div class="page-width">
+    <div class="footer__grid">
+      <div class="footer__brand">
+        <div class="footer__brand-name">{{ brand }}</div>
+        <p>{{ section.settings.about_text }}</p>
+        <div class="footer__social">
+          {%- if settings.social_facebook != blank -%}<a href="{{ settings.social_facebook }}" aria-label="Facebook">{% render 'icon', icon: 'facebook' %}</a>{%- endif -%}
+          {%- if settings.social_instagram != blank -%}<a href="{{ settings.social_instagram }}" aria-label="Instagram">{% render 'icon', icon: 'instagram' %}</a>{%- endif -%}
+          {%- if settings.social_youtube != blank -%}<a href="{{ settings.social_youtube }}" aria-label="YouTube">{% render 'icon', icon: 'youtube' %}</a>{%- endif -%}
+          {%- if settings.social_linkedin != blank -%}<a href="{{ settings.social_linkedin }}" aria-label="LinkedIn">{% render 'icon', icon: 'linkedin' %}</a>{%- endif -%}
+        </div>
+      </div>
+
+      {%- if section.settings.menu_1 != blank and linklists[section.settings.menu_1].links.size > 0 -%}
+        <div>
+          <h4>{{ linklists[section.settings.menu_1].title }}</h4>
+          <ul>
+            {%- for link in linklists[section.settings.menu_1].links -%}
+              <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+            {%- endfor -%}
+          </ul>
+        </div>
+      {%- endif -%}
+
+      <div>
+        <h4>{{ section.settings.contact_heading | default: 'Get in touch' }}</h4>
+        <ul>
+          {%- if settings.contact_email != blank -%}
+            <li><a href="mailto:{{ settings.contact_email }}">{{ settings.contact_email }}</a></li>
+          {%- endif -%}
+          {%- if settings.contact_phone != blank -%}
+            <li><a href="tel:{{ settings.contact_phone | remove: ' ' }}">{{ settings.contact_phone }}</a></li>
+          {%- endif -%}
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer__bottom">
+      <span>&copy; {{ 'now' | date: '%Y' }} {{ brand }}. {{ 'footer.copyright' | t }}</span>
+      <span>
+        {%- if shop.privacy_policy -%}<a href="{{ shop.privacy_policy.url }}">Privacy</a>{%- endif -%}
+        {%- if shop.terms_of_service -%} · <a href="{{ shop.terms_of_service.url }}">Terms</a>{%- endif -%}
+      </span>
+    </div>
+  </div>
+</footer>
+
+{% schema %}
+{
+  "name": "Footer",
+  "settings": [
+    {
+      "type": "textarea",
+      "id": "about_text",
+      "label": "About text",
+      "default": "Tyleigh Capital helps you own raw land across the country — vetted parcels, transparent pricing, and simple owner financing."
+    },
+    {
+      "type": "link_list",
+      "id": "menu_1",
+      "label": "Footer menu",
+      "default": "footer"
+    },
+    {
+      "type": "text",
+      "id": "contact_heading",
+      "label": "Contact heading",
+      "default": "Get in touch"
+    }
+  ]
+}
+{% endschema %}

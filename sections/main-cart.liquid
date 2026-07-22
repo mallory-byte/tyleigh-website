@@ -1,0 +1,63 @@
+<div class="page-width section">
+  <h1>{{ 'cart.general.title' | t }}</h1>
+
+  {%- if cart.item_count == 0 -%}
+    <div class="empty-state">
+      {% render 'icon', icon: 'cart' %}
+      <h3>{{ 'cart.general.empty' | t }}</h3>
+      <a href="{{ routes.all_products_collection_url }}" class="btn btn--primary">{{ 'cart.general.continue_shopping' | t }}</a>
+    </div>
+  {%- else -%}
+    {%- form 'cart', cart -%}
+      <div class="cart-layout">
+        <div class="cart-items">
+          {%- for item in cart.items -%}
+            <div class="cart-item">
+              <div class="cart-item__media">
+                {%- if item.image -%}
+                  <a href="{{ item.url }}">{{ item.image | image_url: width: 180 | image_tag: loading: 'lazy', alt: item.title | escape }}</a>
+                {%- endif -%}
+              </div>
+              <div>
+                <a href="{{ item.url }}" class="cart-item__title">{{ item.product.title }}</a>
+                {%- unless item.product.has_only_default_variant -%}
+                  <div class="cart-item__meta">{{ item.variant.title }}</div>
+                {%- endunless -%}
+                <div class="cart-item__meta">
+                  {%- if item.product.metafields.custom.state.value != blank -%}{{ item.product.metafields.custom.state.value }}{%- endif -%}
+                  {%- if item.product.metafields.custom.acreage.value != blank -%} · {{ item.product.metafields.custom.acreage.value }} acres{%- endif -%}
+                </div>
+                <div style="margin-top:var(--space-2)">
+                  <a href="{{ item.url_to_remove }}" class="btn btn--ghost" style="padding-left:0">{{ 'cart.general.remove' | t }}</a>
+                </div>
+              </div>
+              <div class="cart-item__price">{{ item.final_line_price | money }}</div>
+            </div>
+          {%- endfor -%}
+
+          <div class="form-field" style="margin-top:var(--space-5)">
+            <label for="CartNote">{{ 'cart.general.note' | t }}</label>
+            <textarea id="CartNote" name="note" style="min-height:90px">{{ cart.note }}</textarea>
+          </div>
+        </div>
+
+        <div class="cart-summary">
+          <div class="cart-summary__row">
+            <span>{{ 'cart.general.subtotal' | t }}</span>
+            <span class="cart-summary__total">{{ cart.total_price | money }}</span>
+          </div>
+          <p class="text-muted" style="font-size:0.85rem">{{ 'cart.general.taxes_and_shipping' | t }}</p>
+          <button type="submit" name="checkout" class="btn btn--primary btn--lg btn--block">{{ 'cart.general.checkout' | t }}</button>
+          <a href="{{ routes.all_products_collection_url }}" class="btn btn--ghost btn--block" style="margin-top:var(--space-2)">{{ 'cart.general.continue_shopping' | t }}</a>
+        </div>
+      </div>
+    {%- endform -%}
+  {%- endif -%}
+</div>
+
+{% schema %}
+{
+  "name": "Cart",
+  "settings": []
+}
+{% endschema %}

@@ -1,0 +1,46 @@
+<div class="page-width section">
+  <div class="media-text {% if section.settings.image_position == 'right' %}media-text--reverse{% endif %}">
+    <div class="media-text__media">
+      {%- if section.settings.image != blank -%}
+        {{ section.settings.image | image_url: width: 1000 | image_tag: loading: 'lazy', alt: section.settings.heading | escape, sizes: '(min-width: 750px) 50vw, 100vw', widths: '500, 750, 1000' }}
+      {%- else -%}
+        <div style="aspect-ratio:4/3;border-radius:var(--card-radius);background:linear-gradient(135deg,var(--color-primary),var(--color-primary-dark))"></div>
+      {%- endif -%}
+    </div>
+    <div class="media-text__body">
+      {%- if section.settings.eyebrow != blank -%}<span class="eyebrow">{{ section.settings.eyebrow }}</span>{%- endif -%}
+      <h2>{{ section.settings.heading }}</h2>
+      <div class="rte">{{ section.settings.text }}</div>
+      {%- if section.settings.button_label != blank -%}
+        <a href="{{ section.settings.button_link }}" class="btn btn--primary" style="margin-top:var(--space-3)">{{ section.settings.button_label }}</a>
+      {%- endif -%}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Image with text",
+  "settings": [
+    { "type": "image_picker", "id": "image", "label": "Image" },
+    {
+      "type": "select",
+      "id": "image_position",
+      "label": "Image position",
+      "default": "left",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "right", "label": "Right" }
+      ]
+    },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "About us" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Land people, not just a listing site" },
+    { "type": "richtext", "id": "text", "label": "Text", "default": "<p>Tyleigh Capital was built on a simple idea: owning land should be within reach. We source, vet, and price parcels so buyers can invest in real property without the complexity of traditional real estate.</p>" },
+    { "type": "text", "id": "button_label", "label": "Button label", "default": "Learn more" },
+    { "type": "url", "id": "button_link", "label": "Button link" }
+  ],
+  "presets": [
+    { "name": "Image with text" }
+  ]
+}
+{% endschema %}

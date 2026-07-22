@@ -1,0 +1,63 @@
+{%- comment -%}
+  Parcel (product) card.
+  Params: product (required)
+  Reads optional metafields in the `custom` namespace:
+    custom.acreage (number)  custom.state (text)  custom.county (text)
+    custom.financing_available (boolean)
+{%- endcomment -%}
+{%- liquid
+  assign acreage = product.metafields.custom.acreage.value
+  assign state = product.metafields.custom.state.value
+  assign county = product.metafields.custom.county.value
+  assign financing = product.metafields.custom.financing_available.value
+
+  assign location = ''
+  if county != blank and state != blank
+    assign location = county | append: ', ' | append: state
+  elsif state != blank
+    assign location = state
+  elsif county != blank
+    assign location = county
+  endif
+-%}
+<article class="parcel-card">
+  <a href="{{ product.url }}" class="parcel-card__media" aria-label="{{ product.title | escape }}">
+    {%- if product.featured_media -%}
+      {{ product.featured_media | image_url: width: 600 | image_tag:
+        loading: 'lazy', widths: '300, 450, 600, 900', sizes: '(min-width: 750px) 33vw, 90vw', alt: product.featured_media.alt | default: product.title | escape }}
+    {%- else -%}
+      <div style="display:grid;place-items:center;height:100%;color:var(--color-muted)">
+        {% render 'icon', icon: 'tree' %}
+      </div>
+    {%- endif -%}
+    <div class="parcel-card__badges">
+      {%- if settings.show_acreage_badge and acreage != blank -%}
+        <span class="badge badge--acreage">{{ acreage }} {% if acreage == 1 %}acre{% else %}acres{% endif %}</span>
+      {%- endif -%}
+      {%- if settings.show_financing_badge and financing -%}
+        <span class="badge badge--financing">Financing</span>
+      {%- endif -%}
+      {%- unless product.available -%}
+        <span class="badge badge--sold">Sold</span>
+      {%- endunless -%}
+    </div>
+  </a>
+  <div class="parcel-card__body">
+    {%- if settings.show_state_label and location != blank -%}
+      <span class="parcel-card__location">{% render 'icon', icon: 'map-pin' %}{{ location }}</span>
+    {%- endif -%}
+    <h3 class="parcel-card__title"><a href="{{ product.url }}">{{ product.title }}</a></h3>
+    <div class="parcel-card__meta">
+      {%- if acreage != blank -%}
+        <span>{% render 'icon', icon: 'ruler' %}{{ acreage }} {% if acreage == 1 %}acre{% else %}acres{% endif %}</span>
+      {%- endif -%}
+      {%- if product.type != blank -%}
+        <span>{% render 'icon', icon: 'tag' %}{{ product.type }}</span>
+      {%- endif -%}
+    </div>
+    <div class="parcel-card__footer">
+      {% render 'price', product: product %}
+      <span class="btn btn--ghost" aria-hidden="true">View {% render 'icon', icon: 'arrow-right' %}</span>
+    </div>
+  </div>
+</article>

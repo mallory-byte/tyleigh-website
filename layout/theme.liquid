@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="{{ request.locale.iso_code }}" class="no-js">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="theme-color" content="{{ settings.color_primary }}">
+    <link rel="canonical" href="{{ canonical_url }}">
+
+    {%- if settings.favicon != blank -%}
+      <link rel="icon" type="image/png" href="{{ settings.favicon | image_url: width: 32, height: 32 }}">
+    {%- endif -%}
+
+    {%- unless settings.font_body.system? -%}
+      <link rel="preconnect" href="https://fonts.shopifycdn.com" crossorigin>
+    {%- endunless -%}
+
+    <title>
+      {{ page_title }}
+      {%- if current_tags %} &ndash; {{ 'general.meta.tags' | t: tags: current_tags | join: ', ' }}{% endif -%}
+      {%- if current_page != 1 %} &ndash; {{ 'general.meta.page' | t: page: current_page }}{% endif -%}
+      {%- unless page_title contains shop.name %} &ndash; {{ shop.name }}{% endunless -%}
+    </title>
+
+    {%- if page_description -%}
+      <meta name="description" content="{{ page_description | escape }}">
+    {%- endif -%}
+
+    {% render 'meta-tags' %}
+
+    {{ content_for_header }}
+
+    {%- liquid
+      assign body_font = settings.font_body
+      assign heading_font = settings.font_heading
+      assign body_font_bold = body_font | font_modify: 'weight', 'bold'
+      assign body_font_italic = body_font | font_modify: 'style', 'italic'
+    -%}
+    {{ body_font | font_face: font_display: 'swap' }}
+    {{ body_font_bold | font_face: font_display: 'swap' }}
+    {{ body_font_italic | font_face: font_display: 'swap' }}
+    {{ heading_font | font_face: font_display: 'swap' }}
+
+    <style>
+      :root {
+        --color-primary: {{ settings.color_primary }};
+        --color-primary-dark: {{ settings.color_primary_dark }};
+        --color-accent: {{ settings.color_accent }};
+        --color-text: {{ settings.color_text }};
+        --color-muted: {{ settings.color_muted }};
+        --color-bg: {{ settings.color_bg }};
+        --color-surface: {{ settings.color_surface }};
+        --color-border: {{ settings.color_border }};
+        --page-width: {{ settings.page_width }}px;
+        --card-radius: {{ settings.card_radius }}px;
+        --heading-scale: {{ settings.heading_scale | divided_by: 100.0 }};
+        --font-body-family: {{ body_font.family }}, {{ body_font.fallback_families }};
+        --font-body-weight: {{ body_font.weight }};
+        --font-heading-family: {{ heading_font.family }}, {{ heading_font.fallback_families }};
+        --font-heading-weight: {{ heading_font.weight }};
+      }
+    </style>
+
+    {{ 'base.css' | asset_url | stylesheet_tag }}
+
+    <script>document.documentElement.className = document.documentElement.className.replace('no-js', 'js');</script>
+  </head>
+
+  <body class="template-{{ request.page_type | handle }}">
+    <a class="skip-link" href="#MainContent">{{ 'accessibility.skip_to_content' | t }}</a>
+
+    {% sections 'header-group' %}
+
+    <main id="MainContent" class="main-content" role="main" tabindex="-1">
+      {{ content_for_layout }}
+    </main>
+
+    {% sections 'footer-group' %}
+
+    <script src="{{ 'theme.js' | asset_url }}" defer="defer"></script>
+  </body>
+</html>

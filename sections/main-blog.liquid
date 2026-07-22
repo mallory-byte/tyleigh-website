@@ -1,0 +1,39 @@
+<section class="collection-hero">
+  <div class="page-width">
+    <h1>{{ blog.title }}</h1>
+    <p>Guides, tips, and stories about buying and owning land.</p>
+  </div>
+</section>
+
+<div class="page-width section">
+  {%- paginate blog.articles by 9 -%}
+    {%- if blog.articles.size > 0 -%}
+      <div class="product-grid product-grid--4">
+        {%- for article in blog.articles -%}
+          <article class="parcel-card">
+            {%- if article.image -%}
+              <a href="{{ article.url }}" class="parcel-card__media">
+                {{ article.image | image_url: width: 600 | image_tag: loading: 'lazy', alt: article.title | escape }}
+              </a>
+            {%- endif -%}
+            <div class="parcel-card__body">
+              <span class="parcel-card__location">{{ article.published_at | date: '%b %d, %Y' }}</span>
+              <h3 class="parcel-card__title"><a href="{{ article.url }}">{{ article.title }}</a></h3>
+              <p class="text-muted">{{ article.excerpt_or_content | strip_html | truncatewords: 22 }}</p>
+              <div class="parcel-card__footer">
+                <a href="{{ article.url }}" class="btn btn--ghost" style="padding-left:0">Read more {% render 'icon', icon: 'arrow-right' %}</a>
+              </div>
+            </div>
+          </article>
+        {%- endfor -%}
+      </div>
+      {% render 'pagination', paginate: paginate %}
+    {%- else -%}
+      <div class="empty-state"><p class="text-muted">No posts yet. Check back soon.</p></div>
+    {%- endif -%}
+  {%- endpaginate -%}
+</div>
+
+{% schema %}
+{ "name": "Blog posts", "settings": [] }
+{% endschema %}

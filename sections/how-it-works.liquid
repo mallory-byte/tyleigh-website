@@ -1,0 +1,58 @@
+<div class="page-width section">
+  <div class="section-head section-head--center">
+    {%- if section.settings.eyebrow != blank -%}<span class="eyebrow">{{ section.settings.eyebrow }}</span>{%- endif -%}
+    <h2>{{ section.settings.heading }}</h2>
+    {%- if section.settings.subtext != blank -%}<p>{{ section.settings.subtext }}</p>{%- endif -%}
+  </div>
+
+  <div class="steps">
+    {%- for block in section.blocks -%}
+      <div class="step" {{ block.shopify_attributes }}>
+        <div class="step__num">{{ forloop.index }}</div>
+        <h3>{{ block.settings.title }}</h3>
+        <p>{{ block.settings.text }}</p>
+      </div>
+    {%- endfor -%}
+  </div>
+
+  {%- if section.settings.button_label != blank -%}
+    <div class="text-center" style="margin-top:var(--space-7)">
+      <a href="{{ section.settings.button_link | default: routes.all_products_collection_url }}" class="btn btn--primary btn--lg">{{ section.settings.button_label }}</a>
+    </div>
+  {%- endif -%}
+</div>
+
+{% schema %}
+{
+  "name": "How it works",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "The process" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Buying land, in four steps" },
+    { "type": "textarea", "id": "subtext", "label": "Subtext", "default": "From browsing to deed in hand — here's how it works." },
+    { "type": "text", "id": "button_label", "label": "Button label", "default": "Start browsing" },
+    { "type": "url", "id": "button_link", "label": "Button link" }
+  ],
+  "blocks": [
+    {
+      "type": "step",
+      "name": "Step",
+      "settings": [
+        { "type": "text", "id": "title", "label": "Title", "default": "Find your parcel" },
+        { "type": "textarea", "id": "text", "label": "Text", "default": "Filter by state, acreage, and price to find land that fits your plans." }
+      ]
+    }
+  ],
+  "max_blocks": 6,
+  "presets": [
+    {
+      "name": "How it works",
+      "blocks": [
+        { "type": "step", "settings": { "title": "Find your parcel", "text": "Filter by state, acreage, and price to find land that fits your plans." } },
+        { "type": "step", "settings": { "title": "Reserve online", "text": "Secure your parcel in minutes — pay in full or choose owner financing." } },
+        { "type": "step", "settings": { "title": "We prepare the deed", "text": "We handle title, documents, and recording. You review and sign." } },
+        { "type": "step", "settings": { "title": "Own your land", "text": "The deed is recorded in your name. The land is yours to use, hold, or build on." } }
+      ]
+    }
+  ]
+}
+{% endschema %}

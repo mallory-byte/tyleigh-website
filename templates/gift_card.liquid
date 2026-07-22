@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="{{ request.locale.iso_code }}">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ 'gift_cards.issued.title' | t: value: gift_card.initial_value | money, shop: shop.name }}</title>
+    {{ 'base.css' | asset_url | stylesheet_tag }}
+    <style>
+      :root {
+        --color-primary: {{ settings.color_primary }};
+        --color-primary-dark: {{ settings.color_primary_dark }};
+        --color-accent: {{ settings.color_accent }};
+        --color-text: {{ settings.color_text }};
+        --color-bg: {{ settings.color_bg }};
+        --color-surface: {{ settings.color_surface }};
+        --color-border: {{ settings.color_border }};
+        --card-radius: 12px;
+      }
+      body { display:grid; place-items:center; min-height:100vh; padding:2rem; }
+      .gc { background:var(--color-surface); border:1px solid var(--color-border); border-radius:16px; padding:2.5rem; max-width:420px; width:100%; text-align:center; box-shadow:var(--shadow-lg); }
+      .gc__value { font-family:var(--font-heading); font-size:3rem; font-weight:800; color:var(--color-primary-dark); }
+      .gc__code { font-family:monospace; font-size:1.3rem; letter-spacing:2px; background:var(--color-bg); border:1px dashed var(--color-border); border-radius:10px; padding:0.75rem; margin:1.5rem 0; }
+    </style>
+  </head>
+  <body>
+    <div class="gc">
+      <h1>{{ settings.brand_name | default: shop.name }}</h1>
+      <p class="text-muted">Gift card</p>
+      <div class="gc__value">{{ gift_card.balance | money }}</div>
+      <div class="gc__code">{{ gift_card.code | format_code }}</div>
+      <a href="{{ shop.url }}" class="btn btn--primary btn--block">Start shopping</a>
+    </div>
+  </body>
+</html>

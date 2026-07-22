@@ -1,0 +1,26 @@
+<div class="page-width section">
+  <div class="rich-text">
+    {%- if section.settings.eyebrow != blank -%}<span class="eyebrow">{{ section.settings.eyebrow }}</span>{%- endif -%}
+    {%- if section.settings.heading != blank -%}<h2>{{ section.settings.heading }}</h2>{%- endif -%}
+    <div class="rte">{{ section.settings.text }}</div>
+    {%- if section.settings.button_label != blank -%}
+      <a href="{{ section.settings.button_link }}" class="btn btn--primary" style="margin-top:var(--space-4)">{{ section.settings.button_label }}</a>
+    {%- endif -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Rich text",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "A better way to buy land" },
+    { "type": "richtext", "id": "text", "label": "Text", "default": "<p>We believe land ownership should be simple, honest, and accessible. That's the standard we hold every parcel and every sale to.</p>" },
+    { "type": "text", "id": "button_label", "label": "Button label" },
+    { "type": "url", "id": "button_link", "label": "Button link" }
+  ],
+  "presets": [
+    { "name": "Rich text" }
+  ]
+}
+{% endschema %}

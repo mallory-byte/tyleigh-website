@@ -1,0 +1,93 @@
+{%- liquid
+  assign per_page = section.settings.products_per_page | default: 12
+-%}
+<section class="collection-hero">
+  <div class="page-width">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="{{ routes.root_url }}">Home</a><span>/</span>{{ collection.title }}
+    </nav>
+    <h1>{{ collection.title }}</h1>
+    {%- if collection.description != blank and section.settings.show_description -%}
+      <p>{{ collection.description | strip_html | truncatewords: 40 }}</p>
+    {%- endif -%}
+  </div>
+</section>
+
+<div class="page-width section">
+  {%- paginate collection.products by per_page -%}
+    <div class="collection-layout">
+      {% render 'facets', results: collection %}
+
+      <div class="collection-main">
+        <div class="collection-toolbar">
+          <button type="button" class="btn btn--outline facets__mobile-toggle" data-toggle-facets>
+            {% render 'icon', icon: 'ruler' %} {{ 'products.facets.filter_and_sort' | t }}
+          </button>
+          <span class="collection-toolbar__count">
+            {{ 'products.facets.results' | t: count: collection.products_count }}
+          </span>
+          {%- if collection.sort_options.size > 0 -%}
+            <form method="get" class="sort-select" data-auto-submit>
+              {%- comment -%} preserve active filters {%- endcomment -%}
+              {%- for filter in collection.filters -%}
+                {%- for value in filter.active_values -%}
+                  <input type="hidden" name="{{ value.param_name }}" value="{{ value.value }}">
+                {%- endfor -%}
+                {%- if filter.type == 'price_range' -%}
+                  {%- if filter.min_value.value -%}<input type="hidden" name="{{ filter.min_value.param_name }}" value="{{ filter.min_value.value }}">{%- endif -%}
+                  {%- if filter.max_value.value -%}<input type="hidden" name="{{ filter.max_value.param_name }}" value="{{ filter.max_value.value }}">{%- endif -%}
+                {%- endif -%}
+              {%- endfor -%}
+              <label for="SortBy" class="visually-hidden">{{ 'products.facets.sort_by' | t }}</label>
+              <select name="sort_by" id="SortBy">
+                {%- assign current_sort = collection.sort_by | default: collection.default_sort_by -%}
+                {%- for option in collection.sort_options -%}
+                  <option value="{{ option.value }}" {% if option.value == current_sort %}selected{% endif %}>{{ option.name }}</option>
+                {%- endfor -%}
+              </select>
+            </form>
+          {%- endif -%}
+        </div>
+
+        {%- if collection.products.size > 0 -%}
+          <div class="product-grid">
+            {%- for product in collection.products -%}
+              {% render 'parcel-card', product: product %}
+            {%- endfor -%}
+          </div>
+          {% render 'pagination', paginate: paginate %}
+        {%- else -%}
+          <div class="empty-state">
+            {% render 'icon', icon: 'map-pin' %}
+            <h3>{{ 'products.facets.no_results' | t }}</h3>
+            <p class="text-muted">Try widening your filters or browse all available land.</p>
+            <a href="{{ collection.url }}" class="btn btn--primary">{{ 'products.facets.clear_all' | t }}</a>
+          </div>
+        {%- endif -%}
+      </div>
+    </div>
+  {%- endpaginate -%}
+</div>
+
+{% schema %}
+{
+  "name": "Collection listings",
+  "settings": [
+    {
+      "type": "range",
+      "id": "products_per_page",
+      "min": 6,
+      "max": 24,
+      "step": 3,
+      "label": "Parcels per page",
+      "default": 12
+    },
+    {
+      "type": "checkbox",
+      "id": "show_description",
+      "label": "Show collection description",
+      "default": true
+    }
+  ]
+}
+{% endschema %}
