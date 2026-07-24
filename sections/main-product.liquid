@@ -39,7 +39,8 @@
       <div>
         <div class="pdp-hero" data-gallery-main>
           {%- if p.featured_media -%}
-            {{ p.featured_media | image_url: width: 1400 | image_tag: alt: p.featured_media.alt | default: p.title | escape, fetchpriority: 'high' }}
+            {% assign product_alt = p.featured_media.alt | default: p.title | escape %}
+            {{ p.featured_media | image_url: width: 1400 | image_tag: alt: product_alt, fetchpriority: 'high' }}
           {%- else -%}
             <div style="height:24rem;display:grid;place-items:center;background:var(--color-bg);color:var(--color-muted)">{% render 'icon', icon: 'tree' %}</div>
           {%- endif -%}

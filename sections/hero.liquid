@@ -1,7 +1,8 @@
 <section class="hero {% unless section.settings.image %}hero--placeholder{% endunless %}">
   {%- if section.settings.image != blank -%}
     <div class="hero__media">
-      {{ section.settings.image | image_url: width: 2000 | image_tag: alt: section.settings.heading | escape, fetchpriority: 'high', sizes: '100vw', widths: '750, 1100, 1500, 2000' }}
+      {% assign hero_alt = section.settings.heading | escape %}
+      {{ section.settings.image | image_url: width: 2000 | image_tag: alt: hero_alt, fetchpriority: 'high', sizes: '100vw', widths: '750, 1100, 1500, 2000' }}
     </div>
   {%- elsif section.settings.image_url != blank -%}
     <div class="hero__media"><img src="{{ section.settings.image_url }}" alt="{{ section.settings.heading | escape }}"></div>

@@ -7,7 +7,8 @@
   </header>
   {%- if article.image -%}
     <div style="margin-bottom:var(--space-6)">
-      {{ article.image | image_url: width: 1400 | image_tag: alt: article.title | escape, style: 'border-radius:var(--card-radius)' }}
+      {% assign article_alt = article.title | escape %}
+      {{ article.image | image_url: width: 1400 | image_tag: alt: article_alt, style: 'border-radius:var(--card-radius)' }}
     </div>
   {%- endif -%}
   <div class="rte">{{ article.content }}</div>

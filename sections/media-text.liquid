@@ -2,7 +2,8 @@
   <div class="whyus__grid {% if section.settings.image_position == 'right' %}media-reverse{% endif %}">
     <div class="whyus__media" style="box-shadow:none">
       {%- if section.settings.image != blank -%}
-        {{ section.settings.image | image_url: width: 1000 | image_tag: loading: 'lazy', alt: section.settings.heading | escape, style: 'height:auto;aspect-ratio:16/10;box-shadow:var(--shadow-lg)', sizes: '(min-width: 990px) 45vw, 90vw', widths: '500, 750, 1000' }}
+        {% assign mt_alt = section.settings.heading | escape %}
+        {{ section.settings.image | image_url: width: 1000 | image_tag: loading: 'lazy', alt: mt_alt, style: 'height:auto;aspect-ratio:16/10;box-shadow:var(--shadow-lg)', sizes: '(min-width: 990px) 45vw, 90vw', widths: '500, 750, 1000' }}
       {%- elsif section.settings.image_url != blank -%}
         <img src="{{ section.settings.image_url }}" alt="{{ section.settings.heading | escape }}" loading="lazy" style="aspect-ratio:16/10;box-shadow:var(--shadow-lg)">
       {%- endif -%}

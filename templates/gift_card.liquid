@@ -3,7 +3,8 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ 'gift_cards.issued.title' | t: value: gift_card.initial_value | money, shop: shop.name }}</title>
+    {% assign gc_value = gift_card.initial_value | money %}
+  <title>{{ 'gift_cards.issued.title' | t: value: gc_value, shop: shop.name }}</title>
     {{ 'base.css' | asset_url | stylesheet_tag }}
     <style>
       :root {
