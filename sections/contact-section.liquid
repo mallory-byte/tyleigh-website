@@ -1,3 +1,4 @@
+{%- comment -%} sync: rev2 {%- endcomment -%}
 {%- liquid
   assign phone = settings.contact_phone | default: settings.phone
   assign phone_href = phone | remove: ' ' | remove: '(' | remove: ')' | remove: '-'
