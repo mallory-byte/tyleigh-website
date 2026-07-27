@@ -51,10 +51,16 @@ export default function PropertyCard({ property, onClick, index = 0 }: Props) {
             {property.title}
           </h3>
         </div>
-        <div className="flex items-center gap-1 text-muted-foreground text-sm mb-3">
-          <MapPin className="w-3.5 h-3.5" />
-          <span>{property.county} County, {property.state}</span>
-        </div>
+        {(property.county || property.state) && (
+          <div className="flex items-center gap-1 text-muted-foreground text-sm mb-3">
+            <MapPin className="w-3.5 h-3.5" />
+            <span>
+              {[property.county && `${property.county} County`, property.state]
+                .filter(Boolean)
+                .join(', ')}
+            </span>
+          </div>
+        )}
 
         <p className="text-sm text-muted-foreground mb-4 line-clamp-2">{property.description}</p>
 
