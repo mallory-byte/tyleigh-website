@@ -1,6 +1,10 @@
-{%- comment -%} sync: rev2 {%- endcomment -%}
 {%- liquid
+  assign map_col = collections.all
+  if section.settings.collection != blank
+    assign map_col = collections[section.settings.collection]
+  endif
   assign states = section.settings.states | split: ','
+  assign uid = 'tylmap-' | append: section.id
 -%}
 <section id="map" class="section contact-section">
   <div class="page-width">
@@ -13,12 +17,8 @@
     <div class="map-card">
       <div class="map-card__grid">
         <div class="map-card__map">
-          {%- if section.settings.map_embed_url != blank -%}
-            <div class="map-embed">
-              <iframe src="{{ section.settings.map_embed_url }}" allowfullscreen loading="lazy" title="{{ section.settings.heading | escape }}"></iframe>
-            </div>
-          {%- endif -%}
-          <p class="text-muted" style="font-size:0.78rem;text-align:center;margin:var(--space-3) 0 0">📍 Click pins on the map to see individual properties</p>
+          <div id="{{ uid }}" class="tyl-map" role="application" aria-label="Map of available properties"></div>
+          <p class="text-muted" style="font-size:0.78rem;text-align:center;margin:var(--space-3) 0 0">📍 Click a pin to view that property</p>
         </div>
 
         <div class="map-card__states">
@@ -28,7 +28,7 @@
           </div>
           {%- for s in states -%}
             {%- assign st = s | strip -%}
-            <a href="{{ routes.search_url }}?q={{ st | url_encode }}&type=product" class="map-state">
+            <a href="{{ routes.search_url }}?q={{ st | url_encode }}&type=product" class="map-state" data-state="{{ st | escape }}">
               <span>{% render 'icon', icon: 'map-pin' %}{{ st }}</span>
               <span class="count">View</span>
             </a>
@@ -39,14 +39,100 @@
   </div>
 </section>
 
+{%- comment -%} Points built live from product coordinate metafields {%- endcomment -%}
+<script>
+  window.TYL_MAP = window.TYL_MAP || {};
+  window.TYL_MAP["{{ uid }}"] = [
+    {%- for product in map_col.products -%}
+      {%- assign plat = product.metafields.custom.latitude.value -%}
+      {%- assign plng = product.metafields.custom.longitude.value -%}
+      {%- if plat != blank and plng != blank -%}
+        {
+          "lat": {{ plat | json }},
+          "lng": {{ plng | json }},
+          "title": {{ product.title | json }},
+          "url": {{ product.url | json }},
+          "state": {{ product.metafields.custom.state.value | json }},
+          "county": {{ product.metafields.custom.county.value | json }},
+          "acres": {{ product.metafields.custom.acres.value | json }},
+          "monthly": {{ product.metafields.custom.monthly_payment.value | json }},
+          "img": {{ product.featured_image | image_url: width: 240 | json }},
+          "available": {{ product.available | json }}
+        },
+      {%- endif -%}
+    {%- endfor -%}
+  ];
+</script>
+
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+<script>
+  (function () {
+    var id = "{{ uid }}";
+    function num(v) { var n = parseFloat(v); return isNaN(n) ? null : n; }
+    function init() {
+      if (typeof L === "undefined") { return setTimeout(init, 120); }
+      var el = document.getElementById(id);
+      if (!el) return;
+      var pts = (window.TYL_MAP[id] || []).filter(function (p) { return num(p.lat) !== null && num(p.lng) !== null; });
+
+      // State counts for the "Browse by State" list
+      var counts = {};
+      pts.forEach(function (p) { if (p.state) counts[p.state] = (counts[p.state] || 0) + 1; });
+      document.querySelectorAll('.map-state[data-state]').forEach(function (a) {
+        var c = counts[a.getAttribute('data-state')] || 0;
+        var badge = a.querySelector('.count');
+        if (badge) badge.textContent = c > 0 ? (c + ' available') : 'View';
+      });
+
+      if (!pts.length) {
+        el.innerHTML = '<div style="height:100%;display:grid;place-items:center;text-align:center;color:#64748b;padding:2rem;font-size:.9rem">Map pins appear here automatically once your listings have coordinates.</div>';
+        return;
+      }
+
+      var map = L.map(el, { scrollWheelZoom: false });
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 18,
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+      }).addTo(map);
+
+      var group = [];
+      pts.forEach(function (p) {
+        var lat = num(p.lat), lng = num(p.lng);
+        var m = L.marker([lat, lng]).addTo(map);
+        var html = '<div style="width:190px;font-family:inherit">';
+        if (p.img) html += '<img src="' + p.img + '" alt="" style="width:100%;height:96px;object-fit:cover;border-radius:8px;margin-bottom:6px">';
+        html += '<div style="font-weight:700;font-size:.9rem;line-height:1.2;margin-bottom:2px">' + (p.title || 'Property') + '</div>';
+        var loc = [p.county ? p.county + ' County' : '', p.state].filter(Boolean).join(', ');
+        if (loc) html += '<div style="font-size:.78rem;color:#64748b;margin-bottom:4px">' + loc + '</div>';
+        if (p.monthly) html += '<div style="font-size:.85rem;color:#f16522;font-weight:700">$' + p.monthly + '/mo</div>';
+        html += '<a href="' + p.url + '" style="display:inline-block;margin-top:6px;font-size:.8rem;font-weight:600;color:#024e5f">View listing &rarr;</a>';
+        html += '</div>';
+        m.bindPopup(html);
+        group.push([lat, lng]);
+      });
+
+      if (group.length === 1) {
+        map.setView(group[0], 9);
+      } else {
+        map.fitBounds(group, { padding: [40, 40] });
+      }
+      setTimeout(function () { map.invalidateSize(); }, 200);
+    }
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", init);
+    } else { init(); }
+  })();
+</script>
+
 {% schema %}
 {
   "name": "Property map",
   "settings": [
     { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Explore Properties" },
     { "type": "text", "id": "heading", "label": "Heading", "default": "Properties Across the USA" },
-    { "type": "textarea", "id": "subtext", "label": "Subtext", "default": "Click a state marker to see available properties. Owner financing on all listings." },
-    { "type": "textarea", "id": "map_embed_url", "label": "Google My Maps embed URL", "default": "https://www.google.com/maps/d/u/0/embed?mid=1KY4PJ3Tql8nCFIpYV4R9fezp_0LTETc&ehbc=025460&noprof=1" },
+    { "type": "textarea", "id": "subtext", "label": "Subtext", "default": "Every pin is a live listing. Click one to view the property." },
+    { "type": "collection", "id": "collection", "label": "Listings collection", "info": "Which products to map. Leave blank to use all products. Only products with custom.latitude and custom.longitude are pinned." },
     { "type": "text", "id": "states", "label": "States (comma separated)", "default": "Arizona, Arkansas, Colorado, Florida, Nevada, New Mexico" }
   ],
   "presets": [
