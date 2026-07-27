@@ -20,7 +20,7 @@
   if cash != blank
     assign cash_display = cash | times: 100 | money_without_trailing_zeros
   else
-    assign cash_display = product.price | money
+    assign cash_display = 'Contact for price'
   endif
 
   assign status = m.status.value | downcase
