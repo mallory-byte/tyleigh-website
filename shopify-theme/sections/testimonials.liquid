@@ -5,11 +5,21 @@
   </div>
   <div class="card-grid">
     {%- for block in section.blocks -%}
-      <figure class="prose-card" style="margin-bottom:0" {{ block.shopify_attributes }}>
-        <blockquote style="font-size:1.05rem;margin:0 0 var(--space-4)">"{{ block.settings.quote }}"</blockquote>
-        <figcaption>
-          <div style="font-weight:700;color:var(--color-text)">{{ block.settings.author }}</div>
-          {%- if block.settings.detail != blank -%}<div class="text-muted" style="font-size:0.88rem">{{ block.settings.detail }}</div>{%- endif -%}
+      <figure class="testimonial-card" {{ block.shopify_attributes }}>
+        {%- if block.settings.stars != false -%}
+          <div class="testimonial-card__stars">★★★★★</div>
+        {%- endif -%}
+        <blockquote class="testimonial-card__quote">"{{ block.settings.quote }}"</blockquote>
+        <figcaption class="testimonial-card__by">
+          {%- if block.settings.photo != blank -%}
+            <img class="testimonial-card__avatar" src="{{ block.settings.photo | image_url: width: 96 }}" alt="{{ block.settings.author | escape }}" width="48" height="48" loading="lazy">
+          {%- else -%}
+            <span class="testimonial-card__avatar testimonial-card__avatar--initial">{{ block.settings.author | slice: 0 }}</span>
+          {%- endif -%}
+          <span>
+            <span class="testimonial-card__name">{{ block.settings.author }}</span>
+            {%- if block.settings.detail != blank -%}<span class="testimonial-card__detail">{{ block.settings.detail }}</span>{%- endif -%}
+          </span>
         </figcaption>
       </figure>
     {%- endfor -%}
@@ -29,8 +39,10 @@
       "name": "Testimonial",
       "settings": [
         { "type": "textarea", "id": "quote", "label": "Quote", "default": "The whole process was transparent and quick. I had the deed to my land in a few weeks." },
+        { "type": "image_picker", "id": "photo", "label": "Buyer photo (optional)" },
         { "type": "text", "id": "author", "label": "Author", "default": "Dana R." },
-        { "type": "text", "id": "detail", "label": "Detail", "default": "Costilla County, CO" }
+        { "type": "text", "id": "detail", "label": "Detail (location)", "default": "Costilla County, CO" },
+        { "type": "checkbox", "id": "stars", "label": "Show 5-star rating", "default": true }
       ]
     }
   ],

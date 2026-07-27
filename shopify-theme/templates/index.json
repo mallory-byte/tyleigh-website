@@ -77,6 +77,23 @@
         "stat_2_label": "States"
       }
     },
+    "owner": {
+      "type": "owner",
+      "settings": {}
+    },
+    "testimonials": {
+      "type": "testimonials",
+      "blocks": {
+        "t1": { "type": "quote", "settings": { "quote": "I was nervous at first — it sounded too good to be true. But everything checked out on the county site, and I had my recorded deed a few weeks later. Real land, real ownership.", "author": "Dana R.", "detail": "Costilla County, CO", "stars": true } },
+        "t2": { "type": "quote", "settings": { "quote": "No credit check and I still got a fair, clear contract. They answered every question personally. I'm already looking at a second lot.", "author": "Marcus T.", "detail": "Pueblo County, CO", "stars": true } },
+        "t3": { "type": "quote", "settings": { "quote": "Smooth from start to finish. The payments are affordable and there were no surprise fees. Exactly what they promised.", "author": "Sandra L.", "detail": "Putnam County, FL", "stars": true } }
+      },
+      "block_order": ["t1", "t2", "t3"],
+      "settings": {
+        "eyebrow": "Real Buyers",
+        "heading": "Land owners who started right here"
+      }
+    },
     "contact": {
       "type": "contact-section",
       "settings": {
@@ -86,5 +103,5 @@
       }
     }
   },
-  "order": ["hero", "listings", "map", "how-it-works", "why-us", "contact"]
+  "order": ["hero", "listings", "map", "how-it-works", "why-us", "owner", "testimonials", "contact"]
 }

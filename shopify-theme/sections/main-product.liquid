@@ -88,6 +88,23 @@
           {%- if parcel_no != blank -%}<div class="info-row"><dt>Parcel Number</dt><dd>{{ parcel_no }}</dd></div>{%- endif -%}
           {%- if legal != blank -%}<div class="info-row"><dt>Legal Description</dt><dd>{{ legal }}</dd></div>{%- endif -%}
         </dl>
+        {%- if parcel_no != blank or lat != blank -%}
+          <div class="verify-box">
+            <span class="verify-box__icon">{% render 'icon', icon: 'check-circle' %}</span>
+            <div class="verify-box__body">
+              <p class="verify-box__title">Verify this parcel yourself</p>
+              <p class="verify-box__text">This is a real, recorded parcel — don't just take our word for it. Look it up:</p>
+              <div class="verify-box__links">
+                {%- if lat != blank and lng != blank -%}
+                  <a href="https://www.google.com/maps/search/?api=1&query={{ lat }},{{ lng }}" target="_blank" rel="noopener">{% render 'icon', icon: 'navigation' %} See the exact location on a map</a>
+                {%- endif -%}
+                {%- if parcel_no != blank -%}
+                  <a href="https://www.google.com/search?q={{ parcel_no | url_encode }}+{{ county | url_encode }}+county+{{ state | url_encode }}+assessor" target="_blank" rel="noopener">{% render 'icon', icon: 'search' %} Look up APN {{ parcel_no }} on the county records</a>
+                {%- endif -%}
+              </div>
+            </div>
+          </div>
+        {%- endif -%}
       </div>
 
       {%- comment -%} ---- Property Features ---- {%- endcomment -%}
@@ -171,6 +188,15 @@
                 </button>
               {%- endform -%}
               <p class="secure-note">🔒 Secure checkout · 60-day money-back guarantee</p>
+
+              <div class="after-reserve">
+                <p class="after-reserve__head">What happens after you reserve</p>
+                <ol class="after-reserve__steps">
+                  <li><span>1</span><div><strong>We lock this parcel for you.</strong> Your {{ p.price | money_without_trailing_zeros }} document fee takes it off the market so no one else can grab it.</div></li>
+                  <li><span>2</span><div><strong>We reach out personally</strong> to walk you through your agreement and set up your owner financing — no credit check.</div></li>
+                  <li><span>3</span><div><strong>You close through a licensed title company</strong> and receive a <strong>recorded warranty deed</strong> in your name. Real, legal ownership.</div></li>
+                </ol>
+              </div>
 
               <div class="panel-contacts">
                 {%- assign phone = settings.contact_phone | default: settings.phone -%}
