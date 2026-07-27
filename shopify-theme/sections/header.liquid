@@ -16,8 +16,8 @@
       {%- endif -%}
     </a>
 
-    {%- if menu != blank and linklists[menu].links.size > 0 -%}
-      <nav class="header__nav" aria-label="Primary">
+    <nav class="header__nav" aria-label="Primary">
+      {%- if menu != blank and linklists[menu].links.size > 0 -%}
         {%- for link in linklists[menu].links -%}
           {%- if link.links.size > 0 -%}
             <div class="nav-dd">
@@ -34,9 +34,9 @@
             <a href="{{ link.url }}" {% if link.active %}aria-current="page"{% endif %}>{{ link.title }}</a>
           {%- endif -%}
         {%- endfor -%}
-        <a href="{{ routes.all_products_collection_url }}" class="btn btn--primary btn--pill" style="color:#fff;padding:0.55rem 1.1rem">{{ section.settings.cta_label | default: 'Browse Properties' }}</a>
-      </nav>
-    {%- endif -%}
+      {%- endif -%}
+      <a href="{{ routes.all_products_collection_url }}" class="btn btn--primary btn--pill" style="color:#fff;padding:0.55rem 1.1rem">{{ section.settings.cta_label | default: 'Browse Properties' }}</a>
+    </nav>
 
     <div class="header__actions">
       <button type="button" class="header-icon" data-open-search aria-label="{{ 'accessibility.search' | t }}">

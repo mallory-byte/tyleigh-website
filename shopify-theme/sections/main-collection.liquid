@@ -1,11 +1,15 @@
 {%- liquid
   assign per_page = section.settings.products_per_page | default: 12
   assign sort_by = collection.sort_by | default: collection.default_sort_by
+  assign coll_title = collection.title
+  if collection.handle == 'all' or collection.title == 'Products' or collection.title == 'All products'
+    assign coll_title = section.settings.all_title | default: 'Properties'
+  endif
 -%}
 <section class="page-hero">
   <div class="page-width">
-    <nav class="breadcrumb" style="color:rgba(255,255,255,0.6)"><a href="{{ routes.root_url }}" style="color:rgba(255,255,255,0.7)">Home</a><span>/</span>{{ collection.title }}</nav>
-    <h1>{{ collection.title }}</h1>
+    <nav class="breadcrumb" style="color:rgba(255,255,255,0.6)"><a href="{{ routes.root_url }}" style="color:rgba(255,255,255,0.7)">Home</a><span>/</span>{{ coll_title }}</nav>
+    <h1>{{ coll_title }}</h1>
     {%- if collection.description != blank and section.settings.show_description -%}
       <p>{{ collection.description | strip_html | truncatewords: 40 }}</p>
     {%- endif -%}
@@ -81,6 +85,7 @@
   "name": "Collection listings",
   "settings": [
     { "type": "range", "id": "products_per_page", "min": 6, "max": 24, "step": 3, "label": "Properties per page", "default": 12 },
+    { "type": "text", "id": "all_title", "label": "Title for the all-products page", "default": "Properties", "info": "Shown as the heading/breadcrumb on the main /collections/all page instead of the default 'Products'." },
     { "type": "checkbox", "id": "show_description", "label": "Show collection description", "default": true }
   ]
 }
