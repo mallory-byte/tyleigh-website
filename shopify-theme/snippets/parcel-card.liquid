@@ -12,6 +12,10 @@
   assign monthly = m.monthly_payment.value
   assign down = m.down_payment.value
   assign features = m.features.value
+  assign has_loc = false
+  if state != blank or county != blank
+    assign has_loc = true
+  endif
   assign cash = m.cash_price.value
   if cash != blank
     assign cash_display = cash | times: 100 | money_without_trailing_zeros
@@ -45,8 +49,8 @@
 
   <div class="p-card__body">
     <h3 class="p-card__title"><a href="{{ product.url }}">{{ product.title }}</a></h3>
-    {%- if settings.show_state_label and state != blank -%}
-      <span class="p-card__loc">{% render 'icon', icon: 'map-pin' %}{% if county != blank %}{{ county }} County, {% endif %}{{ state }}</span>
+    {%- if settings.show_state_label and has_loc -%}
+      <span class="p-card__loc">{% render 'icon', icon: 'map-pin' %}{%- if county != blank -%}{{ county }} County{%- if state != blank -%}, {% endif %}{%- endif -%}{{ state }}</span>
     {%- endif -%}
     {%- if product.description != blank -%}
       <p class="p-card__desc">{{ product.description | strip_html | truncatewords: 22 }}</p>
