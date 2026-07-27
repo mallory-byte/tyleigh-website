@@ -12,6 +12,12 @@
   assign monthly = m.monthly_payment.value
   assign down = m.down_payment.value
   assign features = m.features.value
+  assign cash = m.cash_price.value
+  if cash != blank
+    assign cash_display = cash | times: 100 | money_without_trailing_zeros
+  else
+    assign cash_display = product.price | money
+  endif
 
   assign status = m.status.value | downcase
   if status == blank
@@ -59,14 +65,14 @@
           <div class="price-fin__amount">${{ monthly }}<small>/mo</small></div>
           {%- if down != blank -%}<div class="price-fin__down">Down: ${{ down }}</div>{%- endif -%}
         {%- else -%}
-          <div class="price-fin__label">Price</div>
-          <div class="price-fin__amount">{{ product.price | money }}</div>
+          <div class="price-fin__label">Cash Price</div>
+          <div class="price-fin__amount">{{ cash_display }}</div>
         {%- endif -%}
       </div>
       {%- if settings.show_monthly_price and monthly != blank -%}
         <div class="price-cash">
           <div class="price-cash__label">Cash Price</div>
-          <div class="price-cash__amount">{{ product.price | money }}</div>
+          <div class="price-cash__amount">{{ cash_display }}</div>
         </div>
       {%- endif -%}
     </div>

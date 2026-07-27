@@ -6,6 +6,12 @@
   assign county = m.county.value
   assign monthly = m.monthly_payment.value
   assign down = m.down_payment.value
+  assign cash = m.cash_price.value
+  if cash != blank
+    assign cash_display = cash | times: 100 | money_without_trailing_zeros
+  else
+    assign cash_display = p.price | money
+  endif
   assign parcel_no = m.parcel_number.value | default: m.apn.value
   assign legal = m.legal_description.value
   assign access = m.access.value
@@ -76,7 +82,7 @@
       <div class="pdp-section">
         <h2>Property Information</h2>
         <dl class="info-rows">
-          {%- if acres != blank -%}<div class="info-row"><dt>Parcel Size</dt><dd>{{ acres }} Acres</dd></div>{%- endif -%}
+          {%- if acres != blank -%}<div class="info-row"><dt>Parcel Size</dt><dd>{{ acres }} Acres ({{ acres | times: 43560 | round }} sq ft)</dd></div>{%- endif -%}
           {%- if state != blank -%}<div class="info-row"><dt>State</dt><dd>{{ state }}</dd></div>{%- endif -%}
           {%- if county != blank -%}<div class="info-row"><dt>County</dt><dd>{{ county }} County</dd></div>{%- endif -%}
           {%- if parcel_no != blank -%}<div class="info-row"><dt>Parcel Number</dt><dd>{{ parcel_no }}</dd></div>{%- endif -%}
@@ -109,7 +115,7 @@
           <div class="fin-stats">
             <div class="fin-stat"><div class="fin-stat__label">Monthly Payment</div><div class="fin-stat__num fin-stat__num--accent">${{ monthly }}</div><div class="fin-stat__sub">/month</div></div>
             {%- if down != blank -%}<div class="fin-stat"><div class="fin-stat__label">Down Payment</div><div class="fin-stat__num">${{ down }}</div><div class="fin-stat__sub">to get started</div></div>{%- endif -%}
-            <div class="fin-stat"><div class="fin-stat__label">Cash Price</div><div class="fin-stat__num">{{ p.price | money }}</div><div class="fin-stat__sub">paid in full</div></div>
+            <div class="fin-stat"><div class="fin-stat__label">Cash Price</div><div class="fin-stat__num">{{ cash_display }}</div><div class="fin-stat__sub">paid in full</div></div>
           </div>
           <div class="fin-checks">
             <span>{% render 'icon', icon: 'check-circle' %} No credit check required</span>
@@ -141,28 +147,27 @@
                   </button>
                   <button type="button" class="pay-option" data-pay="cash">
                     <div class="pay-option__name">Cash Purchase</div>
-                    <div class="pay-option__price">{{ p.price | money }}</div>
+                    <div class="pay-option__price">{{ cash_display }}</div>
                     <div class="pay-option__sub">paid in full</div>
                   </button>
                 </div>
 
                 <div class="summary" data-summary="finance">
-                  <div class="summary__row"><span class="muted">Down payment</span><span>${{ down | default: 0 }}</span></div>
-                  <div class="summary__row"><span class="muted">Document fee</span><span>${{ doc_fee }}</span></div>
-                  <div class="summary__total"><span>Due Today</span><span class="amt">${{ down | default: 0 | plus: doc_fee }}</span></div>
-                  <p class="summary__note">Then ${{ monthly }}/mo until paid in full</p>
+                  <div class="summary__row"><span class="muted">Document fee (reserves this parcel)</span><span>{{ p.price | money }}</span></div>
+                  <div class="summary__total"><span>Due Today</span><span class="amt">{{ p.price | money }}</span></div>
+                  <p class="summary__note">Then ${{ monthly }}/mo{% if down != blank %} after a ${{ down }} down payment{% endif %} — we set up your owner financing after you reserve.</p>
                 </div>
                 <div class="summary" data-summary="cash" hidden>
-                  <div class="summary__row"><span class="muted">Property price</span><span>{{ p.price | money }}</span></div>
-                  <div class="summary__row"><span class="muted">Document fee</span><span>${{ doc_fee }}</span></div>
-                  <div class="summary__total"><span>Due Today</span><span class="amt">{{ p.price | plus: doc_cents | money }}</span></div>
+                  <div class="summary__row"><span class="muted">Document fee (reserves this parcel)</span><span>{{ p.price | money }}</span></div>
+                  <div class="summary__total"><span>Due Today</span><span class="amt">{{ p.price | money }}</span></div>
+                  <p class="summary__note">Balance of {{ cash_display }} due at closing.</p>
                 </div>
               {%- endif -%}
 
               {%- form 'product', p, id: 'ReserveForm' -%}
                 <input type="hidden" name="id" value="{{ p.selected_or_first_available_variant.id }}">
                 <button type="submit" name="add" class="btn btn--accent btn--block btn--lg" style="margin-bottom:var(--space-2)">
-                  {% if monthly != blank %}Reserve This Property{% else %}Add to Cart{% endif %}
+                  Pay {{ p.price | money_without_trailing_zeros }} Document Fee &amp; Reserve
                 </button>
               {%- endform -%}
               <p class="secure-note">🔒 Secure checkout · 60-day money-back guarantee</p>
