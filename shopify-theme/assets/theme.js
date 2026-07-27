@@ -75,24 +75,7 @@
     });
   });
 
-  /* ---- Product gallery: swap main image from thumbnails ---- */
-  var gallery = doc.querySelector("[data-gallery]");
-  if (gallery) {
-    var mainImg = gallery.querySelector("[data-gallery-main] img");
-    gallery.querySelectorAll("[data-gallery-thumb]").forEach(function (thumb) {
-      thumb.addEventListener("click", function () {
-        var full = thumb.getAttribute("data-full");
-        var alt = thumb.getAttribute("data-alt") || "";
-        if (mainImg && full) {
-          mainImg.src = full;
-          mainImg.alt = alt;
-        }
-        gallery.querySelectorAll("[data-gallery-thumb]").forEach(function (t) {
-          t.setAttribute("aria-current", t === thumb ? "true" : "false");
-        });
-      });
-    });
-  }
+  /* ---- Product gallery handled inline in sections/main-product.liquid ---- */
 
   /* ---- Live cart count refresh (after Shopify AJAX or on load) ---- */
   function refreshCartCount() {

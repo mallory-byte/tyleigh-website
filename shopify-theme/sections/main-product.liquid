@@ -227,6 +227,32 @@
   </div>
 </div>
 
+{%- comment -%} Product gallery: swap the main image when a thumbnail is clicked {%- endcomment -%}
+<script>
+  (function () {
+    var g = document.querySelector('[data-gallery]');
+    if (!g) return;
+    var mainImg = g.querySelector('[data-gallery-main] img');
+    if (!mainImg) return;
+    g.querySelectorAll('[data-gallery-thumb]').forEach(function (thumb) {
+      thumb.addEventListener('click', function () {
+        var full = thumb.getAttribute('data-full');
+        var alt = thumb.getAttribute('data-alt') || '';
+        if (full) {
+          mainImg.removeAttribute('srcset');
+          mainImg.removeAttribute('sizes');
+          mainImg.removeAttribute('loading');
+          mainImg.src = full;
+          mainImg.alt = alt;
+        }
+        g.querySelectorAll('[data-gallery-thumb]').forEach(function (t) {
+          t.setAttribute('aria-current', t === thumb ? 'true' : 'false');
+        });
+      });
+    });
+  })();
+</script>
+
 {%- comment -%} Payment method toggle {%- endcomment -%}
 <script>
   (function () {
