@@ -197,6 +197,12 @@
         "id": "show_monthly_price",
         "label": "Show owner-financing (monthly) pricing",
         "default": true
+      },
+      {
+        "type": "number",
+        "id": "finance_term_months",
+        "label": "Default financing term (months)",
+        "info": "Shown as “for N months”. Override any single listing with the custom.term_months metafield."
       }
     ]
   },

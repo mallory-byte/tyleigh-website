@@ -11,6 +11,7 @@
   assign county = m.county.value
   assign monthly = m.monthly_payment.value
   assign down = m.down_payment.value
+  assign term = m.term_months.value | default: settings.finance_term_months
   assign features = m.features.value
   assign has_loc = false
   if state != blank or county != blank
@@ -67,7 +68,7 @@
         {%- if settings.show_monthly_price and monthly != blank -%}
           <div class="price-fin__label">Owner Financing</div>
           <div class="price-fin__amount">${{ monthly }}<small>/mo</small></div>
-          {%- if down != blank -%}<div class="price-fin__down">Down: ${{ down }}</div>{%- endif -%}
+          {%- if down != blank or term != blank -%}<div class="price-fin__down">{% if down != blank %}Down: ${{ down }}{% endif %}{% if down != blank and term != blank %} · {% endif %}{% if term != blank %}{{ term }} mo term{% endif %}</div>{%- endif -%}
         {%- else -%}
           <div class="price-fin__label">Cash Price</div>
           <div class="price-fin__amount">{{ cash_display }}</div>
