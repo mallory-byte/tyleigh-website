@@ -137,6 +137,7 @@
             <div class="fin-stat"><div class="fin-stat__label">Cash Price</div><div class="fin-stat__num">{{ cash_display }}</div><div class="fin-stat__sub">paid in full</div></div>
           </div>
           <div class="fin-checks">
+            {%- if settings.show_zero_interest -%}<span>{% render 'icon', icon: 'check-circle' %} 0% interest — you pay the sticker price, nothing more</span>{%- endif -%}
             <span>{% render 'icon', icon: 'check-circle' %} No credit check required</span>
             <span>{% render 'icon', icon: 'check-circle' %} No pre-payment penalty</span>
             <span>{% render 'icon', icon: 'check-circle' %} 60-day money-back guarantee</span>
@@ -174,7 +175,7 @@
                 <div class="summary" data-summary="finance">
                   <div class="summary__row"><span class="muted">Document fee (reserves this parcel)</span><span>{{ p.price | money }}</span></div>
                   <div class="summary__total"><span>Due Today</span><span class="amt">{{ p.price | money }}</span></div>
-                  <p class="summary__note">Then ${{ monthly }}/mo{% if term != blank %} for {{ term }} months{% endif %}{% if down != blank %} after a ${{ down }} down payment{% endif %} — we set up your owner financing after you reserve.</p>
+                  <p class="summary__note">Then ${{ monthly }}/mo{% if term != blank %} for {{ term }} months{% endif %}{% if settings.show_zero_interest %} at 0% interest{% endif %}{% if down != blank %} after a ${{ down }} down payment{% endif %} — we set up your owner financing after you reserve.</p>
                 </div>
                 <div class="summary" data-summary="cash" hidden>
                   <div class="summary__row"><span class="muted">Document fee (reserves this parcel)</span><span>{{ p.price | money }}</span></div>

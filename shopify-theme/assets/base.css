@@ -239,6 +239,7 @@ em { font-style: italic; }
 .price-fin__down { font-size: 0.72rem; color: var(--color-muted); margin-top: 4px; }
 .price-cash { text-align: right; }
 .price-cash__amount { font-family: var(--font-heading); font-weight: 700; font-size: 1.55rem; color: var(--color-text); line-height: 1; }
+.price-fin__nointerest { display: inline-block; margin-top: 5px; font-size: 0.66rem; font-weight: 700; letter-spacing: 0.02em; color: #2f9e56; background: color-mix(in srgb, #2f9e56 12%, transparent); padding: 0.12rem 0.5rem; border-radius: 999px; }
 .p-card .btn { margin-top: var(--space-4); }
 
 /* Empty state ------------------------------------------------------------- */

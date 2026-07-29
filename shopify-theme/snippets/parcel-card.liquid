@@ -69,6 +69,7 @@
           <div class="price-fin__label">Owner Financing</div>
           <div class="price-fin__amount">${{ monthly }}<small>/mo</small></div>
           {%- if down != blank or term != blank -%}<div class="price-fin__down">{% if down != blank %}Down: ${{ down }}{% endif %}{% if down != blank and term != blank %} · {% endif %}{% if term != blank %}{{ term }} mo term{% endif %}</div>{%- endif -%}
+          {%- if settings.show_zero_interest -%}<div class="price-fin__nointerest">0% interest</div>{%- endif -%}
         {%- else -%}
           <div class="price-fin__label">Cash Price</div>
           <div class="price-fin__amount">{{ cash_display }}</div>

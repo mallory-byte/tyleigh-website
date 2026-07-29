@@ -203,6 +203,12 @@
         "id": "finance_term_months",
         "label": "Default financing term (months)",
         "info": "Shown as “for N months”. Override any single listing with the custom.term_months metafield."
+      },
+      {
+        "type": "checkbox",
+        "id": "show_zero_interest",
+        "label": "Show “0% interest” on financing",
+        "default": true
       }
     ]
   },
