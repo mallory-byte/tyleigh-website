@@ -131,7 +131,7 @@
         <div class="pdp-section">
           <h2>Location</h2>
           <div id="pdp-map" class="pdp-map" data-lat="{{ lat }}" data-lng="{{ lng }}" data-title="{{ p.title | escape }}"></div>
-          <p class="text-muted" style="font-size:0.8rem;margin-top:var(--space-3)">
+          <p class="text-muted pdp-map-note" style="font-size:0.8rem;margin-top:var(--space-3)">
             {% render 'icon', icon: 'map-pin' %} Parcel location: {{ lat }}, {{ lng }}
             &middot; <a href="https://www.google.com/maps/search/?api=1&query={{ lat }},{{ lng }}" target="_blank" rel="noopener">Open in Google Maps</a>
           </p>
