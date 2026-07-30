@@ -1,0 +1,9 @@
+{
+  "sections": {
+    "finder": {
+      "type": "property-finder",
+      "settings": {}
+    }
+  },
+  "order": ["finder"]
+}
