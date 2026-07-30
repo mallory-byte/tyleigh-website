@@ -569,6 +569,28 @@ em { font-style: italic; }
 .owner__trust svg { width: 18px; height: 18px; color: #2f9e56; flex-shrink: 0; }
 .owner--no-image .owner__trust { justify-content: center; }
 
+/* Popup / modal ----------------------------------------------------------- */
+.popup { position: fixed; inset: 0; z-index: 1000; display: grid; place-items: center; padding: var(--space-4); }
+.popup[hidden] { display: none; }
+.popup__overlay { position: absolute; inset: 0; background: rgba(4, 32, 40, 0.6); opacity: 0; transition: opacity 0.25s ease; }
+.popup.is-open .popup__overlay { opacity: 1; }
+.popup__panel { position: relative; width: 100%; max-width: 30rem; background: var(--color-surface); border-radius: var(--radius-lg); box-shadow: var(--shadow-xl); overflow: hidden; transform: translateY(12px) scale(0.98); opacity: 0; transition: transform 0.25s ease, opacity 0.25s ease; }
+.popup.is-open .popup__panel { transform: none; opacity: 1; }
+.popup__close { position: absolute; top: 0.75rem; right: 0.75rem; z-index: 2; width: 2rem; height: 2rem; border: 0; border-radius: 999px; background: rgba(255,255,255,0.85); color: var(--color-text); display: inline-flex; align-items: center; justify-content: center; cursor: pointer; }
+.popup__close:hover { background: #fff; }
+.popup__close svg { width: 18px; height: 18px; }
+.popup__img { width: 100%; height: 9rem; object-fit: cover; display: block; }
+.popup__body { padding: var(--space-6); text-align: center; }
+.popup__body h2 { font-size: 1.5rem; margin-bottom: var(--space-2); }
+.popup__text { color: var(--color-muted); font-size: 0.92rem; margin-bottom: var(--space-4); }
+.popup__form { display: flex; flex-direction: column; gap: var(--space-3); }
+.popup__form .search-form__field { border: 1.5px solid var(--color-border); border-radius: var(--radius); padding: 0 var(--space-3); display: flex; align-items: center; gap: 8px; background: var(--color-bg); }
+.popup__form .search-form__field svg { width: 18px; height: 18px; color: var(--color-muted); flex-shrink: 0; }
+.popup__form input[type="email"] { flex: 1; border: 0; background: transparent; padding: 0.8rem 0; font: inherit; font-size: 1rem; color: var(--color-text); }
+.popup__success { display: inline-flex; align-items: center; gap: 8px; justify-content: center; background: color-mix(in srgb, #2f9e56 12%, transparent); color: #1f7a43; font-weight: 600; padding: var(--space-4); border-radius: var(--radius); }
+.popup__success svg { width: 18px; height: 18px; flex-shrink: 0; }
+.popup__fine { font-size: 0.72rem; color: var(--color-muted); margin: var(--space-3) 0 0; }
+
 /* Password page ----------------------------------------------------------- */
 .password-page { min-height: 100vh; display: grid; place-items: center; text-align: center; padding: var(--space-6); background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark)); color: #fff; }
 .password-page h1 { color: #fff; }
