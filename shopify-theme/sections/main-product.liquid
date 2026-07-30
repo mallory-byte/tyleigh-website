@@ -126,6 +126,42 @@
         </div>
       {%- endif -%}
 
+      {%- comment -%} ---- Location map ---- {%- endcomment -%}
+      {%- if lat != blank and lng != blank -%}
+        <div class="pdp-section">
+          <h2>Location</h2>
+          <div id="pdp-map" class="pdp-map" data-lat="{{ lat }}" data-lng="{{ lng }}" data-title="{{ p.title | escape }}"></div>
+          <p class="text-muted" style="font-size:0.8rem;margin-top:var(--space-3)">
+            {% render 'icon', icon: 'map-pin' %} Parcel location: {{ lat }}, {{ lng }}
+            &middot; <a href="https://www.google.com/maps/search/?api=1&query={{ lat }},{{ lng }}" target="_blank" rel="noopener">Open in Google Maps</a>
+          </p>
+        </div>
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
+        <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+        <script>
+          (function () {
+            function num(v){ var n = parseFloat(v); return isNaN(n) ? null : n; }
+            function init(){
+              if (typeof L === "undefined") { return setTimeout(init, 120); }
+              var el = document.getElementById("pdp-map");
+              if (!el || el._built) return;
+              var lat = num(el.getAttribute("data-lat")), lng = num(el.getAttribute("data-lng"));
+              if (lat === null || lng === null) return;
+              el._built = true;
+              var map = L.map(el, { scrollWheelZoom: false }).setView([lat, lng], 13);
+              L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                maxZoom: 18,
+                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+              }).addTo(map);
+              L.marker([lat, lng]).addTo(map).bindPopup(el.getAttribute("data-title") || "This parcel");
+              setTimeout(function(){ map.invalidateSize(); }, 200);
+            }
+            if (document.readyState === "loading") { document.addEventListener("DOMContentLoaded", init); }
+            else { init(); }
+          })();
+        </script>
+      {%- endif -%}
+
       {%- comment -%} ---- Financing Details ---- {%- endcomment -%}
       {%- if monthly != blank -%}
         <div class="financing-box">
