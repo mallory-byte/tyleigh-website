@@ -4,7 +4,7 @@
     assign col = collections[section.settings.collection]
   endif
 -%}
-<div class="finder" id="finder" data-posted="{% if form.posted_successfully? %}true{% else %}false{% endif %}">
+<div class="finder" id="finder" data-posted="{% if form.posted_successfully? %}true{% else %}false{% endif %}" data-api="{{ section.settings.finder_api_url }}">
   <div class="finder__inner">
 
     {%- comment -%} STEP 1 — landing {%- endcomment -%}
@@ -179,9 +179,19 @@
       }, 1800);
     }
 
+    var api = (root.getAttribute("data-api") || "").trim();
+    function absolutize(list) {
+      return list.map(function (p) {
+        var o = {}; for (var k in p) o[k] = p[k];
+        if (o.url && o.url.indexOf("http") !== 0) o.url = location.origin + o.url;
+        if (o.img && o.img.indexOf("//") === 0) o.img = "https:" + o.img;
+        return o;
+      });
+    }
     var form = document.getElementById("FinderForm");
     if (form) {
-      form.addEventListener("submit", function () {
+      form.addEventListener("submit", function (e) {
+        // Tags + note for the Shopify-customer fallback path.
         var tags = "land-finder";
         if (answers.budget) tags += ", budget-" + (answers.budget >= 99999 ? "500plus" : answers.budget);
         if (answers.state) tags += ", area-" + answers.state.toLowerCase();
@@ -189,6 +199,19 @@
         var note = form.querySelector("[data-note]");
         if (note) note.value = "Land Finder — budget up to $" + (answers.budget || "?") + "/mo, can put down $" + (answers.down === Infinity ? "1000+" : answers.down) + ", wants: " + (answers.state || "Anywhere");
         save();
+
+        // Fully-automated path: POST to the finder endpoint, then show results
+        // in place (no reload). Falls back to the Shopify customer form if no API.
+        if (api) {
+          e.preventDefault();
+          var emailEl = form.querySelector('input[type="email"]');
+          var btn = form.querySelector('button[type="submit"]');
+          if (btn) { btn.disabled = true; btn.textContent = "Sending…"; }
+          var payload = { email: emailEl ? emailEl.value : "", answers: answers, matches: absolutize(matches()) };
+          fetch(api, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) })
+            .catch(function () {})
+            .then(function () { renderResults(); show("results"); });
+        }
       });
     }
 
@@ -231,7 +254,9 @@
     { "type": "text", "id": "heading", "label": "Heading", "default": "See Every Property You Can Afford" },
     { "type": "textarea", "id": "subheading", "label": "Subheading", "default": "Find land based on your monthly budget—not just the purchase price." },
     { "type": "text", "id": "cta_label", "label": "Start button label", "default": "Find My Land →" },
-    { "type": "collection", "id": "collection", "label": "Listings collection", "info": "Which products to match against. Leave blank for all products. Only listings with a monthly payment are included." }
+    { "type": "collection", "id": "collection", "label": "Listings collection", "info": "Which products to match against. Leave blank for all products. Only listings with a monthly payment are included." },
+    { "type": "header", "content": "Automated email (optional)" },
+    { "type": "text", "id": "finder_api_url", "label": "Finder API endpoint", "info": "Your deployed endpoint, e.g. https://your-app.vercel.app/api/finder. When set, submitting auto-emails the lead their matches and notifies you (no page reload). Leave blank to just collect the email into Shopify customers." }
   ],
   "presets": [ { "name": "Property finder" } ]
 }
