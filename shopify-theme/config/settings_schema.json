@@ -1,8 +1,8 @@
 [
   {
     "name": "theme_info",
-    "theme_name": "Ty-Leigh Capital — Jul 29f (auto-finder)",
-    "theme_version": "2.5.0",
+    "theme_name": "Ty-Leigh Capital — Jul 29g (finder-popup)",
+    "theme_version": "2.6.0",
     "theme_author": "Ty-Leigh Capital",
     "theme_documentation_url": "https://tyleighcapital.com",
     "theme_support_url": "https://tyleighcapital.com"
@@ -258,6 +258,21 @@
         "type": "url",
         "id": "social_linkedin",
         "label": "LinkedIn URL"
+      }
+    ]
+  },
+  {
+    "name": "Property Finder",
+    "settings": [
+      {
+        "type": "paragraph",
+        "content": "Powers both the Property Finder page section and the popup. Paste your deployed endpoint once here."
+      },
+      {
+        "type": "text",
+        "id": "finder_api_url",
+        "label": "Finder API endpoint",
+        "info": "e.g. https://tyleigh-app.vercel.app/api/finder — when set, finishing the quiz auto-emails the lead their matches and notifies you. Leave blank to just collect emails into Shopify customers."
       }
     ]
   }
