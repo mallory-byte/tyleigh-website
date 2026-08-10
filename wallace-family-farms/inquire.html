@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Inquire — Wallace Family Farms</title>
+  <meta name="description" content="Write to Wallace Family Farms about our Highland cattle, the waitlist, or just to say hello." />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='84'%3E%F0%9F%90%84%3C/text%3E%3C/svg%3E" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Work+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/styles.css" />
+</head>
+<body>
+  <section class="section">
+    <div class="wrap">
+      <div class="detail-grid">
+        <div>
+          <span class="label">say hello</span>
+          <h1 class="page-title" style="margin:.6rem 0 1.2rem">Write to the farm</h1>
+          <p class="lede">Whether you're ready to reserve a heifer, want on the calving
+            list, or just have questions about the breed — we'd genuinely love to hear
+            from you. We read every note ourselves and we're never in a hurry to sell.</p>
+          <p class="muted" style="margin-top:1.6rem">
+            Prefer to talk? Reach us at <a class="textlink" data-site="phone" href="#">phone</a>
+            or <a class="textlink" data-site="email" href="#">email</a>.
+          </p>
+          <div class="imgband" data-img="highland3" style="margin-top:2rem"></div>
+        </div>
+
+        <div>
+          <form class="form" id="inquireForm" novalidate>
+            <div class="two-col">
+              <div class="field">
+                <label for="f-name">your name</label>
+                <input id="f-name" name="name" type="text" required />
+              </div>
+              <div class="field">
+                <label for="f-phone">phone</label>
+                <input id="f-phone" name="phone" type="tel" />
+              </div>
+            </div>
+            <div class="field">
+              <label for="f-email">email</label>
+              <input id="f-email" name="email" type="email" required />
+            </div>
+            <div class="field">
+              <label for="f-interest">what brings you to us</label>
+              <select id="f-interest" name="interest">
+                <option value="Meeting the fold">Just getting to know the fold</option>
+                <option value="Available stock">A heifer or calf that's available</option>
+                <option value="Calving waitlist">The calving waitlist</option>
+                <option value="A foundation animal">Starting my own fold</option>
+                <option value="Transport & pickup">Transport &amp; pickup questions</option>
+                <option value="Something else">Something else entirely</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="f-message">your note</label>
+              <textarea id="f-message" name="message" placeholder="Tell us a little about what you're looking for…"></textarea>
+            </div>
+            <button class="btn wide" type="submit">send your note</button>
+            <div class="form-note" id="formNote">
+              Thank you — your note is on its way to us. We'll write back soon,
+              usually within a day or two. In the meantime, the coffee's on.
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script src="assets/data.js"></script>
+  <script src="assets/site.js"></script>
+</body>
+</html>

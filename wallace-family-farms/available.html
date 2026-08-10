@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Available Stock — Wallace Family Farms</title>
+  <meta name="description" content="Registered Highland heifers and calves currently available or reserved at Wallace Family Farms." />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='84'%3E%F0%9F%90%84%3C/text%3E%3C/svg%3E" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Work+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/styles.css" />
+</head>
+<body>
+  <section class="section">
+    <div class="wrap">
+      <div class="narrow" style="margin-bottom:3rem">
+        <span class="label">open gate</span>
+        <h1 class="page-title" style="margin:.6rem 0 1rem">Available &amp; reserved</h1>
+        <p class="lede">We only ever have a few at a time, and we place them slowly and
+          on purpose. If one of these speaks to you, reach out — even just to ask
+          questions. Reserved animals are shown too, because plans change and it
+          never hurts to be next in line.</p>
+      </div>
+
+      <div class="card-grid" id="availableGrid"></div>
+
+      <div class="hidden" id="availableEmpty">
+        <div class="narrow" style="border:1px solid var(--rule);padding:clamp(2rem,5vw,3.5rem)">
+          <span class="label rust">sold out, for now</span>
+          <h2 style="margin:.6rem 0 1rem">The gate is quiet at the moment</h2>
+          <p class="muted">Every one of our fold is spoken for right now — which is a happy
+            problem and a fleeting one. The next calves arrive in late winter, and the
+            gentlest tend to go first. Leave your name and we'll write you the moment
+            one is ready.</p>
+          <a class="btn" style="margin-top:1.5rem" href="inquire.html?about=Calving%20waitlist">join the waitlist</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="band">
+    <div class="wrap section-sm">
+      <div class="band-inner">
+        <div>
+          <span class="label rust">how it works</span>
+          <h2 style="margin:.5rem 0 .8rem">Reserving one is simple</h2>
+          <p class="muted">A deposit holds your animal, we keep you posted with photos as
+            they grow, and we sort out pickup or transport together when the time comes.</p>
+          <a class="btn" style="margin-top:1.4rem" href="reserve.html">how to reserve</a>
+        </div>
+        <div>
+          <span class="label" style="display:block;margin-bottom:1rem">next calving season</span>
+          <div class="countdown" data-countdown></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script src="assets/data.js"></script>
+  <script src="assets/site.js"></script>
+</body>
+</html>
