@@ -1,0 +1,534 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#294d33" />
+  <title>Tyleigh Farm — Pasture-Raised, Family-Grown</title>
+  <meta name="description" content="A family farm in Pueblo County, Colorado. Grass-fed beef, pasture-raised chicken and eggs, heirloom produce, raw honey, and weekly CSA shares." />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%8C%BE%3C/text%3E%3C/svg%3E" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --green:        #2f5d3a;
+      --green-deep:   #234a2e;
+      --green-soft:   #e7eee4;
+      --cream:        #faf6ec;
+      --cream-2:      #f3ecdb;
+      --ink:          #1e2a1f;
+      --muted:        #5f6b5c;
+      --gold:         #d4881f;
+      --gold-2:       #b9720f;
+      --border:       #e2dcc9;
+      --radius:       16px;
+      --shadow:       0 10px 30px rgba(35, 55, 35, .10);
+      --shadow-sm:    0 4px 14px rgba(35, 55, 35, .08);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      color: var(--ink);
+      background: var(--cream);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+    h1, h2, h3, h4 { font-family: 'Fraunces', Georgia, serif; font-weight: 600; line-height: 1.1; letter-spacing: -.01em; }
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; display: block; }
+    .wrap { max-width: 1120px; margin: 0 auto; padding: 0 22px; }
+    .eyebrow {
+      font-size: .8rem; font-weight: 600; letter-spacing: .16em;
+      text-transform: uppercase; color: var(--gold-2);
+    }
+    .btn {
+      display: inline-flex; align-items: center; gap: .5rem;
+      font-weight: 600; font-size: .98rem; padding: .85rem 1.6rem;
+      border-radius: 999px; cursor: pointer; border: 1.5px solid transparent;
+      transition: transform .15s ease, background .2s ease, color .2s ease;
+    }
+    .btn:hover { transform: translateY(-2px); }
+    .btn-primary { background: var(--green); color: var(--cream); }
+    .btn-primary:hover { background: var(--green-deep); }
+    .btn-gold { background: var(--gold); color: #fff; }
+    .btn-gold:hover { background: var(--gold-2); }
+    .btn-ghost { background: rgba(255,255,255,.12); color: #fff; border-color: rgba(255,255,255,.5); backdrop-filter: blur(4px); }
+    .btn-ghost:hover { background: #fff; color: var(--green); }
+    .btn-outline { background: transparent; color: var(--green); border-color: var(--green); }
+    .btn-outline:hover { background: var(--green); color: var(--cream); }
+    section { padding: 96px 0; }
+
+    /* ---------- Nav ---------- */
+    header {
+      position: fixed; inset: 0 0 auto 0; z-index: 50;
+      transition: background .3s ease, box-shadow .3s ease, border-color .3s;
+      border-bottom: 1px solid transparent;
+    }
+    header.scrolled {
+      background: rgba(250, 246, 236, .92); backdrop-filter: blur(10px);
+      box-shadow: var(--shadow-sm); border-color: var(--border);
+    }
+    .nav { display: flex; align-items: center; justify-content: space-between; padding: 16px 22px; max-width: 1120px; margin: 0 auto; }
+    .brand { display: flex; align-items: center; gap: .6rem; font-family: 'Fraunces', serif; font-weight: 600; font-size: 1.25rem; color: var(--ink); }
+    .brand .mark {
+      width: 38px; height: 38px; border-radius: 50%; background: var(--green);
+      color: var(--cream); display: grid; place-items: center; font-size: 1.15rem;
+    }
+    header.at-top .brand, header.at-top .nav-links a { color: #fff; }
+    .nav-links { display: flex; align-items: center; gap: 30px; }
+    .nav-links a { font-size: .95rem; font-weight: 500; color: var(--ink); transition: color .2s; }
+    .nav-links a:hover { color: var(--gold-2); }
+    .nav-toggle { display: none; background: none; border: 0; cursor: pointer; }
+    .mobile-menu { display: none; background: var(--cream); border-top: 1px solid var(--border); padding: 10px 22px 20px; }
+    @media (max-width: 860px) {
+      .nav-links { display: none; }
+      .nav-toggle { display: block; }
+      header.at-top .nav-toggle svg { stroke: #fff; }
+      .mobile-menu.open { display: block; }
+      .mobile-menu a { display: block; padding: 12px 4px; font-weight: 500; border-bottom: 1px solid var(--border); }
+      .mobile-menu .btn { margin-top: 14px; width: 100%; justify-content: center; }
+    }
+
+    /* ---------- Hero ---------- */
+    .hero { position: relative; min-height: 100vh; display: flex; align-items: center; color: #fff; overflow: hidden; }
+    .hero-bg { position: absolute; inset: 0; }
+    .hero-bg img { width: 100%; height: 100%; object-fit: cover; }
+    .hero-bg::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(31,52,33,.72) 0%, rgba(31,52,33,.45) 45%, rgba(250,246,236,.15) 100%); }
+    .hero-inner { position: relative; z-index: 2; width: 100%; padding-top: 90px; padding-bottom: 150px; }
+    .hero .tag { display: inline-flex; align-items: center; gap: .5rem; background: rgba(255,255,255,.14); border: 1px solid rgba(255,255,255,.28); padding: .4rem 1rem; border-radius: 999px; font-size: .85rem; font-weight: 500; backdrop-filter: blur(4px); }
+    .hero h1 { font-size: clamp(2.8rem, 7vw, 5rem); margin: 22px 0 0; font-weight: 600; }
+    .hero p.lead { max-width: 560px; margin-top: 20px; font-size: 1.18rem; color: rgba(255,255,255,.92); }
+    .hero .cta { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 34px; }
+
+    /* stat strip */
+    .stats { position: absolute; inset: auto 0 0 0; z-index: 2; background: rgba(250,246,236,.85); backdrop-filter: blur(8px); border-top: 1px solid var(--border); }
+    .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); max-width: 1120px; margin: 0 auto; }
+    .stats-grid div { text-align: center; padding: 26px 8px; border-left: 1px solid var(--border); }
+    .stats-grid div:first-child { border-left: 0; }
+    .stats-grid .k { font-family: 'Fraunces', serif; font-size: 2rem; font-weight: 600; color: var(--green); }
+    .stats-grid .v { font-size: .72rem; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); margin-top: 4px; }
+    @media (max-width: 700px) { .stats-grid { grid-template-columns: repeat(2, 1fr); } .stats-grid div:nth-child(3) { border-left: 0; } }
+
+    /* ---------- Story ---------- */
+    .grain { background-image: radial-gradient(rgba(30,42,31,.045) 1px, transparent 1px); background-size: 18px 18px; }
+    .story-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+    .story-img { position: relative; }
+    .story-img img { border-radius: 24px; box-shadow: var(--shadow); aspect-ratio: 4/5; object-fit: cover; width: 100%; }
+    .story-badge { position: absolute; right: -14px; bottom: -22px; background: var(--green); color: var(--cream); border-radius: 18px; padding: 18px 22px; box-shadow: var(--shadow); }
+    .story-badge .n { font-family: 'Fraunces', serif; font-size: 2rem; font-weight: 600; }
+    .story-badge .l { font-size: .7rem; text-transform: uppercase; letter-spacing: .08em; opacity: .82; }
+    h2.section-title { font-size: clamp(2rem, 4.5vw, 3rem); margin-top: 12px; }
+    .lead-p { font-size: 1.12rem; color: var(--muted); margin-top: 18px; }
+    .values { display: grid; grid-template-columns: repeat(3, 1fr); gap: 26px; margin-top: 40px; }
+    .values .ic { width: 44px; height: 44px; border-radius: 12px; background: var(--green-soft); color: var(--green); display: grid; place-items: center; font-size: 1.3rem; }
+    .values h3 { font-size: 1.1rem; margin-top: 14px; }
+    .values p { font-size: .92rem; color: var(--muted); margin-top: 6px; }
+    @media (max-width: 860px) { .story-grid { grid-template-columns: 1fr; gap: 48px; } .values { grid-template-columns: 1fr; } .story-badge { right: 16px; } }
+
+    /* ---------- Farm store ---------- */
+    .store { background: var(--cream-2); }
+    .filters { display: flex; flex-wrap: wrap; gap: 10px; margin: 32px 0 8px; }
+    .chip { border: 0; cursor: pointer; padding: .55rem 1.1rem; border-radius: 999px; font-weight: 500; font-size: .9rem; background: var(--cream); color: var(--muted); transition: all .18s; }
+    .chip:hover { color: var(--ink); }
+    .chip.active { background: var(--green); color: var(--cream); }
+    .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; margin-top: 24px; }
+    @media (max-width: 860px) { .cards { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 560px) { .cards { grid-template-columns: 1fr; } }
+    .card { background: var(--cream); border: 1px solid var(--border); border-radius: var(--radius); padding: 24px; display: flex; flex-direction: column; box-shadow: var(--shadow-sm); transition: box-shadow .2s, transform .2s; }
+    .card:hover { box-shadow: var(--shadow); transform: translateY(-3px); }
+    .card .top { display: flex; justify-content: space-between; align-items: flex-start; }
+    .card .emoji { width: 56px; height: 56px; border-radius: 16px; background: var(--green-soft); display: grid; place-items: center; font-size: 1.8rem; }
+    .pill { font-size: .72rem; font-weight: 600; padding: .28rem .7rem; border-radius: 999px; }
+    .pill.in { background: var(--green-soft); color: var(--green-deep); }
+    .pill.out { background: #ece7d6; color: var(--muted); }
+    .card h3 { font-size: 1.22rem; margin-top: 18px; }
+    .card p { font-size: .92rem; color: var(--muted); margin-top: 8px; flex: 1; }
+    .card .foot { display: flex; justify-content: space-between; align-items: flex-end; border-top: 1px solid var(--border); margin-top: 18px; padding-top: 14px; }
+    .card .price { font-family: 'Fraunces', serif; font-size: 1.5rem; font-weight: 600; }
+    .card .unit { font-size: .85rem; color: var(--muted); margin-left: 4px; }
+    .card .season { font-size: .72rem; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); }
+    .store-banner { display: flex; flex-wrap: wrap; gap: 20px; align-items: center; justify-content: space-between; background: var(--green); color: var(--cream); border-radius: 22px; padding: 30px 34px; margin-top: 40px; }
+    .store-banner h3 { font-size: 1.5rem; }
+    .store-banner p { color: rgba(250,246,236,.82); margin-top: 4px; }
+
+    /* ---------- CSA ---------- */
+    .center { text-align: center; max-width: 640px; margin: 0 auto; }
+    .plans { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; margin-top: 52px; align-items: start; }
+    @media (max-width: 860px) { .plans { grid-template-columns: 1fr; max-width: 440px; margin-left: auto; margin-right: auto; } }
+    .plan { position: relative; border: 1px solid var(--border); background: var(--cream); border-radius: 24px; padding: 32px; box-shadow: var(--shadow-sm); }
+    .plan.hl { background: var(--green); color: var(--cream); border-color: var(--green); box-shadow: var(--shadow); }
+    .plan .feeds { font-size: .9rem; color: var(--muted); margin-top: 4px; }
+    .plan.hl .feeds { color: rgba(250,246,236,.75); }
+    .plan .amt { margin-top: 18px; }
+    .plan .amt .p { font-family: 'Fraunces', serif; font-size: 2.6rem; font-weight: 600; }
+    .plan .amt .c { font-size: .9rem; color: var(--muted); }
+    .plan.hl .amt .c { color: rgba(250,246,236,.75); }
+    .plan ul { list-style: none; margin: 24px 0; display: grid; gap: 12px; }
+    .plan li { display: flex; gap: 10px; font-size: .93rem; }
+    .plan li .ck { color: var(--gold); flex-shrink: 0; }
+    .plan.hl li .ck { color: #f2c15a; }
+    .badge-pop { position: absolute; top: -13px; left: 50%; transform: translateX(-50%); background: var(--gold); color: #fff; font-size: .72rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; padding: .3rem .9rem; border-radius: 999px; }
+    .plan .btn { width: 100%; justify-content: center; }
+    .csa-note { text-align: center; color: var(--muted); font-size: .9rem; margin-top: 28px; }
+
+    /* ---------- Testimonials ---------- */
+    .quotes { background: var(--green); color: var(--cream); }
+    .quotes .eyebrow { color: #f2c15a; }
+    .qgrid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; margin-top: 48px; }
+    @media (max-width: 860px) { .qgrid { grid-template-columns: 1fr; } }
+    .quote { background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.14); border-radius: 22px; padding: 30px; }
+    .quote .mark { font-family: 'Fraunces', serif; font-size: 3rem; line-height: .5; color: #f2c15a; height: 26px; }
+    .quote blockquote { font-size: 1.06rem; margin: 8px 0 20px; color: rgba(250,246,236,.95); }
+    .quote .who { border-top: 1px solid rgba(255,255,255,.14); padding-top: 14px; }
+    .quote .who .n { font-family: 'Fraunces', serif; font-weight: 600; }
+    .quote .who .d { font-size: .85rem; color: rgba(250,246,236,.7); }
+
+    /* ---------- Visit ---------- */
+    .visit-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; }
+    @media (max-width: 860px) { .visit-grid { grid-template-columns: 1fr; gap: 40px; } }
+    .info-row { display: flex; gap: 16px; margin-top: 26px; }
+    .info-row .ic { width: 44px; height: 44px; border-radius: 12px; background: var(--green-soft); color: var(--green); display: grid; place-items: center; flex-shrink: 0; font-size: 1.2rem; }
+    .info-row h3 { font-size: 1.1rem; }
+    .hours { list-style: none; margin-top: 8px; }
+    .hours li { display: flex; justify-content: space-between; gap: 30px; font-size: .93rem; color: var(--muted); padding: 3px 0; }
+    .hours li b { color: var(--ink); font-weight: 500; }
+    .contacts { display: flex; flex-wrap: wrap; gap: 22px; margin-top: 26px; }
+    .contacts a { display: inline-flex; align-items: center; gap: 8px; font-weight: 500; color: var(--green); }
+    .form-card { background: var(--cream); border: 1px solid var(--border); border-radius: 24px; padding: 32px; box-shadow: var(--shadow-sm); }
+    .form-card h3 { font-size: 1.4rem; }
+    .form-card p.sub { font-size: .92rem; color: var(--muted); margin-top: 6px; }
+    .field { margin-top: 16px; }
+    .field label { display: block; font-size: .88rem; font-weight: 500; margin-bottom: 6px; }
+    .field input, .field textarea { width: 100%; font: inherit; padding: .7rem .9rem; border: 1px solid var(--border); border-radius: 10px; background: #fff; color: var(--ink); }
+    .field input:focus, .field textarea:focus { outline: 2px solid var(--green); outline-offset: 1px; border-color: transparent; }
+    .two { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    @media (max-width: 480px) { .two { grid-template-columns: 1fr; } }
+    #formMsg { display: none; margin-top: 14px; background: var(--green-soft); color: var(--green-deep); border-radius: 10px; padding: 12px 14px; font-size: .9rem; }
+    #formMsg.show { display: block; }
+
+    /* ---------- Footer ---------- */
+    footer { background: var(--cream-2); border-top: 1px solid var(--border); padding: 60px 0 34px; }
+    .foot-grid { display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 40px; }
+    @media (max-width: 720px) { .foot-grid { grid-template-columns: 1fr; gap: 30px; } }
+    footer p.blurb { color: var(--muted); font-size: .93rem; margin-top: 14px; max-width: 300px; }
+    .socials { display: flex; gap: 10px; margin-top: 18px; }
+    .socials a { width: 38px; height: 38px; border-radius: 50%; background: var(--cream); display: grid; place-items: center; color: var(--muted); transition: all .2s; }
+    .socials a:hover { background: var(--green); color: var(--cream); }
+    footer h4 { font-size: .82rem; text-transform: uppercase; letter-spacing: .08em; }
+    footer ul { list-style: none; margin-top: 16px; display: grid; gap: 10px; }
+    footer ul a, footer address { font-size: .92rem; color: var(--muted); font-style: normal; }
+    footer ul a:hover { color: var(--green); }
+    address { display: grid; gap: 8px; margin-top: 16px; }
+    .foot-bottom { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 10px; border-top: 1px solid var(--border); margin-top: 40px; padding-top: 22px; font-size: .8rem; color: var(--muted); }
+
+    .reveal { opacity: 0; transform: translateY(22px); transition: opacity .6s ease, transform .6s ease; }
+    .reveal.in { opacity: 1; transform: none; }
+    @media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; } html { scroll-behavior: auto; } }
+  </style>
+</head>
+<body>
+  <!-- ============ NAV ============ -->
+  <header id="header" class="at-top">
+    <nav class="nav">
+      <a href="#top" class="brand"><span class="mark">🌾</span> Tyleigh Farm</a>
+      <div class="nav-links">
+        <a href="#story">Our Story</a>
+        <a href="#shop">Farm Store</a>
+        <a href="#csa">CSA Shares</a>
+        <a href="#visit">Visit Us</a>
+        <a href="#csa" class="btn btn-primary" style="padding:.6rem 1.2rem;">Join the CSA</a>
+      </div>
+      <button class="nav-toggle" id="navToggle" aria-label="Menu">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#1e2a1f" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+    </nav>
+    <div class="mobile-menu" id="mobileMenu">
+      <a href="#story">Our Story</a>
+      <a href="#shop">Farm Store</a>
+      <a href="#csa">CSA Shares</a>
+      <a href="#visit">Visit Us</a>
+      <a href="#csa" class="btn btn-primary">Join the CSA</a>
+    </div>
+  </header>
+
+  <!-- ============ HERO ============ -->
+  <section class="hero" id="top">
+    <div class="hero-bg">
+      <img src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=2000&q=80" alt="Golden farm field at sunrise" />
+    </div>
+    <div class="wrap hero-inner">
+      <span class="tag">🌿 Family-run since 2014 · Pueblo County, Colorado</span>
+      <h1>Real food, raised<br>the honest way.</h1>
+      <p class="lead">Tyleigh Farm is a small pasture-based farm growing grass-fed meats, fresh eggs, heirloom produce, and raw honey — the way your grandparents would recognize. No shortcuts, just good dirt and time.</p>
+      <div class="cta">
+        <a href="#shop" class="btn btn-gold">Shop the farm store →</a>
+        <a href="#csa" class="btn btn-ghost">Join a CSA share</a>
+      </div>
+    </div>
+    <div class="stats">
+      <div class="stats-grid">
+        <div><div class="k">120</div><div class="v">acres of pasture</div></div>
+        <div><div class="k">100%</div><div class="v">grass-fed &amp; finished</div></div>
+        <div><div class="k">0</div><div class="v">confinement, ever</div></div>
+        <div><div class="k">3</div><div class="v">market days a week</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ STORY ============ -->
+  <section class="grain" id="story">
+    <div class="wrap story-grid">
+      <div class="story-img reveal">
+        <img src="https://images.unsplash.com/photo-1560493676-04071c5f467b?auto=format&fit=crop&w=1200&q=80" alt="Cattle grazing on open pasture" />
+        <div class="story-badge"><div class="n" id="yearsBadge">10</div><div class="l">years on this land</div></div>
+      </div>
+      <div class="reveal">
+        <span class="eyebrow">Our Story</span>
+        <h2 class="section-title">A working farm,<br>not a factory.</h2>
+        <p class="lead-p">We started Tyleigh Farm with a handful of hens and a stubborn belief that food tastes better when it's grown with care. A decade later we're still a family operation — moving cattle at dawn, gathering eggs by hand, and picking tomatoes the same morning you take them home.</p>
+        <p class="lead-p">Everything we raise stays close to home, sold straight from our store and at the Saturday market. When you buy from us, you know exactly where your food came from and who stood in the field to grow it.</p>
+        <div class="values">
+          <div><div class="ic">🌱</div><h3>Regenerative by habit</h3><p>We rotate our animals daily so the land gets richer every season — deeper roots, healthier soil, more life.</p></div>
+          <div><div class="ic">☀️</div><h3>Raised outdoors</h3><p>Sunshine, grass, and fresh air. Our animals live the way they were meant to, and you can taste the difference.</p></div>
+          <div><div class="ic">🤝</div><h3>Know your farmer</h3><p>Every dozen eggs and cut of beef comes from our hands to yours. Ask us anything — we love to talk shop.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FARM STORE ============ -->
+  <section class="store" id="shop">
+    <div class="wrap">
+      <div style="max-width:620px">
+        <span class="eyebrow">The Farm Store</span>
+        <h2 class="section-title">Picked, pastured, and priced fairly.</h2>
+        <p class="lead-p">Everything below is available at the farm store or reserved for pickup. Availability shifts with the seasons — call ahead for larger orders and whole-animal shares.</p>
+      </div>
+      <div class="filters" id="filters"></div>
+      <div class="cards" id="cards"></div>
+
+      <div class="store-banner">
+        <div>
+          <h3>Want it every week without thinking about it?</h3>
+          <p>A CSA share is the easiest way to eat from the farm all season.</p>
+        </div>
+        <a href="#csa" class="btn btn-gold">See CSA shares</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CSA ============ -->
+  <section id="csa">
+    <div class="wrap">
+      <div class="center">
+        <span class="eyebrow">CSA Shares</span>
+        <h2 class="section-title">A season of the farm, delivered to your table.</h2>
+        <p class="lead-p">Community Supported Agriculture means you sign on for the season and we set aside the best of every harvest for you. Pick up at the farm or the Saturday market — no contracts, cancel anytime.</p>
+      </div>
+      <div class="plans" id="plans"></div>
+      <p class="csa-note">Shares run in 12-week seasons. First pickup begins the week after you sign up.</p>
+    </div>
+  </section>
+
+  <!-- ============ TESTIMONIALS ============ -->
+  <section class="quotes">
+    <div class="wrap">
+      <div class="center">
+        <span class="eyebrow">From our table to yours</span>
+        <h2 class="section-title" style="color:var(--cream)">Neighbors who taste the difference.</h2>
+      </div>
+      <div class="qgrid" id="quotes"></div>
+    </div>
+  </section>
+
+  <!-- ============ VISIT ============ -->
+  <section class="grain" id="visit">
+    <div class="wrap visit-grid">
+      <div class="reveal">
+        <span class="eyebrow">Visit the Farm</span>
+        <h2 class="section-title">Come see where your food grows.</h2>
+        <p class="lead-p">The farm store is open three days a week and you're always welcome to say hello to the animals. Bring the kids — the hens are friendly and the barn cats are famous.</p>
+        <div class="info-row">
+          <div class="ic">🕒</div>
+          <div>
+            <h3>Store hours</h3>
+            <ul class="hours">
+              <li><b>Friday</b><span>9am – 6pm</span></li>
+              <li><b>Saturday</b><span>8am – 5pm</span></li>
+              <li><b>Sunday</b><span>10am – 4pm</span></li>
+              <li><b>Mon – Thu</b><span>By appointment</span></li>
+            </ul>
+          </div>
+        </div>
+        <div class="info-row">
+          <div class="ic">📍</div>
+          <div>
+            <h3>Find us</h3>
+            <p style="color:var(--muted);font-size:.93rem;margin-top:4px">4200 County Road 9, Pueblo, CO 81006</p>
+          </div>
+        </div>
+        <div class="contacts">
+          <a href="tel:+17195550142">📞 (719) 555-0142</a>
+          <a href="mailto:hello@tyleighcapital.com">✉️ hello@tyleighcapital.com</a>
+        </div>
+      </div>
+
+      <div class="form-card reveal">
+        <h3>Reserve a share or ask a question</h3>
+        <p class="sub">Tell us what you're after — a CSA share, a whole-animal order, or just directions to the store.</p>
+        <form id="contactForm">
+          <div class="two">
+            <div class="field"><label>Name</label><input required name="name" placeholder="Jane Farmer" /></div>
+            <div class="field"><label>Email</label><input required type="email" name="email" placeholder="jane@email.com" /></div>
+          </div>
+          <div class="field"><label>How can we help?</label><textarea required rows="4" name="message" placeholder="I'd love to reserve a Family Share for the summer season…"></textarea></div>
+          <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;margin-top:16px">Send message</button>
+          <div id="formMsg">🌾 Thanks! Someone from the farm will get back to you within a day.</div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FOOTER ============ -->
+  <footer>
+    <div class="wrap">
+      <div class="foot-grid">
+        <div>
+          <div class="brand"><span class="mark">🌾</span> Tyleigh Farm</div>
+          <p class="blurb">Pasture-raised, family-grown, honestly good. A family farm in Pueblo County, Colorado, raising real food since 2014.</p>
+          <div class="socials">
+            <a href="#" aria-label="Instagram">📷</a>
+            <a href="#" aria-label="Facebook">📘</a>
+          </div>
+        </div>
+        <div>
+          <h4>Explore</h4>
+          <ul>
+            <li><a href="#story">Our Story</a></li>
+            <li><a href="#shop">Farm Store</a></li>
+            <li><a href="#csa">CSA Shares</a></li>
+            <li><a href="#visit">Visit Us</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Come by</h4>
+          <address>
+            <span>4200 County Road 9, Pueblo, CO 81006</span>
+            <a href="tel:+17195550142">(719) 555-0142</a>
+            <a href="mailto:hello@tyleighcapital.com">hello@tyleighcapital.com</a>
+          </address>
+        </div>
+      </div>
+      <div class="foot-bottom">
+        <span>© <span id="year"></span> Tyleigh Farm. Grown with care in Colorado.</span>
+        <span>Pasture-raised · Family-owned · No shortcuts</span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // ---------- Data ----------
+    const PRODUCTS = [
+      { name: 'Grass-Fed Ground Beef', cat: 'Meat', price: '$9', unit: 'per lb', emoji: '🥩', season: 'Year-round', stock: true, blurb: 'From cattle raised entirely on our open pasture — never grain-finished, never rushed.' },
+      { name: 'Pasture-Raised Whole Chicken', cat: 'Meat', price: '$6', unit: 'per lb', emoji: '🍗', season: 'Apr – Nov', stock: true, blurb: 'Slow-grown broilers that spend their days on fresh grass and sunshine.' },
+      { name: 'Heritage Pork Share', cat: 'Meat', price: '$4.50', unit: 'per lb (hanging)', emoji: '🐖', season: 'Fall', stock: true, blurb: 'Berkshire-cross hogs rooting through our woodlot. Reserve a quarter, half, or whole.' },
+      { name: 'Fresh Farm Eggs', cat: 'Eggs & Dairy', price: '$7', unit: 'per dozen', emoji: '🥚', season: 'Year-round', stock: true, blurb: 'Deep-orange yolks from hens that follow the cattle across the pasture.' },
+      { name: 'Wildflower Raw Honey', cat: 'Pantry', price: '$12', unit: 'per jar', emoji: '🍯', season: 'Summer', stock: true, blurb: 'Unfiltered and unheated, straight from our hives along the creek.' },
+      { name: 'Heirloom Tomatoes', cat: 'Produce', price: '$4', unit: 'per lb', emoji: '🍅', season: 'Jul – Sep', stock: true, blurb: 'Sun-ripened and picked the morning you pick them up. A dozen varieties.' },
+      { name: 'Sweet Corn', cat: 'Produce', price: '$6', unit: 'per dozen', emoji: '🌽', season: 'Aug – Sep', stock: false, blurb: 'Picked at dawn, sweet as it gets. Gone fast every Saturday.' },
+      { name: 'Seasonal Greens Bunch', cat: 'Produce', price: '$3.50', unit: 'per bunch', emoji: '🥬', season: 'Spring / Fall', stock: true, blurb: 'Kale, chard, and lettuces cut fresh from the market garden.' },
+    ];
+    const CATS = ['All', 'Meat', 'Eggs & Dairy', 'Produce', 'Pantry'];
+    const SHARES = [
+      { name: 'Market Basket', price: '$110', cadence: 'per month', feeds: 'Feeds 1 – 2', hl: false, features: ["A rotating box of the week's best produce", '1 dozen eggs each week', 'First pick of seasonal specialties', 'Cancel anytime'] },
+      { name: 'Family Share', price: '$185', cadence: 'per month', feeds: 'Feeds 3 – 5', hl: true, features: ['A generous weekly produce box', '2 dozen eggs each week', '2 lbs of pasture-raised meat monthly', 'Wildflower honey each season', 'Priority on holiday turkeys & hams'] },
+      { name: 'Homestead Share', price: '$320', cadence: 'per month', feeds: 'Feeds 5+', hl: false, features: ['Our largest weekly produce box', '3 dozen eggs each week', '5 lbs of mixed meat monthly', 'Honey, preserves & pantry extras', '10% off everything in the farm store'] },
+    ];
+    const QUOTES = [
+      { q: "The eggs alone converted our whole family. Once you've had a Tyleigh yolk you can't go back to the store.", n: 'Marisol D.', d: 'Family Share member, 3 years' },
+      { q: "You can taste that the animals had a good life. The ground beef is the best we've ever cooked with — full stop.", n: 'Grant & Kelly W.', d: 'Pueblo, CO' },
+      { q: 'Picking up our box on Saturday morning has become the best part of our week. The kids love saying hi to the hens.', n: 'The Alvarez Family', d: 'CSA members since 2021' },
+    ];
+
+    // ---------- Render ----------
+    const cardsEl = document.getElementById('cards');
+    const filtersEl = document.getElementById('filters');
+    let activeCat = 'All';
+
+    function renderCards() {
+      const list = activeCat === 'All' ? PRODUCTS : PRODUCTS.filter(p => p.cat === activeCat);
+      cardsEl.innerHTML = list.map(p => `
+        <div class="card">
+          <div class="top">
+            <div class="emoji">${p.emoji}</div>
+            <span class="pill ${p.stock ? 'in' : 'out'}">${p.stock ? 'In season' : 'Back soon'}</span>
+          </div>
+          <h3>${p.name}</h3>
+          <p>${p.blurb}</p>
+          <div class="foot">
+            <div><span class="price">${p.price}</span><span class="unit">${p.unit}</span></div>
+            <span class="season">${p.season}</span>
+          </div>
+        </div>`).join('');
+    }
+    filtersEl.innerHTML = CATS.map(c => `<button class="chip ${c === 'All' ? 'active' : ''}" data-cat="${c}">${c}</button>`).join('');
+    filtersEl.addEventListener('click', e => {
+      const btn = e.target.closest('.chip'); if (!btn) return;
+      activeCat = btn.dataset.cat;
+      filtersEl.querySelectorAll('.chip').forEach(c => c.classList.toggle('active', c === btn));
+      renderCards();
+    });
+    renderCards();
+
+    document.getElementById('plans').innerHTML = SHARES.map(s => `
+      <div class="plan ${s.hl ? 'hl' : ''}">
+        ${s.hl ? '<span class="badge-pop">Most popular</span>' : ''}
+        <h3>${s.name}</h3>
+        <div class="feeds">${s.feeds}</div>
+        <div class="amt"><span class="p">${s.price}</span> <span class="c">${s.cadence}</span></div>
+        <ul>${s.features.map(f => `<li><span class="ck">✓</span><span>${f}</span></li>`).join('')}</ul>
+        <a href="#visit" class="btn ${s.hl ? 'btn-gold' : 'btn-outline'}">Reserve this share</a>
+      </div>`).join('');
+
+    document.getElementById('quotes').innerHTML = QUOTES.map(t => `
+      <figure class="quote">
+        <div class="mark">&ldquo;</div>
+        <blockquote>${t.q}</blockquote>
+        <figcaption class="who"><div class="n">${t.n}</div><div class="d">${t.d}</div></figcaption>
+      </figure>`).join('');
+
+    // ---------- Behavior ----------
+    document.getElementById('year').textContent = new Date().getFullYear();
+    document.getElementById('yearsBadge').textContent = new Date().getFullYear() - 2014;
+
+    const header = document.getElementById('header');
+    const onScroll = () => {
+      header.classList.toggle('scrolled', window.scrollY > 24);
+      header.classList.toggle('at-top', window.scrollY <= 24);
+    };
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+
+    const toggle = document.getElementById('navToggle');
+    const menu = document.getElementById('mobileMenu');
+    toggle.addEventListener('click', () => menu.classList.toggle('open'));
+    menu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => menu.classList.remove('open')));
+
+    document.getElementById('contactForm').addEventListener('submit', e => {
+      e.preventDefault();
+      e.target.reset();
+      const msg = document.getElementById('formMsg');
+      msg.classList.add('show');
+      setTimeout(() => msg.classList.remove('show'), 5000);
+    });
+
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(en => { if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); } });
+    }, { threshold: 0.12 });
+    document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+  </script>
+</body>
+</html>
