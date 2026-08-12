@@ -61,34 +61,45 @@
       '<section class="credo"><div class="wrap section"><h2 class="big serif">'+S.credo+'</h2></div></section>'+
       '<footer class="site-footer"><div class="wrap">'+
         '<div class="foot-grid">'+
-          '<div><span class="wordmark">'+S.nameHtml+'</span><p>'+esc(S.tagline)+'</p></div>'+
+          '<div>'+
+            '<span class="wordmark">'+S.nameHtml+'</span>'+
+            '<p>'+esc(S.tagline)+'</p>'+
+            (S.instagram||S.facebook ? '<div class="foot-social">'+
+              (S.instagram?'<a href="'+S.instagram+'" target="_blank" rel="noopener">Instagram</a>':'')+
+              (S.facebook?'<a href="'+S.facebook+'" target="_blank" rel="noopener">Facebook</a>':'')+
+            '</div>' : '')+
+          '</div>'+
           '<div class="foot-col"><h4>Explore</h4><ul>'+
+            '<li><a href="species.html?s=cattle">Our Animals</a></li>'+
             '<li><a href="available.html">Available Stock</a></li>'+
             '<li><a href="events.html">Events</a></li>'+
             '<li><a href="store.html">Store</a></li>'+
             '<li><a href="inquire.html">Inquire</a></li>'+
           '</ul></div>'+
-          '<div class="foot-col"><h4>Find Us</h4><ul>'+
-            '<li>High-Plains Pasture</li>'+
-            '<li>Route 4, County Line</li>'+
-            '<li>By appointment only</li>'+
+          '<div class="foot-col"><h4>Visit</h4><ul>'+
+            '<li>'+esc(S.address)+'</li>'+
+            '<li>'+esc(S.hours)+'</li>'+
           '</ul></div>'+
           '<div class="foot-col"><h4>Contact</h4><ul>'+
             '<li><a href="tel:'+S.phone.replace(/[^\d+]/g,'')+'">'+esc(S.phone)+'</a></li>'+
             '<li><a href="mailto:'+S.email+'">'+esc(S.email)+'</a></li>'+
           '</ul></div>'+
         '</div>'+
-        '<div class="foot-bottom"><span>© 2026 '+esc(S.name)+'</span><span>Heritage husbandry · raised slow</span></div>'+
+        '<div class="foot-bottom"><span>© 2026 '+esc(S.name)+' · '+esc(S.address)+'</span><span>Heritage husbandry · raised slow</span></div>'+
       '</div></footer>';
   }
 
   function mountChrome(){
     document.body.insertBefore(el(headerHTML()), document.body.firstChild);
-    document.body.appendChild(el(footerHTML()));
+    // footerHTML() has two top-level pieces (credo band + footer) — append both
+    var fw = document.createElement('div'); fw.innerHTML = footerHTML();
+    while (fw.firstChild) document.body.appendChild(fw.firstChild);
     var hdr = byId('siteHeader');
     var hero = document.body.classList.contains('has-hero');
     function onScroll(){ hdr.classList.toggle('solid', !hero || window.scrollY > 40); }
-    if(!hero){ hdr.classList.add('solid'); document.body.style.paddingTop='64px'; }
+    if(!hero){ hdr.classList.add('solid'); }
+    function sizeHeader(){ var h = hdr.offsetHeight || 64; document.documentElement.style.setProperty('--hdr', h + 'px'); if(!hero) document.body.style.paddingTop = h + 'px'; }
+    sizeHeader(); window.addEventListener('load', sizeHeader); window.addEventListener('resize', sizeHeader);
     onScroll(); window.addEventListener('scroll', onScroll, {passive:true});
     var t=byId('navToggle'), m=byId('mobileNav');
     if(t&&m){ t.addEventListener('click',function(){ m.classList.toggle('open'); }); }

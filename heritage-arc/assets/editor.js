@@ -47,7 +47,11 @@
       '<div class="ed-row"><label>Ranch name<input data-s="name" value="'+esc(s.name)+'"></label>'+
         '<label>Phone<input data-s="phone" value="'+esc(s.phone)+'"></label>'+
         '<label>Email<input data-s="email" value="'+esc(s.email)+'"></label></div>'+
-      '<label class="ed-full">Tagline<input data-s="tagline" value="'+esc(s.tagline)+'"></label>';
+      '<label class="ed-full">Tagline<input data-s="tagline" value="'+esc(s.tagline)+'"></label>'+
+      '<label class="ed-full">Address (footer)<input data-s="address" value="'+esc(s.address||'')+'"></label>'+
+      '<div class="ed-row"><label>Hours (footer)<input data-s="hours" value="'+esc(s.hours||'')+'"></label>'+
+        '<label>Instagram link<input data-s="instagram" value="'+esc(s.instagram||'')+'"></label>'+
+        '<label>Facebook link<input data-s="facebook" value="'+esc(s.facebook||'')+'"></label></div>';
   }
 
   // ---------- website wording ----------

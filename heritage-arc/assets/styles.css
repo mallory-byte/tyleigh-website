@@ -25,6 +25,7 @@
 
   --wrap: 1240px;
   --measure: 60ch;
+  --hdr: 64px;
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -105,7 +106,7 @@ p { max-width: var(--measure); }
 .ph > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 1; }
 
 /* ---------- home hero ---------- */
-.hero { position: relative; min-height: 100vh; display: flex; align-items: flex-end; color: #fff; overflow: hidden; background: #4b463f center/cover no-repeat; background-image: linear-gradient(180deg, rgba(40,36,31,.28) 0%, rgba(40,36,31,.12) 42%, rgba(40,36,31,.72) 100%), radial-gradient(120% 90% at 60% 22%, #cdbfa4 0%, #9c9077 42%, #4c4436 100%); }
+.hero { position: relative; min-height: calc(100vh - var(--hdr)); display: flex; align-items: flex-end; color: #fff; overflow: hidden; background: #4b463f center/cover no-repeat; background-image: linear-gradient(180deg, rgba(40,36,31,.28) 0%, rgba(40,36,31,.12) 42%, rgba(40,36,31,.72) 100%), radial-gradient(120% 90% at 60% 22%, #cdbfa4 0%, #9c9077 42%, #4c4436 100%); }
 .hero .hero-img { position: absolute; inset: 0; z-index: 0; }
 .hero .hero-img img { width: 100%; height: 100%; object-fit: cover; }
 .hero .hero-scrim { position: absolute; inset: 0; z-index: 1; background: linear-gradient(180deg, rgba(40,36,31,.28) 0%, rgba(40,36,31,.10) 42%, rgba(40,36,31,.74) 100%); }
@@ -181,6 +182,9 @@ p { max-width: var(--measure); }
 @media (max-width: 820px) { .foot-grid { grid-template-columns: 1fr 1fr; gap: 2rem; } }
 @media (max-width: 480px) { .foot-grid { grid-template-columns: 1fr; } }
 .foot-grid .wordmark { color: var(--bone); font-size: 1.4rem; }
+.foot-social { margin-top: 1.1rem; }
+.foot-social a { display: inline-block; margin-right: 1.2rem; font-size: .9rem; color: rgba(244,239,229,.75); }
+.foot-social a:hover { color: var(--gold); }
 .foot-grid p { color: rgba(244,239,229,.6); font-size: .92rem; margin-top: 1rem; max-width: 32ch; }
 .foot-col h4 { font-family: var(--sans); font-size: .7rem; letter-spacing: .2em; text-transform: uppercase; color: rgba(244,239,229,.5); margin-bottom: 1.1rem; }
 .foot-col ul { list-style: none; }

@@ -46,7 +46,11 @@
     tagline: 'Heritage-grade goats, sheep, and cattle raised on the high plains.',
     credo: 'We honor the lineage of the land and the animal — <em>with deliberate, daily care.</em>',
     phone: '(555) 555-0100',
-    email: 'hello@wallacefamilyfarms.com'
+    email: 'hello@wallacefamilyfarms.com',
+    address: 'High-Plains Pasture, Route 4, County Line',
+    hours: 'Sat–Sun · 9am–3pm · by appointment',
+    instagram: 'https://instagram.com/',
+    facebook: 'https://facebook.com/'
   };
 
   // species: imageKey/heroKey point at IMG (local) + STOCK (fallback)
