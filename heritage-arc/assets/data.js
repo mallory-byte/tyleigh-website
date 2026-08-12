@@ -65,6 +65,20 @@
       imageKey:'goats', heroKey:'goats' }
   };
 
+  // Editable page wording (change these in the editor's "Website wording" tab).
+  // <em>...</em> makes a word italic in the display serif.
+  var COPY = {
+    heroOverline:  'Goats · Sheep · Cattle',
+    heroHeadline:  'Bloodlines kept for the <em>long</em> arc of a breed.',
+    heroSub:       'A sanctuary of heritage husbandry where goats, sheep, and cattle are raised as breeding stock, fiber, and dairy — known by name, recorded for life, and stewarded with quiet care.',
+    storyKicker:   'The Philosophy',
+    storyHeading:  'We raise livestock as <em>heritage</em>, not as commodity.',
+    storyP1:       'From the first acre we fenced, we have tended this high-plains pasture with deliberate care — keeping meticulous records of every bloodline, every temperament, every season. The result is livestock of uncommon constitution and quiet dignity.',
+    storyP2:       'Our approach is unhurried by design. We breed for longevity, structural soundness, and the kind of maternal instinct that only attentive, daily stewardship can cultivate. Each animal is known by name, observed daily, and held to a standard worthy of the land they graze.',
+    horizonHeading:'Counting down to <em>new life</em>.',
+    nextHeading:   'However you\'d like to <em>begin</em>.'
+  };
+
   // ─────────────────────────────────────────────────────────────────────────
   // THE ANIMALS.  To ADD one: copy a line below, paste it as a new line, and
   // change the values (keep the quotes and the comma at the end).
@@ -74,19 +88,19 @@
   //              Available Stock page; anything shows on the species page)
   // Then (optional) upload a photo to  images/animals/<slug>.jpg
   // TEMPLATE (copy this line):
-  // { slug:'rosie', name:'Rosie', species:'cattle', breed:'Hereford', id:'CT-041', sex:'Cow', age:'3 yr', weight:'1,300 lb', status:'Available', desc:'A sentence about her.' },
+  // { slug:'rosie', name:'Rosie', species:'cattle', breed:'Hereford', id:'CT-041', sex:'Cow', age:'3 yr', status:'Available', desc:'A sentence about her.' },
   // ─────────────────────────────────────────────────────────────────────────
   var ANIMALS = [
-    { slug:'evergreen', name:'Evergreen', species:'cattle', breed:'Aberdeen Angus', id:'CT-008', sex:'Bull', age:'5 yr', weight:'1,840 lb', status:'Available', desc:'Deep-bodied, structurally flawless bull with a proven record of easy-calving progeny.' },
-    { slug:'magnolia', name:'Magnolia', species:'cattle', breed:'Hereford', id:'CT-015', sex:'Cow', age:'4 yr', weight:'1,420 lb', status:'Reserved', desc:'Classic brood cow with a quiet disposition, deep flank, and outstanding maternal instinct.' },
-    { slug:'cedar', name:'Cedar', species:'cattle', breed:'Aberdeen Angus', id:'CT-022', sex:'Cow', age:'3 yr', weight:'1,510 lb', status:'Available', desc:'Stylish, moderate-framed cow with depth of rib and a faultless udder.' },
-    { slug:'juniper', name:'Juniper', species:'cattle', breed:'Hereford', id:'CT-030', sex:'Heifer', age:'2 yr', weight:'1,080 lb', status:'Available', desc:'Rising heifer with length, balance, and the calm eye of her dam.' },
-    { slug:'willow', name:'Willow', species:'sheep', breed:'Romney', id:'SH-004', sex:'Ewe', age:'3 yr', weight:'165 lb', status:'Available', desc:'Long-staple Romney ewe with dense, lustrous fleece and a famously gentle way.' },
-    { slug:'bramble', name:'Bramble', species:'sheep', breed:'Border Leicester', id:'SH-009', sex:'Ram', age:'4 yr', weight:'220 lb', status:'Available', desc:'Border Leicester ram throwing high-crimp lambs with real fleece character.' },
-    { slug:'fern', name:'Fern', species:'sheep', breed:'Romney', id:'SH-013', sex:'Ewe', age:'2 yr', weight:'150 lb', status:'Reserved', desc:'Correct, feminine ewe from our best-fleeced line.' },
-    { slug:'clover', name:'Clover', species:'goats', breed:'Nubian', id:'GT-002', sex:'Doe', age:'3 yr', weight:'135 lb', status:'Available', desc:'Deep-bodied Nubian milker with butterfat to spare and a sweet, people-loving temperament.' },
-    { slug:'hazel', name:'Hazel', species:'goats', breed:'Boer', id:'GT-007', sex:'Doe', age:'4 yr', weight:'175 lb', status:'Available', desc:'Heavy-boned Boer doe, an easy kidder with strong maternal instinct.' },
-    { slug:'sage', name:'Sage', species:'goats', breed:'Nubian', id:'GT-011', sex:'Buck', age:'2 yr', weight:'160 lb', status:'Reserved', desc:'Flashy Nubian buck with length of bone and impeccable dairy character.' }
+    { slug:'evergreen', name:'Evergreen', species:'cattle', breed:'Aberdeen Angus', id:'CT-008', sex:'Bull', age:'5 yr', status:'Available', desc:'Deep-bodied, structurally flawless bull with a proven record of easy-calving progeny.' },
+    { slug:'magnolia', name:'Magnolia', species:'cattle', breed:'Hereford', id:'CT-015', sex:'Cow', age:'4 yr', status:'Reserved', desc:'Classic brood cow with a quiet disposition, deep flank, and outstanding maternal instinct.' },
+    { slug:'cedar', name:'Cedar', species:'cattle', breed:'Aberdeen Angus', id:'CT-022', sex:'Cow', age:'3 yr', status:'Available', desc:'Stylish, moderate-framed cow with depth of rib and a faultless udder.' },
+    { slug:'juniper', name:'Juniper', species:'cattle', breed:'Hereford', id:'CT-030', sex:'Heifer', age:'2 yr', status:'Available', desc:'Rising heifer with length, balance, and the calm eye of her dam.' },
+    { slug:'willow', name:'Willow', species:'sheep', breed:'Romney', id:'SH-004', sex:'Ewe', age:'3 yr', status:'Available', desc:'Long-staple Romney ewe with dense, lustrous fleece and a famously gentle way.' },
+    { slug:'bramble', name:'Bramble', species:'sheep', breed:'Border Leicester', id:'SH-009', sex:'Ram', age:'4 yr', status:'Available', desc:'Border Leicester ram throwing high-crimp lambs with real fleece character.' },
+    { slug:'fern', name:'Fern', species:'sheep', breed:'Romney', id:'SH-013', sex:'Ewe', age:'2 yr', status:'Reserved', desc:'Correct, feminine ewe from our best-fleeced line.' },
+    { slug:'clover', name:'Clover', species:'goats', breed:'Nubian', id:'GT-002', sex:'Doe', age:'3 yr', status:'Available', desc:'Deep-bodied Nubian milker with butterfat to spare and a sweet, people-loving temperament.' },
+    { slug:'hazel', name:'Hazel', species:'goats', breed:'Boer', id:'GT-007', sex:'Doe', age:'4 yr', status:'Available', desc:'Heavy-boned Boer doe, an easy kidder with strong maternal instinct.' },
+    { slug:'sage', name:'Sage', species:'goats', breed:'Nubian', id:'GT-011', sex:'Buck', age:'2 yr', status:'Reserved', desc:'Flashy Nubian buck with length of bone and impeccable dairy character.' }
     // ↑ To add an animal, put a comma after the last line above, then paste
     //   your new line here (see the TEMPLATE near the top of this list).
   ];
@@ -96,5 +110,5 @@
     { kicker:'Calving Season', title:'The Cattle Herd', body:'Angus and Hereford cows bred for easy, early-spring calving.', target:'2027-02-20', expected:'Expected February 20, 2027' }
   ];
 
-  window.HA = { SITE: SITE, SPECIES: SPECIES, ANIMALS: ANIMALS, HORIZON: HORIZON, IMG: IMG, STOCK: STOCK };
+  window.HA = { SITE: SITE, SPECIES: SPECIES, ANIMALS: ANIMALS, HORIZON: HORIZON, IMG: IMG, STOCK: STOCK, COPY: COPY };
 })();

@@ -18,9 +18,9 @@
     <div class="hero-scrim"></div>
     <div class="hero-top wrap"><span class="kicker">A Heritage Ranch</span></div>
     <div class="hero-inner wrap">
-      <span class="overline">Goats · Sheep · Cattle</span>
-      <h1>Bloodlines kept for the <em>long</em> arc of a breed.</h1>
-      <p class="sub">A sanctuary of heritage husbandry where goats, sheep, and cattle are raised as breeding stock, fiber, and dairy — known by name, recorded for life, and stewarded with quiet care.</p>
+      <span class="overline" data-copy="heroOverline"></span>
+      <h1 data-copy="heroHeadline"></h1>
+      <p class="sub" data-copy="heroSub"></p>
       <div class="cta">
         <a class="btn on-dark" href="available.html">View Available Stock</a>
         <a class="arrow" href="#philosophy">Our Story →</a>
@@ -33,13 +33,13 @@
     <div class="wrap">
       <div class="split">
         <div>
-          <span class="kicker">The Philosophy</span>
-          <h2 class="big" style="margin:1rem 0 2rem">We raise livestock as <em>heritage</em>, not as commodity.</h2>
+          <span class="kicker" data-copy="storyKicker"></span>
+          <h2 class="big" style="margin:1rem 0 2rem" data-copy="storyHeading"></h2>
           <div class="ph" data-img="philosophy" style="aspect-ratio:5/4"></div>
         </div>
         <div class="watermark-H">
-          <p class="lede" style="position:relative;z-index:1">From the first acre we fenced, we have tended this high-plains pasture with deliberate care — keeping meticulous records of every bloodline, every temperament, every season. The result is livestock of uncommon constitution and quiet dignity.</p>
-          <p class="lede" style="position:relative;z-index:1;margin-top:1.6rem">Our approach is unhurried by design. We breed for longevity, structural soundness, and the kind of maternal instinct that only attentive, daily stewardship can cultivate. Each animal is known by name, observed daily, and held to a standard worthy of the land they graze.</p>
+          <p class="lede" style="position:relative;z-index:1" data-copy="storyP1"></p>
+          <p class="lede" style="position:relative;z-index:1;margin-top:1.6rem" data-copy="storyP2"></p>
         </div>
       </div>
     </div>
@@ -51,21 +51,21 @@
       <!-- Cattle -->
       <div class="split feature-row" style="border-top:1px solid var(--line)">
         <div class="ph col-img" data-img="cattle" style="aspect-ratio:3/4"></div>
-        <div class="feature-copy">
-          <span class="kicker">The Cattle</span>
-          <div class="eyebrow" style="margin:.9rem 0 .2rem">Our Herd</div>
-          <h2>Deep-bodied, quiet <em>cattle</em>.</h2>
-          <p class="lede">Aberdeen Angus and Hereford lines bred for easy calving, deep constitution, and a temperament that makes them a pleasure to work. Every cow is known, every calf is recorded.</p>
+        <div class="feature-copy" data-species="cattle">
+          <span class="kicker" data-sp-kicker></span>
+          <div class="eyebrow" style="margin:.9rem 0 .2rem" data-sp-label></div>
+          <h2 data-sp-title></h2>
+          <p class="lede" data-sp-body></p>
           <a class="arrow rust" style="margin-top:1.6rem" href="species.html?s=cattle">Meet the herd →</a>
         </div>
       </div>
       <!-- Sheep -->
       <div class="split feature-row">
-        <div class="feature-copy">
-          <span class="kicker">The Sheep</span>
-          <div class="eyebrow" style="margin:.9rem 0 .2rem">Our Flock</div>
-          <h2>Lustrous, gentle <em>sheep</em>.</h2>
-          <p class="lede">Romney and Border Leicester sheep chosen for their long-staple, high-crimp fleece and famously gentle disposition. A flock that thrives on attention and open ground.</p>
+        <div class="feature-copy" data-species="sheep">
+          <span class="kicker" data-sp-kicker></span>
+          <div class="eyebrow" style="margin:.9rem 0 .2rem" data-sp-label></div>
+          <h2 data-sp-title></h2>
+          <p class="lede" data-sp-body></p>
           <a class="arrow rust" style="margin-top:1.6rem" href="species.html?s=sheep">Meet the flock →</a>
         </div>
         <div class="ph col-img" data-img="sheep" style="aspect-ratio:3/4"></div>
@@ -73,11 +73,11 @@
       <!-- Goats -->
       <div class="split feature-row">
         <div class="ph col-img" data-img="goats" style="aspect-ratio:3/4"></div>
-        <div class="feature-copy">
-          <span class="kicker">The Goats</span>
-          <div class="eyebrow" style="margin:.9rem 0 .2rem">Our Herd</div>
-          <h2>Maternal, sound <em>goats</em>.</h2>
-          <p class="lede">Nubian and Boer goats selected for maternal instinct and structural soundness — milkers with character and breeding stock with impeccable lines.</p>
+        <div class="feature-copy" data-species="goats">
+          <span class="kicker" data-sp-kicker></span>
+          <div class="eyebrow" style="margin:.9rem 0 .2rem" data-sp-label></div>
+          <h2 data-sp-title></h2>
+          <p class="lede" data-sp-body></p>
           <a class="arrow rust" style="margin-top:1.6rem" href="species.html?s=goats">Meet the herd →</a>
         </div>
       </div>
@@ -88,7 +88,7 @@
   <section class="horizon">
     <div class="wrap section center">
       <span class="kicker center">On the Horizon</span>
-      <h2 class="big" style="margin-top:1rem">Counting down to <em>new life</em>.</h2>
+      <h2 class="big" style="margin-top:1rem" data-copy="horizonHeading"></h2>
       <div class="board" id="horizonBoard"></div>
     </div>
   </section>
@@ -97,7 +97,7 @@
   <section class="section center">
     <div class="wrap">
       <span class="kicker center">Next Steps</span>
-      <h2 class="big" style="margin-top:1rem">However you'd like to <em>begin</em>.</h2>
+      <h2 class="big" style="margin-top:1rem" data-copy="nextHeading"></h2>
       <div class="paths" style="text-align:left">
         <div class="path"><span class="eyebrow">Available Stock</span><h3>Find your next animal</h3><p>Browse the goats, sheep, and cattle currently ready for their next home.</p><a class="arrow" href="available.html">View the Ledger →</a></div>
         <div class="path"><span class="eyebrow">Events</span><h3>Gather with us</h3><p>Open barn days, seasonal sales, and the kidding-season weekend.</p><a class="arrow" href="events.html">See what's on →</a></div>

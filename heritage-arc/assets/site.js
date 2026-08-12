@@ -3,7 +3,7 @@
    ========================================================================= */
 (function () {
   var S = window.HA.SITE, SP = window.HA.SPECIES, ANIMALS = window.HA.ANIMALS, HORIZON = window.HA.HORIZON;
-  var IMG = window.HA.IMG, STOCK = window.HA.STOCK;
+  var IMG = window.HA.IMG, STOCK = window.HA.STOCK, COPY = window.HA.COPY || {};
 
   function el(h){ var d=document.createElement('div'); d.innerHTML=h.trim(); return d.firstChild; }
   function byId(id){ return document.getElementById(id); }
@@ -101,7 +101,6 @@
         '<div class="top"><h3>'+esc(a.name)+'</h3><span class="id">'+esc(a.id)+'</span></div>'+
         '<div class="breed">'+esc(a.breed)+'</div>'+
         '<div class="spec"><div><div class="k">Age</div><div class="v">'+esc(a.age)+'</div></div>'+
-          '<div><div class="k">Weight</div><div class="v">'+esc(a.weight)+'</div></div>'+
           '<div><div class="k">Status</div><div class="v">'+esc(a.status)+'</div></div></div>'+
         '<div class="desc">'+esc(a.desc)+'</div>'+
       '</div></a>';
@@ -192,7 +191,6 @@
           '<p class="lede">'+esc(a.desc)+'</p>'+
           '<div class="spec" style="max-width:420px;margin-top:1.8rem">'+
             '<div><div class="k">Age</div><div class="v">'+esc(a.age)+'</div></div>'+
-            '<div><div class="k">Weight</div><div class="v">'+esc(a.weight)+'</div></div>'+
             '<div><div class="k">Status</div><div class="v">'+esc(a.status)+'</div></div></div>'+
           '<table style="width:100%;max-width:420px;border-collapse:collapse;margin-top:1.4rem;font-size:.95rem">'+
             '<tr><td style="padding:.5rem 0;color:var(--muted);border-bottom:1px solid var(--line)">Registry ID</td><td style="text-align:right;border-bottom:1px solid var(--line)">'+esc(a.id)+'</td></tr>'+
@@ -228,6 +226,15 @@
   function fillTokens(){
     document.querySelectorAll('[data-img]').forEach(function(n){ n.classList.add('ph'); n.innerHTML=img2(n.getAttribute('data-img')); });
     document.querySelectorAll('[data-hero-img]').forEach(function(n){ n.innerHTML=img2(n.getAttribute('data-hero-img')); });
+    // editable page wording
+    document.querySelectorAll('[data-copy]').forEach(function(n){ var v=COPY[n.getAttribute('data-copy')]; if(v!=null) n.innerHTML=v; });
+    // home animal blurbs, filled from SPECIES (edit once, updates home + species page)
+    document.querySelectorAll('[data-species]').forEach(function(n){
+      var sp=SP[n.getAttribute('data-species')]; if(!sp) return;
+      function put(sel,val,html){ var e=n.querySelector(sel); if(e){ if(html) e.innerHTML=val; else e.textContent=val; } }
+      put('[data-sp-kicker]', sp.kicker); put('[data-sp-label]', sp.label);
+      put('[data-sp-title]', sp.title, true); put('[data-sp-body]', sp.body);
+    });
   }
 
   document.addEventListener('DOMContentLoaded',function(){

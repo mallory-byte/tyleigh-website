@@ -8,7 +8,7 @@
   var HA = window.HA;
   var state = JSON.parse(JSON.stringify({
     IMG: HA.IMG, STOCK: HA.STOCK, SITE: HA.SITE, SPECIES: HA.SPECIES,
-    ANIMALS: HA.ANIMALS, HORIZON: HA.HORIZON
+    ANIMALS: HA.ANIMALS, HORIZON: HA.HORIZON, COPY: HA.COPY || {}
   }));
 
   function esc(s){ return String(s==null?'':s).replace(/[&<>"]/g,function(c){return({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'})[c];}); }
@@ -29,7 +29,6 @@
         '<label>ID<input data-f="id" value="'+esc(a.id)+'"></label></div>'+
       '<div class="ed-row"><label>Sex<input data-f="sex" value="'+esc(a.sex)+'"></label>'+
         '<label>Age<input data-f="age" value="'+esc(a.age)+'"></label>'+
-        '<label>Weight<input data-f="weight" value="'+esc(a.weight)+'"></label>'+
         '<label>Status<select data-f="status">'+opt(STATUS,a.status)+'</select></label></div>'+
       '<label class="ed-full">Description<textarea data-f="desc" rows="2">'+esc(a.desc)+'</textarea></label>'+
       '<button class="ed-del" data-del="'+i+'">Remove this animal</button>'+
@@ -50,6 +49,39 @@
       '<label class="ed-full">Tagline<input data-s="tagline" value="'+esc(s.tagline)+'"></label>';
   }
 
+  // ---------- website wording ----------
+  var COPY_LABELS = {
+    heroOverline:  'Home · small line above the headline',
+    heroHeadline:  'Home · big headline',
+    heroSub:       'Home · paragraph under the headline',
+    storyKicker:   'Home · story label',
+    storyHeading:  'Home · story headline',
+    storyP1:       'Home · story paragraph 1',
+    storyP2:       'Home · story paragraph 2',
+    horizonHeading:'Home · "counting down" headline',
+    nextHeading:   'Home · "next steps" headline'
+  };
+  function fieldFor(key, label, val, big){
+    return '<label class="ed-full">'+esc(label)+ (big
+      ? '<textarea data-w="'+key+'" rows="3">'+esc(val)+'</textarea>'
+      : '<input data-w="'+key+'" value="'+esc(val)+'">') + '</label>';
+  }
+  function renderWording(){
+    var host = byId('edWording'); if(!host) return;
+    var html = '<p style="color:var(--muted);font-size:.88rem;margin-bottom:1rem">Tip: wrap a word in <code>&lt;em&gt;word&lt;/em&gt;</code> to make it italic, like the site does.</p>';
+    Object.keys(COPY_LABELS).forEach(function(k){
+      html += fieldFor(k, COPY_LABELS[k], state.COPY[k]!=null?state.COPY[k]:'', /Sub|P1|P2/.test(k));
+    });
+    html += '<label class="ed-full">Footer credo line<input data-s="credo" value="'+esc(state.SITE.credo)+'"></label>';
+    ['cattle','sheep','goats'].forEach(function(sp){
+      var s = state.SPECIES[sp];
+      html += '<div class="ed-card"><b style="font-family:var(--serif);font-size:1.15rem">The '+esc(s.plural)+'</b>'+
+        '<label class="ed-full" style="margin-top:.6rem">Headline<input data-ws="'+sp+'|title" value="'+esc(s.title)+'"></label>'+
+        '<label class="ed-full">Paragraph<textarea data-ws="'+sp+'|body" rows="3">'+esc(s.body)+'</textarea></label></div>';
+    });
+    host.innerHTML = html;
+  }
+
   document.addEventListener('input', function(e){
     var t = e.target;
     if (t.hasAttribute && t.hasAttribute('data-f')) {
@@ -57,6 +89,10 @@
       state.ANIMALS[i][t.getAttribute('data-f')] = t.value;
     } else if (t.hasAttribute && t.hasAttribute('data-s')) {
       state.SITE[t.getAttribute('data-s')] = t.value;
+    } else if (t.hasAttribute && t.hasAttribute('data-w')) {
+      state.COPY[t.getAttribute('data-w')] = t.value;
+    } else if (t.hasAttribute && t.hasAttribute('data-ws')) {
+      var parts = t.getAttribute('data-ws').split('|'); state.SPECIES[parts[0]][parts[1]] = t.value;
     }
   });
   document.addEventListener('click', function(e){
@@ -67,7 +103,7 @@
   });
 
   function addAnimal(){
-    state.ANIMALS.push({ slug:'', name:'New Animal', species:'cattle', breed:'', id:'', sex:'', age:'', weight:'', status:'Available', desc:'' });
+    state.ANIMALS.push({ slug:'', name:'New Animal', species:'cattle', breed:'', id:'', sex:'', age:'', status:'Available', desc:'' });
     renderAnimals();
     var cards = document.querySelectorAll('.ed-card'); cards[cards.length-1].scrollIntoView({behavior:'smooth', block:'center'});
   }
@@ -81,9 +117,10 @@
       '  var STOCK = ' + o(state.STOCK) + ';\n' +
       '  var SITE = ' + o(state.SITE) + ';\n' +
       '  var SPECIES = ' + o(state.SPECIES) + ';\n' +
+      '  var COPY = ' + o(state.COPY) + ';\n' +
       '  var ANIMALS = ' + o(state.ANIMALS) + ';\n' +
       '  var HORIZON = ' + o(state.HORIZON) + ';\n' +
-      '  window.HA = { SITE: SITE, SPECIES: SPECIES, ANIMALS: ANIMALS, HORIZON: HORIZON, IMG: IMG, STOCK: STOCK };\n' +
+      '  window.HA = { SITE: SITE, SPECIES: SPECIES, ANIMALS: ANIMALS, HORIZON: HORIZON, IMG: IMG, STOCK: STOCK, COPY: COPY };\n' +
       '})();\n';
   }
 
@@ -141,7 +178,7 @@
   }
 
   document.addEventListener('DOMContentLoaded', function(){
-    renderSite(); renderAnimals();
+    renderSite(); renderWording(); renderAnimals();
     byId('edAdd').addEventListener('click', addAnimal);
     byId('edDownload').addEventListener('click', download);
     byId('edPublish').addEventListener('click', publish);
