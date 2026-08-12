@@ -76,8 +76,35 @@
     storyP1:       'From the first acre we fenced, we have tended this high-plains pasture with deliberate care — keeping meticulous records of every bloodline, every temperament, every season. The result is livestock of uncommon constitution and quiet dignity.',
     storyP2:       'Our approach is unhurried by design. We breed for longevity, structural soundness, and the kind of maternal instinct that only attentive, daily stewardship can cultivate. Each animal is known by name, observed daily, and held to a standard worthy of the land they graze.',
     horizonHeading:'Counting down to <em>new life</em>.',
-    nextHeading:   'However you\'d like to <em>begin</em>.'
+    nextHeading:   'However you\'d like to <em>begin</em>.',
+    availHeading:      'Animals ready for their <em>next home</em>.',
+    eventsKicker:      'On the Calendar',
+    eventsHeading:     'Gather with us <em>through the seasons</em>.',
+    eventsIntroHeading:'Come see the farm through the year.',
+    eventsIntro:       'A handful of days each season when the gates open — to meet the new kids and calves, watch the shearing, or find your next animal. Most are casual; a couple ask that you let us know you\'re coming.',
+    storeKicker:       'The Farm Store',
+    storeHeading:      'From the flock and the <em>hearth</em>.',
+    storeIntroHeading: 'Small-batch goods from our animals.',
+    storeIntro:        'Fleece from the flock, milk soap from the does, honey from the hedgerows — made in small runs and sold as the seasons allow. To buy, send a note and we\'ll set it aside; pickup at the farm or the Saturday market.',
+    storeCta:          'Want something you don\'t see here? <em>Just ask.</em>',
+    inquireHeading:    'Begin a conversation about <em>your next animal</em>.'
   };
+
+  // Events (shown on the Events page). Edit in the editor's "Events" section.
+  var EVENTS = [
+    { when:'March 14–15, 2027', title:'Spring Kidding Weekend', body:'Meet the Nubian and Boer kids their very first weekend on the ground. Bring the family — the little ones are hard to leave.', cta:'RSVP' },
+    { when:'May 3, 2027', title:'Open Barn Day', body:'Walk the pasture, meet the herd and flock, and talk husbandry over coffee. No appointment needed — just come by.', cta:'Ask us more' },
+    { when:'June 7, 2027', title:'Shearing Day', body:'Watch the Romney and Border Leicester flock get their summer haircut. Fresh fleece and roving available at the store table.', cta:'RSVP' },
+    { when:'October 18, 2027', title:'Fall Production Sale', body:'Our best available stock, offered by private treaty. A quiet day among good animals and good people. RSVP appreciated.', cta:'RSVP' }
+  ];
+
+  // Store products. "img" is a photo key from IMG above (or a filename in /images).
+  var PRODUCTS = [
+    { name:'Raw Fleece & Roving', price:'$18', blurb:'Long-staple Romney and Border Leicester fleece, skirted and ready to spin.', img:'wool' },
+    { name:'Hand-spun Yarn', price:'$26', blurb:'Our own fleece, washed, carded, and spun into soft worsted skeins.', img:'yarn' },
+    { name:'Goat Milk Soap', price:'$8', blurb:'Creamy bars from our Nubian does\' milk, scented with herbs from the garden.', img:'soap' },
+    { name:'Wildflower Honey', price:'$12', blurb:'Raw and unfiltered, from hives along the creek. A jar of the whole season.', img:'honey' }
+  ];
 
   // ─────────────────────────────────────────────────────────────────────────
   // THE ANIMALS.  To ADD one: copy a line below, paste it as a new line, and
@@ -110,5 +137,5 @@
     { kicker:'Calving Season', title:'The Cattle Herd', body:'Angus and Hereford cows bred for easy, early-spring calving.', target:'2027-02-20', expected:'Expected February 20, 2027' }
   ];
 
-  window.HA = { SITE: SITE, SPECIES: SPECIES, ANIMALS: ANIMALS, HORIZON: HORIZON, IMG: IMG, STOCK: STOCK, COPY: COPY };
+  window.HA = { SITE: SITE, SPECIES: SPECIES, ANIMALS: ANIMALS, HORIZON: HORIZON, IMG: IMG, STOCK: STOCK, COPY: COPY, EVENTS: EVENTS, PRODUCTS: PRODUCTS };
 })();

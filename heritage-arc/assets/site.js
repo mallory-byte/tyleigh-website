@@ -4,6 +4,7 @@
 (function () {
   var S = window.HA.SITE, SP = window.HA.SPECIES, ANIMALS = window.HA.ANIMALS, HORIZON = window.HA.HORIZON;
   var IMG = window.HA.IMG, STOCK = window.HA.STOCK, COPY = window.HA.COPY || {};
+  var EVENTS = window.HA.EVENTS || [], PRODUCTS = window.HA.PRODUCTS || [];
 
   function el(h){ var d=document.createElement('div'); d.innerHTML=h.trim(); return d.firstChild; }
   function byId(id){ return document.getElementById(id); }
@@ -199,6 +200,28 @@
         '</div></div></div></section>';
   }
 
+  // ---------- events ----------
+  function renderEvents(){
+    var host = byId('eventsList'); if(!host) return;
+    host.innerHTML = EVENTS.map(function(e){
+      return '<div class="event"><div class="when">'+esc(e.when)+'</div>'+
+        '<div class="what"><h3>'+esc(e.title)+'</h3><p>'+esc(e.body)+'</p></div>'+
+        '<div><a class="btn" href="inquire.html?about=Events">'+esc(e.cta||'RSVP')+'</a></div></div>';
+    }).join('');
+  }
+
+  // ---------- store ----------
+  function renderStore(){
+    var host = byId('storeGrid'); if(!host) return;
+    host.innerHTML = PRODUCTS.map(function(pr){
+      var im = IMG[pr.img] ? img2(pr.img, pr.name) : imgTag(pr.img, pr.name, '');
+      return '<div class="product"><div class="ph">'+im+'</div>'+
+        '<div class="body"><div class="top"><h3>'+esc(pr.name)+'</h3><span class="price">'+esc(pr.price)+'</span></div>'+
+        '<p>'+esc(pr.blurb)+'</p>'+
+        '<a class="arrow rust" href="inquire.html?about=Store">Inquire to purchase →</a></div></div>';
+    }).join('');
+  }
+
   // ---------- forms ----------
   function initForms(){
     // visit form + generic confirm
@@ -240,6 +263,7 @@
   document.addEventListener('DOMContentLoaded',function(){
     mountChrome(); fillTokens();
     renderHorizon(); renderSpecies(); renderAvailable(); renderAnimal();
+    renderEvents(); renderStore();
     initForms(); initReveal();
   });
 })();

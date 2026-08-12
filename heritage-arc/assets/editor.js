@@ -8,7 +8,8 @@
   var HA = window.HA;
   var state = JSON.parse(JSON.stringify({
     IMG: HA.IMG, STOCK: HA.STOCK, SITE: HA.SITE, SPECIES: HA.SPECIES,
-    ANIMALS: HA.ANIMALS, HORIZON: HA.HORIZON, COPY: HA.COPY || {}
+    ANIMALS: HA.ANIMALS, HORIZON: HA.HORIZON, COPY: HA.COPY || {},
+    EVENTS: HA.EVENTS || [], PRODUCTS: HA.PRODUCTS || []
   }));
 
   function esc(s){ return String(s==null?'':s).replace(/[&<>"]/g,function(c){return({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'})[c];}); }
@@ -59,7 +60,18 @@
     storyP1:       'Home · story paragraph 1',
     storyP2:       'Home · story paragraph 2',
     horizonHeading:'Home · "counting down" headline',
-    nextHeading:   'Home · "next steps" headline'
+    nextHeading:   'Home · "next steps" headline',
+    availHeading:      'Available Stock · headline',
+    eventsKicker:      'Events · small label',
+    eventsHeading:     'Events · hero headline',
+    eventsIntroHeading:'Events · intro headline',
+    eventsIntro:       'Events · intro paragraph',
+    storeKicker:       'Store · small label',
+    storeHeading:      'Store · hero headline',
+    storeIntroHeading: 'Store · intro headline',
+    storeIntro:        'Store · intro paragraph',
+    storeCta:          'Store · bottom banner line',
+    inquireHeading:    'Inquire · headline'
   };
   function fieldFor(key, label, val, big){
     return '<label class="ed-full">'+esc(label)+ (big
@@ -70,16 +82,52 @@
     var host = byId('edWording'); if(!host) return;
     var html = '<p style="color:var(--muted);font-size:.88rem;margin-bottom:1rem">Tip: wrap a word in <code>&lt;em&gt;word&lt;/em&gt;</code> to make it italic, like the site does.</p>';
     Object.keys(COPY_LABELS).forEach(function(k){
-      html += fieldFor(k, COPY_LABELS[k], state.COPY[k]!=null?state.COPY[k]:'', /Sub|P1|P2/.test(k));
+      html += fieldFor(k, COPY_LABELS[k], state.COPY[k]!=null?state.COPY[k]:'', /(Sub|P1|P2|Intro)$/.test(k));
     });
     html += '<label class="ed-full">Footer credo line<input data-s="credo" value="'+esc(state.SITE.credo)+'"></label>';
     ['cattle','sheep','goats'].forEach(function(sp){
       var s = state.SPECIES[sp];
       html += '<div class="ed-card"><b style="font-family:var(--serif);font-size:1.15rem">The '+esc(s.plural)+'</b>'+
-        '<label class="ed-full" style="margin-top:.6rem">Headline<input data-ws="'+sp+'|title" value="'+esc(s.title)+'"></label>'+
-        '<label class="ed-full">Paragraph<textarea data-ws="'+sp+'|body" rows="3">'+esc(s.body)+'</textarea></label></div>';
+        '<label class="ed-full" style="margin-top:.6rem">Home headline<input data-ws="'+sp+'|title" value="'+esc(s.title)+'"></label>'+
+        '<label class="ed-full">Home paragraph<textarea data-ws="'+sp+'|body" rows="3">'+esc(s.body)+'</textarea></label>'+
+        '<label class="ed-full">Their page title<input data-ws="'+sp+'|heroTitle" value="'+esc(s.heroTitle)+'"></label></div>';
     });
     host.innerHTML = html;
+  }
+
+  // ---------- countdowns / events / products ----------
+  function renderHorizonEd(){
+    var host = byId('edHorizon'); if(!host) return;
+    host.innerHTML = state.HORIZON.map(function(h,i){
+      return '<div class="ed-card">'+
+        '<div class="ed-row"><label>Small label<input data-h="'+i+'|kicker" value="'+esc(h.kicker)+'"></label>'+
+          '<label>Title<input data-h="'+i+'|title" value="'+esc(h.title)+'"></label></div>'+
+        '<label class="ed-full">Note<input data-h="'+i+'|body" value="'+esc(h.body)+'"></label>'+
+        '<div class="ed-row"><label>Date (YYYY-MM-DD)<input data-h="'+i+'|target" value="'+esc(h.target)+'"></label>'+
+          '<label>"Expected" line<input data-h="'+i+'|expected" value="'+esc(h.expected)+'"></label></div></div>';
+    }).join('');
+  }
+  function renderEventsEd(){
+    var host = byId('edEvents'); if(!host) return;
+    host.innerHTML = state.EVENTS.map(function(e,i){
+      return '<div class="ed-card">'+
+        '<div class="ed-row"><label>When<input data-ev="'+i+'|when" value="'+esc(e.when)+'"></label>'+
+          '<label>Title<input data-ev="'+i+'|title" value="'+esc(e.title)+'"></label>'+
+          '<label>Button text<input data-ev="'+i+'|cta" value="'+esc(e.cta||'')+'"></label></div>'+
+        '<label class="ed-full">Details<textarea data-ev="'+i+'|body" rows="2">'+esc(e.body)+'</textarea></label>'+
+        '<button class="ed-del" data-evdel="'+i+'">Remove this event</button></div>';
+    }).join('');
+  }
+  function renderStoreEd(){
+    var host = byId('edStore'); if(!host) return;
+    host.innerHTML = state.PRODUCTS.map(function(pr,i){
+      return '<div class="ed-card">'+
+        '<div class="ed-row"><label>Name<input data-pr="'+i+'|name" value="'+esc(pr.name)+'"></label>'+
+          '<label>Price<input data-pr="'+i+'|price" value="'+esc(pr.price)+'"></label>'+
+          '<label>Photo name<input data-pr="'+i+'|img" value="'+esc(pr.img)+'"></label></div>'+
+        '<label class="ed-full">Description<textarea data-pr="'+i+'|blurb" rows="2">'+esc(pr.blurb)+'</textarea></label>'+
+        '<button class="ed-del" data-prdel="'+i+'">Remove this product</button></div>';
+    }).join('');
   }
 
   document.addEventListener('input', function(e){
@@ -92,21 +140,29 @@
     } else if (t.hasAttribute && t.hasAttribute('data-w')) {
       state.COPY[t.getAttribute('data-w')] = t.value;
     } else if (t.hasAttribute && t.hasAttribute('data-ws')) {
-      var parts = t.getAttribute('data-ws').split('|'); state.SPECIES[parts[0]][parts[1]] = t.value;
+      var ps = t.getAttribute('data-ws').split('|'); state.SPECIES[ps[0]][ps[1]] = t.value;
+    } else if (t.hasAttribute && t.hasAttribute('data-h')) {
+      var ph = t.getAttribute('data-h').split('|'); state.HORIZON[+ph[0]][ph[1]] = t.value;
+    } else if (t.hasAttribute && t.hasAttribute('data-ev')) {
+      var pe = t.getAttribute('data-ev').split('|'); state.EVENTS[+pe[0]][pe[1]] = t.value;
+    } else if (t.hasAttribute && t.hasAttribute('data-pr')) {
+      var pp = t.getAttribute('data-pr').split('|'); state.PRODUCTS[+pp[0]][pp[1]] = t.value;
     }
   });
   document.addEventListener('click', function(e){
-    var t = e.target;
-    if (t.getAttribute && t.getAttribute('data-del') !== null) {
-      state.ANIMALS.splice(+t.getAttribute('data-del'), 1); renderAnimals();
-    }
+    var t = e.target; if(!t.getAttribute) return;
+    if (t.getAttribute('data-del') !== null)   { state.ANIMALS.splice(+t.getAttribute('data-del'), 1); renderAnimals(); }
+    if (t.getAttribute('data-evdel') !== null) { state.EVENTS.splice(+t.getAttribute('data-evdel'), 1); renderEventsEd(); }
+    if (t.getAttribute('data-prdel') !== null) { state.PRODUCTS.splice(+t.getAttribute('data-prdel'), 1); renderStoreEd(); }
   });
 
   function addAnimal(){
     state.ANIMALS.push({ slug:'', name:'New Animal', species:'cattle', breed:'', id:'', sex:'', age:'', status:'Available', desc:'' });
     renderAnimals();
-    var cards = document.querySelectorAll('.ed-card'); cards[cards.length-1].scrollIntoView({behavior:'smooth', block:'center'});
+    var cards = byId('edAnimals').querySelectorAll('.ed-card'); cards[cards.length-1].scrollIntoView({behavior:'smooth', block:'center'});
   }
+  function addEvent(){ state.EVENTS.push({ when:'', title:'New event', body:'', cta:'RSVP' }); renderEventsEd(); }
+  function addProduct(){ state.PRODUCTS.push({ name:'New product', price:'', blurb:'', img:'wool' }); renderStoreEd(); }
 
   function generate(){
     state.ANIMALS.forEach(function(a){ if(!a.slug) a.slug = slugify(a.name); });
@@ -118,9 +174,11 @@
       '  var SITE = ' + o(state.SITE) + ';\n' +
       '  var SPECIES = ' + o(state.SPECIES) + ';\n' +
       '  var COPY = ' + o(state.COPY) + ';\n' +
+      '  var EVENTS = ' + o(state.EVENTS) + ';\n' +
+      '  var PRODUCTS = ' + o(state.PRODUCTS) + ';\n' +
       '  var ANIMALS = ' + o(state.ANIMALS) + ';\n' +
       '  var HORIZON = ' + o(state.HORIZON) + ';\n' +
-      '  window.HA = { SITE: SITE, SPECIES: SPECIES, ANIMALS: ANIMALS, HORIZON: HORIZON, IMG: IMG, STOCK: STOCK, COPY: COPY };\n' +
+      '  window.HA = { SITE: SITE, SPECIES: SPECIES, ANIMALS: ANIMALS, HORIZON: HORIZON, IMG: IMG, STOCK: STOCK, COPY: COPY, EVENTS: EVENTS, PRODUCTS: PRODUCTS };\n' +
       '})();\n';
   }
 
@@ -178,8 +236,10 @@
   }
 
   document.addEventListener('DOMContentLoaded', function(){
-    renderSite(); renderWording(); renderAnimals();
+    renderSite(); renderWording(); renderHorizonEd(); renderEventsEd(); renderStoreEd(); renderAnimals();
     byId('edAdd').addEventListener('click', addAnimal);
+    byId('edAddEvent').addEventListener('click', addEvent);
+    byId('edAddProduct').addEventListener('click', addProduct);
     byId('edDownload').addEventListener('click', download);
     byId('edPublish').addEventListener('click', publish);
     // restore saved publish settings
