@@ -3,13 +3,22 @@
    ========================================================================= */
 (function () {
   var S = window.HA.SITE, SP = window.HA.SPECIES, ANIMALS = window.HA.ANIMALS, HORIZON = window.HA.HORIZON;
+  var IMG = window.HA.IMG, STOCK = window.HA.STOCK;
 
   function el(h){ var d=document.createElement('div'); d.innerHTML=h.trim(); return d.firstChild; }
   function byId(id){ return document.getElementById(id); }
   function esc(s){ return String(s==null?'':s).replace(/[&<>"]/g,function(c){return({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'})[c];}); }
   function qs(n){ var m=new RegExp('[?&]'+n+'=([^&]+)').exec(location.search); return m?decodeURIComponent(m[1].replace(/\+/g,' ')):''; }
-  function imgTag(url,alt){ return '<img src="'+url+'" alt="'+esc(alt)+'" loading="lazy" onerror="this.style.display=&quot;none&quot;">'; }
-  function photo(url,alt,cls){ return '<div class="ph '+(cls||'')+'">'+imgTag(url,alt)+'</div>'; }
+  // <img> that tries the local file, then the stock fallback, then hides (revealing the monogram panel)
+  function imgTag(src,alt,fb){
+    return '<img src="'+src+'" alt="'+esc(alt)+'" loading="lazy" data-fb="'+(fb||'')+'" '+
+      'onerror="var f=this.getAttribute(&quot;data-fb&quot;);if(f){this.removeAttribute(&quot;data-fb&quot;);this.src=f;}else{this.style.display=&quot;none&quot;;}">';
+  }
+  function img2(key,alt){ return imgTag(IMG[key], alt||S.name, STOCK[key]); }
+  function animalImg(a){ return imgTag('images/animals/'+a.slug+'.jpg', a.name, STOCK[a.species]); }
+  function photo(src,alt,cls,fb){ return '<div class="ph '+(cls||'')+'">'+imgTag(src,alt,fb)+'</div>'; }
+  function photoKey(key,alt,cls){ return '<div class="ph '+(cls||'')+'">'+img2(key,alt)+'</div>'; }
+  function photoAnimal(a,cls){ return '<div class="ph '+(cls||'')+'">'+animalImg(a)+'</div>'; }
   function animalBySlug(s){ for(var i=0;i<ANIMALS.length;i++) if(ANIMALS[i].slug===s) return ANIMALS[i]; return null; }
   var here = location.pathname.split('/').pop() || 'index.html';
 
@@ -87,7 +96,7 @@
   // ---------- animal card ----------
   function beastCard(a){
     return '<a class="beast" href="animal.html?a='+a.slug+'">'+
-      '<div class="ph" style="position:relative"><span class="tag">'+esc(SP[a.species].plural)+'</span>'+imgTag(a.photo,a.name)+'</div>'+
+      '<div class="ph" style="position:relative"><span class="tag">'+esc(SP[a.species].plural)+'</span>'+animalImg(a)+'</div>'+
       '<div class="body">'+
         '<div class="top"><h3>'+esc(a.name)+'</h3><span class="id">'+esc(a.id)+'</span></div>'+
         '<div class="breed">'+esc(a.breed)+'</div>'+
@@ -128,11 +137,11 @@
     document.title=sp.heroTitle+' — '+S.name;
     var herd=ANIMALS.filter(function(a){ return a.species===sp.key; });
     host.innerHTML=''+
-      '<section class="page-hero">'+photo(sp.hero,sp.heroTitle)+'<div class="scrim"></div>'+
+      '<section class="page-hero">'+photoKey(sp.heroKey,sp.heroTitle)+'<div class="scrim"></div>'+
         '<div class="ph-inner wrap"><div class="breadcrumb"><a href="index.html">Home</a> / '+esc(sp.crumb)+'</div>'+
         '<h1>'+esc(sp.heroTitle)+'</h1></div></section>'+
       '<section class="section"><div class="wrap"><div class="split">'+
-        '<div class="col-img">'+photo(sp.image,sp.plural)+'</div>'+
+        '<div class="col-img">'+photoKey(sp.imageKey,sp.plural)+'</div>'+
         '<div class="feature-copy"><span class="kicker">'+esc(sp.kicker)+'</span>'+
           '<div class="eyebrow" style="margin:.9rem 0 .3rem">'+esc(sp.label)+'</div>'+
           '<h2>'+sp.title+'</h2><p class="lede">'+esc(sp.body)+'</p></div>'+
@@ -172,11 +181,11 @@
       ? '<a class="btn" style="margin-top:2rem" href="inquire.html?about='+encodeURIComponent(a.name)+'">Inquire about '+esc(a.name)+'</a>'
       : '<p class="muted" style="margin-top:1.5rem"><em>'+esc(a.name)+' is '+a.status.toLowerCase()+'.</em> <a class="arrow rust" href="available.html">See who\'s available</a></p>';
     host.innerHTML=''+
-      '<section class="page-hero">'+photo(a.photo,a.name)+'<div class="scrim"></div>'+
+      '<section class="page-hero">'+photoAnimal(a)+'<div class="scrim"></div>'+
         '<div class="ph-inner wrap"><div class="breadcrumb"><a href="index.html">Home</a> / <a href="species.html?s='+sp.key+'">'+esc(sp.crumb)+'</a> / '+esc(a.name)+'</div>'+
         '<h1>'+esc(a.name)+'</h1></div></section>'+
       '<section class="section"><div class="wrap"><div class="split">'+
-        '<div class="col-img">'+photo(a.photo,a.name)+'</div>'+
+        '<div class="col-img">'+photoAnimal(a)+'</div>'+
         '<div><span class="kicker">'+esc(sp.kicker)+'</span>'+
           '<h2 style="font-size:clamp(2rem,4vw,3rem);margin:.8rem 0 .3rem">'+esc(a.name)+'</h2>'+
           '<div class="breed" style="font-family:var(--serif);font-style:italic;color:var(--muted);font-size:1.15rem;margin-bottom:1.4rem">'+esc(a.breed)+' · '+esc(a.sex)+'</div>'+
@@ -217,8 +226,8 @@
   }
 
   function fillTokens(){
-    document.querySelectorAll('[data-img]').forEach(function(n){ n.classList.add('ph'); n.innerHTML=imgTag(S.images[n.getAttribute('data-img')], S.name); });
-    document.querySelectorAll('[data-hero-img]').forEach(function(n){ n.innerHTML=imgTag(S.images[n.getAttribute('data-hero-img')], S.name); });
+    document.querySelectorAll('[data-img]').forEach(function(n){ n.classList.add('ph'); n.innerHTML=img2(n.getAttribute('data-img')); });
+    document.querySelectorAll('[data-hero-img]').forEach(function(n){ n.innerHTML=img2(n.getAttribute('data-hero-img')); });
   }
 
   document.addEventListener('DOMContentLoaded',function(){
