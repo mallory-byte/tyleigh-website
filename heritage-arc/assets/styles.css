@@ -205,6 +205,7 @@ p { max-width: var(--measure); }
 .beast .body .id { font-family: var(--sans); font-size: .74rem; letter-spacing: .14em; color: var(--muted); }
 .beast .body .breed { font-family: var(--serif); font-style: italic; color: var(--muted); font-size: 1rem; margin-top: .1rem; }
 .spec { display: grid; grid-template-columns: repeat(2, 1fr); border: 1px solid var(--line); margin: 1.1rem 0; }
+.spec.spec-1 { grid-template-columns: 1fr; max-width: 200px; }
 .spec div { padding: .7rem .4rem; text-align: center; }
 .spec div + div { border-left: 1px solid var(--line); }
 .spec .k { font-size: .58rem; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); margin-bottom: .3rem; }
@@ -246,6 +247,12 @@ p { max-width: var(--measure); }
 .madlib .ml input::placeholder { color: rgba(198,167,104,.6); }
 .madlib .ml select:focus, .madlib .ml input:focus { outline: none; border-bottom-color: var(--gold); }
 .madlib .ml select option { color: #222; font-style: normal; }
+
+/* reservation form */
+.reserve-form { max-width: 720px; }
+.reserve-form .form-legend { font-family: var(--serif); font-size: 1.5rem; color: var(--gold); margin: 2.6rem 0 .2rem; }
+.reserve-form .form-legend:first-child { margin-top: 0; }
+.reserve-form .line-field label { line-height: 1.5; text-transform: none; letter-spacing: 0; font-size: .82rem; color: rgba(244,239,229,.7); }
 
 /* forms confirmation */
 .form-note { display: none; margin-top: 1.5rem; padding: 1rem 1.2rem; border: 1px solid var(--gold); color: var(--gold); font-size: .95rem; }

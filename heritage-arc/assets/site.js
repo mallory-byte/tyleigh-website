@@ -40,7 +40,7 @@
           '<a href="store.html">Store</a>'+
           '<a href="inquire.html">Inquire</a>'+
         '</nav>'+
-        '<a class="reserve-btn" href="inquire.html?about=Reserve">Reserve</a>'+
+        '<a class="reserve-btn" href="reserve.html">Reserve</a>'+
         '<button class="nav-toggle" id="navToggle" aria-label="Menu"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><line x1="3" y1="7" x2="21" y2="7"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="17" x2="21" y2="17"/></svg></button>'+
       '</div>'+
       '<div class="mobile-nav" id="mobileNav">'+
@@ -51,7 +51,7 @@
         '<a href="events.html">Events</a>'+
         '<a href="store.html">Store</a>'+
         '<a href="inquire.html">Inquire</a>'+
-        '<a href="inquire.html?about=Reserve">Reserve</a>'+
+        '<a href="reserve.html">Reserve</a>'+
       '</div>'+
     '</header>';
   }
@@ -74,6 +74,7 @@
             '<li><a href="available.html">Available Stock</a></li>'+
             '<li><a href="events.html">Events</a></li>'+
             '<li><a href="store.html">Store</a></li>'+
+            '<li><a href="reserve.html">Reserve</a></li>'+
             '<li><a href="inquire.html">Inquire</a></li>'+
           '</ul></div>'+
           '<div class="foot-col"><h4>Visit</h4><ul>'+
@@ -106,14 +107,19 @@
   }
 
   // ---------- animal card ----------
+  // Status only shows for animals that are for sale / spoken for.
+  function showStatus(a){ return /^(available|sold|reserved)$/i.test(String(a.status||'').trim()); }
+  function statusSpec(a){
+    if(!showStatus(a)) return '';
+    return '<div class="spec spec-1"><div><div class="k">Status</div><div class="v">'+esc(a.status)+'</div></div></div>';
+  }
   function beastCard(a){
     return '<a class="beast" href="animal.html?a='+a.slug+'">'+
       '<div class="ph" style="position:relative"><span class="tag">'+esc(SP[a.species].plural)+'</span>'+animalImg(a)+'</div>'+
       '<div class="body">'+
         '<div class="top"><h3>'+esc(a.name)+'</h3><span class="id">'+esc(a.id)+'</span></div>'+
         '<div class="breed">'+esc(a.breed)+'</div>'+
-        '<div class="spec"><div><div class="k">Age</div><div class="v">'+esc(a.age)+'</div></div>'+
-          '<div><div class="k">Status</div><div class="v">'+esc(a.status)+'</div></div></div>'+
+        statusSpec(a)+
         '<div class="desc">'+esc(a.desc)+'</div>'+
       '</div></a>';
   }
@@ -201,9 +207,8 @@
           '<h2 style="font-size:clamp(2rem,4vw,3rem);margin:.8rem 0 .3rem">'+esc(a.name)+'</h2>'+
           '<div class="breed" style="font-family:var(--serif);font-style:italic;color:var(--muted);font-size:1.15rem;margin-bottom:1.4rem">'+esc(a.breed)+' · '+esc(a.sex)+'</div>'+
           '<p class="lede">'+esc(a.desc)+'</p>'+
-          '<div class="spec" style="max-width:420px;margin-top:1.8rem">'+
-            '<div><div class="k">Age</div><div class="v">'+esc(a.age)+'</div></div>'+
-            '<div><div class="k">Status</div><div class="v">'+esc(a.status)+'</div></div></div>'+
+          (showStatus(a) ? '<div class="spec spec-1" style="max-width:200px;margin-top:1.8rem">'+
+            '<div><div class="k">Status</div><div class="v">'+esc(a.status)+'</div></div></div>' : '')+
           '<table style="width:100%;max-width:420px;border-collapse:collapse;margin-top:1.4rem;font-size:.95rem">'+
             '<tr><td style="padding:.5rem 0;color:var(--muted);border-bottom:1px solid var(--line)">Registry ID</td><td style="text-align:right;border-bottom:1px solid var(--line)">'+esc(a.id)+'</td></tr>'+
             '<tr><td style="padding:.5rem 0;color:var(--muted);border-bottom:1px solid var(--line)">Breed</td><td style="text-align:right;border-bottom:1px solid var(--line)">'+esc(a.breed)+'</td></tr>'+

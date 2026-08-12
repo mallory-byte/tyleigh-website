@@ -91,7 +91,9 @@
     storeIntroHeading: 'Small-batch goods from our animals.',
     storeIntro:        'Fleece from the flock, milk soap from the does, honey from the hedgerows — made in small runs and sold as the seasons allow. To buy, send a note and we\'ll set it aside; pickup at the farm or the Saturday market.',
     storeCta:          'Want something you don\'t see here? <em>Just ask.</em>',
-    inquireHeading:    'Begin a conversation about <em>your next animal</em>.'
+    inquireHeading:    'Begin a conversation about <em>your next animal</em>.',
+    reserveHeading:    'Reservation <em>Form</em>',
+    reserveIntro:      'This form is to reserve a lamb or sheep that is listed as available on our Available Sheep page.\n\nWe are expecting lambs in April and May of 2026. Available lambs will be posted on our website as well as on our Facebook page as they are born.\n\nA deposit might be required to hold your sheep depending on circumstances.\n\nWe ask that you read the Breed Info and Requirements pages in their entirety before submitting the following form.\n\nBuyer is responsible for transportation from our ranch in Greenwood, Arkansas. Please contact us if you need transportation recommendations.\n\nPlease fill out the following form if you are ready to purchase any of our available sheep. Once we receive the form we will contact you via email to discuss steps to move forward. Thank you!'
   };
 
   // Events (shown on the Events page). Edit in the editor's "Events" section.

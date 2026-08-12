@@ -29,8 +29,7 @@
         '<label>Breed<input data-f="breed" value="'+esc(a.breed)+'"></label>'+
         '<label>ID<input data-f="id" value="'+esc(a.id)+'"></label></div>'+
       '<div class="ed-row"><label>Sex<input data-f="sex" value="'+esc(a.sex)+'"></label>'+
-        '<label>Age<input data-f="age" value="'+esc(a.age)+'"></label>'+
-        '<label>Status<select data-f="status">'+opt(STATUS,a.status)+'</select></label></div>'+
+        '<label>Status (shows only when Available / Reserved / Sold)<select data-f="status">'+opt(STATUS,a.status)+'</select></label></div>'+
       '<label class="ed-full">Description<textarea data-f="desc" rows="2">'+esc(a.desc)+'</textarea></label>'+
       '<button class="ed-del" data-del="'+i+'">Remove this animal</button>'+
     '</div>';
@@ -75,7 +74,9 @@
     storeIntroHeading: 'Store · intro headline',
     storeIntro:        'Store · intro paragraph',
     storeCta:          'Store · bottom banner line',
-    inquireHeading:    'Inquire · headline'
+    inquireHeading:    'Inquire · headline',
+    reserveHeading:    'Reserve · headline',
+    reserveIntro:      'Reserve · intro paragraphs'
   };
   function fieldFor(key, label, val, big){
     return '<label class="ed-full">'+esc(label)+ (big
