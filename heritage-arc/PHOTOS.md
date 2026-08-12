@@ -53,7 +53,32 @@ Until you upload a file, that spot shows a tasteful **stock photo**
 automatically, and if that ever fails, a clean monogram panel — so the site
 never looks broken or empty while you're swapping things around.
 
-## Changing an animal's name, price, or details
+## Editing, adding, or removing animals
 
-Those live in **`assets/data.js`**. You can edit that file right on GitHub too
-— each animal is one line. Change the words between the quotes, commit, done.
+All the animals live in one file: **`assets/data.js`** — one line each. You can
+edit it right on GitHub (open the file, click the pencil ✏️, make changes,
+**Commit changes**). A new or edited animal shows up automatically on its
+species page, and on Available Stock if its status is `Available` or `Reserved`.
+
+**To change** a name, price, breed, age, weight, status, or description: find
+that animal's line and change the words between the quotes.
+
+**To add** an animal: copy one existing line, paste it as a new line in the
+list, and change the values. Keep the quotes and the comma at the end of each
+line. A copy-paste template is written at the top of the animal list in the
+file. The important fields:
+
+- `slug` — a lowercase nickname with no spaces (e.g. `rosie`). This is also the
+  animal's **photo filename**: upload `images/animals/rosie.jpg`.
+- `species` — must be exactly `cattle`, `sheep`, or `goats`.
+- `status` — `Available`, `Reserved`, or `Sold`.
+
+Example of a line to add:
+
+    { slug:'rosie', name:'Rosie', species:'cattle', breed:'Hereford', id:'CT-041', sex:'Cow', age:'3 yr', weight:'1,300 lb', status:'Available', desc:'A quiet, deep-bodied young cow.' },
+
+**To remove** an animal: delete its whole line.
+
+> One tip: every line except the last one ends with a comma. If the site ever
+> goes blank after an edit, it's almost always a missing comma or a missing
+> quote — undo that commit on GitHub and try again.

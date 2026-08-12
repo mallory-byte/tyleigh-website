@@ -55,7 +55,17 @@
       imageKey:'goats', heroKey:'goats' }
   };
 
-  // Each animal's photo is images/animals/<slug>.jpg (swap by uploading that file).
+  // ─────────────────────────────────────────────────────────────────────────
+  // THE ANIMALS.  To ADD one: copy a line below, paste it as a new line, and
+  // change the values (keep the quotes and the comma at the end).
+  //   slug     : lowercase id, no spaces — also the photo filename
+  //   species  : must be exactly  cattle  |  sheep  |  goats
+  //   status   : Available | Reserved | Sold  (Available/Reserved show on the
+  //              Available Stock page; anything shows on the species page)
+  // Then (optional) upload a photo to  images/animals/<slug>.jpg
+  // TEMPLATE (copy this line):
+  // { slug:'rosie', name:'Rosie', species:'cattle', breed:'Hereford', id:'CT-041', sex:'Cow', age:'3 yr', weight:'1,300 lb', status:'Available', desc:'A sentence about her.' },
+  // ─────────────────────────────────────────────────────────────────────────
   var ANIMALS = [
     { slug:'evergreen', name:'Evergreen', species:'cattle', breed:'Aberdeen Angus', id:'CT-008', sex:'Bull', age:'5 yr', weight:'1,840 lb', status:'Available', desc:'Deep-bodied, structurally flawless bull with a proven record of easy-calving progeny.' },
     { slug:'magnolia', name:'Magnolia', species:'cattle', breed:'Hereford', id:'CT-015', sex:'Cow', age:'4 yr', weight:'1,420 lb', status:'Reserved', desc:'Classic brood cow with a quiet disposition, deep flank, and outstanding maternal instinct.' },
@@ -67,6 +77,8 @@
     { slug:'clover', name:'Clover', species:'goats', breed:'Nubian', id:'GT-002', sex:'Doe', age:'3 yr', weight:'135 lb', status:'Available', desc:'Deep-bodied Nubian milker with butterfat to spare and a sweet, people-loving temperament.' },
     { slug:'hazel', name:'Hazel', species:'goats', breed:'Boer', id:'GT-007', sex:'Doe', age:'4 yr', weight:'175 lb', status:'Available', desc:'Heavy-boned Boer doe, an easy kidder with strong maternal instinct.' },
     { slug:'sage', name:'Sage', species:'goats', breed:'Nubian', id:'GT-011', sex:'Buck', age:'2 yr', weight:'160 lb', status:'Reserved', desc:'Flashy Nubian buck with length of bone and impeccable dairy character.' }
+    // ↑ To add an animal, put a comma after the last line above, then paste
+    //   your new line here (see the TEMPLATE near the top of this list).
   ];
 
   var HORIZON = [
