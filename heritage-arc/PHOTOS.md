@@ -29,8 +29,13 @@ Put these in the **`images`** folder:
 | `cattle-wide.jpg` | Wide banner on the Cattle / Available pages |
 | `sheep.jpg` | The sheep photo (home + Sheep page) |
 | `goats.jpg` | The goat photo (home + Goats page) |
-| `ranch.jpg` | The "Visit Us" pictures |
+| `ranch.jpg` | Pasture pictures |
 | `herd.jpg` | Banner on the Inquire page |
+| `events.jpg` | Banner on the Events page |
+| `wool.jpg` | Store banner + "Raw Fleece & Roving" |
+| `yarn.jpg` | Store "Hand-spun Yarn" |
+| `soap.jpg` | Store "Goat Milk Soap" |
+| `honey.jpg` | Store "Wildflower Honey" |
 
 Put these in the **`images/animals`** folder (one per animal, named after it):
 

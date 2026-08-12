@@ -1,5 +1,5 @@
 /* =========================================================================
-   The Heritage Arc — content/data layer (self-contained, editable).
+   Wallace Family Farms — content/data layer (self-contained, editable).
 
    HOW TO CHANGE A PHOTO (no code needed):
    Every picture is a file in the /images folder. To swap one, upload your
@@ -16,7 +16,12 @@
     sheep:      'images/sheep.jpg',
     goats:      'images/goats.jpg',
     ranch:      'images/ranch.jpg',
-    herd:       'images/herd.jpg'
+    herd:       'images/herd.jpg',
+    events:     'images/events.jpg',
+    wool:       'images/wool.jpg',
+    yarn:       'images/yarn.jpg',
+    soap:       'images/soap.jpg',
+    honey:      'images/honey.jpg'
   };
   // Automatic fallbacks (used only if the file above is missing). Swappable too.
   var STOCK = {
@@ -27,16 +32,21 @@
     sheep:      'https://images.unsplash.com/photo-1484557985045-edf25e08da73?auto=format&fit=crop&w=1400&q=80',
     goats:      'https://images.unsplash.com/photo-1524024973431-2ad916746881?auto=format&fit=crop&w=1400&q=80',
     ranch:      'https://images.unsplash.com/photo-1500076656116-558758c991c1?auto=format&fit=crop&w=1800&q=80',
-    herd:       'https://images.unsplash.com/photo-1516467508483-a7212febe31a?auto=format&fit=crop&w=2200&q=80'
+    herd:       'https://images.unsplash.com/photo-1516467508483-a7212febe31a?auto=format&fit=crop&w=2200&q=80',
+    events:     'https://images.unsplash.com/photo-1500076656116-558758c991c1?auto=format&fit=crop&w=1800&q=80',
+    wool:       'https://images.unsplash.com/photo-1602928321679-560bb453f190?auto=format&fit=crop&w=1200&q=80',
+    yarn:       'https://images.unsplash.com/photo-1584992236310-6edddc08acff?auto=format&fit=crop&w=1200&q=80',
+    soap:       'https://images.unsplash.com/photo-1600857062241-98e5dba7f214?auto=format&fit=crop&w=1200&q=80',
+    honey:      'https://images.unsplash.com/photo-1587049352846-4a222e784d38?auto=format&fit=crop&w=1200&q=80'
   };
 
   var SITE = {
-    name: 'The Heritage Arc',
-    nameHtml: 'The Heritage <em>Arc</em>',
+    name: 'Wallace Family Farms',
+    nameHtml: 'Wallace Family <em>Farms</em>',
     tagline: 'Heritage-grade goats, sheep, and cattle raised on the high plains.',
     credo: 'We honor the lineage of the land and the animal — <em>with deliberate, daily care.</em>',
     phone: '(555) 555-0100',
-    email: 'herd@heritagearc.com'
+    email: 'hello@wallacefamilyfarms.com'
   };
 
   // species: imageKey/heroKey point at IMG (local) + STOCK (fallback)

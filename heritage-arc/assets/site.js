@@ -1,5 +1,5 @@
 /* =========================================================================
-   The Heritage Arc — shared behavior + rendering (vanilla, no build).
+   Wallace Family Farms — shared behavior + rendering (vanilla, no build).
    ========================================================================= */
 (function () {
   var S = window.HA.SITE, SP = window.HA.SPECIES, ANIMALS = window.HA.ANIMALS, HORIZON = window.HA.HORIZON;
@@ -34,9 +34,9 @@
               '<a href="species.html?s=sheep">Sheep</a>'+
               '<a href="species.html?s=goats">Goats</a>'+
             '</span></span>'+
-          '<a href="philosophy.html">Philosophy</a>'+
           '<a href="available.html">Available Stock</a>'+
-          '<a href="visit.html">Visit Us</a>'+
+          '<a href="events.html">Events</a>'+
+          '<a href="store.html">Store</a>'+
           '<a href="inquire.html">Inquire</a>'+
         '</nav>'+
         '<a class="reserve-btn" href="inquire.html?about=Reserve">Reserve</a>'+
@@ -46,9 +46,9 @@
         '<a href="species.html?s=cattle">Cattle</a>'+
         '<a href="species.html?s=sheep">Sheep</a>'+
         '<a href="species.html?s=goats">Goats</a>'+
-        '<a href="philosophy.html">Philosophy</a>'+
         '<a href="available.html">Available Stock</a>'+
-        '<a href="visit.html">Visit Us</a>'+
+        '<a href="events.html">Events</a>'+
+        '<a href="store.html">Store</a>'+
         '<a href="inquire.html">Inquire</a>'+
         '<a href="inquire.html?about=Reserve">Reserve</a>'+
       '</div>'+
@@ -62,12 +62,12 @@
         '<div class="foot-grid">'+
           '<div><span class="wordmark">'+S.nameHtml+'</span><p>'+esc(S.tagline)+'</p></div>'+
           '<div class="foot-col"><h4>Explore</h4><ul>'+
-            '<li><a href="philosophy.html">Philosophy</a></li>'+
             '<li><a href="available.html">Available Stock</a></li>'+
-            '<li><a href="visit.html">Visit Us</a></li>'+
+            '<li><a href="events.html">Events</a></li>'+
+            '<li><a href="store.html">Store</a></li>'+
             '<li><a href="inquire.html">Inquire</a></li>'+
           '</ul></div>'+
-          '<div class="foot-col"><h4>Visit</h4><ul>'+
+          '<div class="foot-col"><h4>Find Us</h4><ul>'+
             '<li>High-Plains Pasture</li>'+
             '<li>Route 4, County Line</li>'+
             '<li>By appointment only</li>'+

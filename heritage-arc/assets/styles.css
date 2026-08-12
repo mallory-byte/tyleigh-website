@@ -1,5 +1,5 @@
 /* =========================================================================
-   The Heritage Arc — editorial ranch design system (rebuilt to match).
+   Wallace Family Farms — editorial ranch design system (rebuilt to match).
    Cream / rust / charcoal · display serif + clean grotesque · big photography.
    ========================================================================= */
 
@@ -101,7 +101,7 @@ p { max-width: var(--measure); }
 
 /* ---------- photo panels (elegant fallback under every image) ---------- */
 .ph { position: relative; overflow: hidden; background: var(--panel); }
-.ph::before { content: "HA"; position: absolute; inset: 0; display: grid; place-items: center; font-family: var(--serif); font-size: clamp(2.5rem, 6vw, 5rem); font-weight: 500; letter-spacing: .04em; color: #00000010; z-index: 0; }
+.ph::before { content: "WFF"; position: absolute; inset: 0; display: grid; place-items: center; font-family: var(--serif); font-size: clamp(2.5rem, 6vw, 5rem); font-weight: 500; letter-spacing: .04em; color: #00000010; z-index: 0; }
 .ph > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 1; }
 
 /* ---------- home hero ---------- */
@@ -246,6 +246,26 @@ p { max-width: var(--measure); }
 /* forms confirmation */
 .form-note { display: none; margin-top: 1.5rem; padding: 1rem 1.2rem; border: 1px solid var(--gold); color: var(--gold); font-size: .95rem; }
 .form-note.show { display: block; }
+
+/* ---------- events ---------- */
+.events-list { border-top: 1px solid var(--line); margin-top: 2.5rem; }
+.event { display: grid; grid-template-columns: 210px 1fr auto; gap: 2rem; align-items: center; padding: 1.9rem 0; border-bottom: 1px solid var(--line); }
+@media (max-width: 720px) { .event { grid-template-columns: 1fr; gap: .7rem; } }
+.event .when { font-family: var(--serif); font-size: 1.15rem; color: var(--rust); }
+.event .what h3 { font-size: 1.5rem; margin-bottom: .3rem; }
+.event .what p { color: var(--muted); font-size: .96rem; max-width: 52ch; }
+
+/* ---------- store ---------- */
+.store-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(1.4rem, 2.5vw, 2rem); }
+@media (max-width: 900px) { .store-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 560px) { .store-grid { grid-template-columns: 1fr; max-width: 420px; margin: 0 auto; } }
+.product { border: 1px solid var(--line); background: var(--bone); display: flex; flex-direction: column; }
+.product .ph { aspect-ratio: 4/5; }
+.product .body { padding: 1.3rem 1.3rem 1.5rem; display: flex; flex-direction: column; flex: 1; }
+.product .body .top { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; }
+.product h3 { font-size: 1.35rem; }
+.product .price { font-family: var(--serif); font-size: 1.2rem; color: var(--rust); white-space: nowrap; }
+.product p { color: var(--muted); font-size: .93rem; margin: .5rem 0 1.2rem; flex: 1; }
 
 /* ---------- reveal ---------- */
 .reveal { opacity: 0; transform: translateY(16px); transition: opacity .7s ease, transform .7s ease; }
