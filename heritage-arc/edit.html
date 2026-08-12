@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Edit — The Heritage Arc</title>
+  <meta name="robots" content="noindex" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='84'%3E%E2%9C%8F%EF%B8%8F%3C/text%3E%3C/svg%3E" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;1,9..144,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root{ --bone:#F4EFE5; --ink:#2E2A25; --muted:#6F6658; --rust:#A85B37; --clay:#B0673F; --line:#D8D0C0; --dark:#2B2723;
+      --serif:'Fraunces',Georgia,serif; --sans:'Inter',system-ui,sans-serif; }
+    *{box-sizing:border-box;margin:0;padding:0;}
+    body{font-family:var(--sans);background:var(--bone);color:var(--ink);line-height:1.6;}
+    .topbar{background:var(--dark);color:var(--bone);padding:1rem 1.5rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.6rem;position:sticky;top:0;z-index:10;}
+    .topbar .wm{font-family:var(--serif);font-size:1.2rem;}
+    .topbar .wm em{font-style:italic;}
+    .topbar a{color:var(--bone);opacity:.8;font-size:.85rem;text-decoration:none;}
+    .topbar a:hover{opacity:1;}
+    .wrap{max-width:920px;margin:0 auto;padding:2rem 1.5rem 5rem;}
+    h1{font-family:var(--serif);font-weight:500;font-size:2rem;margin-bottom:.4rem;}
+    .sub{color:var(--muted);margin-bottom:1.5rem;}
+    .callout{background:#fff;border:1px solid var(--line);border-left:3px solid var(--clay);padding:1rem 1.2rem;margin-bottom:2rem;font-size:.93rem;}
+    .callout b{color:var(--ink);}
+    h2{font-family:var(--serif);font-weight:500;font-size:1.4rem;margin:2.2rem 0 1rem;padding-bottom:.5rem;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:baseline;}
+    h2 .count{font-family:var(--sans);font-size:.8rem;color:var(--muted);font-weight:500;}
+    .ed-card{background:#fff;border:1px solid var(--line);border-radius:4px;padding:1.1rem;margin-bottom:1rem;}
+    .ed-row{display:flex;flex-wrap:wrap;gap:.8rem;margin-bottom:.8rem;}
+    .ed-row label,.ed-full{flex:1;min-width:130px;display:flex;flex-direction:column;font-size:.72rem;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);gap:.3rem;}
+    .ed-full{display:block;margin-bottom:.4rem;}
+    input,select,textarea{font-family:var(--sans);font-size:.95rem;color:var(--ink);background:var(--bone);border:1px solid var(--line);border-radius:3px;padding:.5rem .6rem;width:100%;text-transform:none;letter-spacing:0;}
+    input:focus,select:focus,textarea:focus{outline:none;border-color:var(--clay);}
+    textarea{resize:vertical;}
+    .ed-del{margin-top:.4rem;background:none;border:0;color:#a3402c;font-size:.8rem;cursor:pointer;text-decoration:underline;padding:0;}
+    .btn{font-family:var(--sans);font-size:.82rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;padding:.9em 1.6em;border:1px solid var(--clay);background:var(--clay);color:#fff;border-radius:3px;cursor:pointer;}
+    .btn:hover{background:#9a552f;}
+    .btn.ghost{background:transparent;color:var(--ink);border-color:var(--line);}
+    .btn.ghost:hover{background:var(--ink);color:var(--bone);}
+    .actions{position:sticky;bottom:0;background:var(--bone);border-top:1px solid var(--line);padding:1rem 0;margin-top:2rem;display:flex;gap:1rem;flex-wrap:wrap;align-items:center;}
+    .steps{counter-reset:s;list-style:none;margin:.6rem 0 0;}
+    .steps li{counter-increment:s;position:relative;padding-left:2rem;margin-bottom:.5rem;font-size:.93rem;}
+    .steps li::before{content:counter(s);position:absolute;left:0;top:0;width:1.4rem;height:1.4rem;background:var(--clay);color:#fff;border-radius:50%;display:grid;place-items:center;font-size:.75rem;}
+    #edDone{display:none;background:#eef0e4;border:1px solid #7C8362;color:#4f5540;padding:1rem 1.2rem;border-radius:4px;margin-top:1rem;font-size:.93rem;}
+    code{background:#efe7d8;padding:.1rem .35rem;border-radius:3px;font-size:.88em;}
+  </style>
+</head>
+<body>
+  <div class="topbar">
+    <span class="wm">The Heritage <em>Arc</em> · Editor</span>
+    <a href="index.html">← view the live site</a>
+  </div>
+
+  <div class="wrap">
+    <h1>Edit your ranch</h1>
+    <p class="sub">Change your details and animals here, then publish with the button at the bottom. No code required.</p>
+
+    <div class="callout">
+      <b>How publishing works:</b> this editor doesn't change the live site on its own —
+      it builds an updated <code>data.js</code> file for you to save. When you click
+      <b>Publish changes</b>, a file downloads; upload it to your project's
+      <code>assets</code> folder on GitHub (replacing the old one) and your site updates
+      in about a minute. Full steps appear after you click.
+    </div>
+
+    <h2>Ranch details</h2>
+    <div id="edSite"></div>
+
+    <h2>Animals <span class="count" id="edCount"></span></h2>
+    <div id="edAnimals"></div>
+    <button class="btn ghost" id="edAdd">+ Add an animal</button>
+
+    <div class="actions">
+      <button class="btn" id="edDownload">Publish changes ↓</button>
+      <span style="color:var(--muted);font-size:.86rem">Downloads an updated <code>data.js</code> to upload to GitHub.</span>
+    </div>
+
+    <div id="edDone">
+      <b>File downloaded — one more step to go live:</b>
+      <ol class="steps">
+        <li>On <b>github.com</b>, open your project's <code>assets</code> folder.</li>
+        <li>Click <b>Add file → Upload files</b>, and drag in the <code>data.js</code> that just downloaded (it replaces the old one).</li>
+        <li>Click <b>Commit changes</b>. Your site updates in about a minute.</li>
+      </ol>
+      <p style="margin-top:.6rem">Adding a new animal? Also upload its photo to <code>images/animals/&lt;nickname&gt;.jpg</code> — until then a stock photo fills in.</p>
+    </div>
+  </div>
+
+  <script src="assets/data.js"></script>
+  <script src="assets/editor.js"></script>
+</body>
+</html>
