@@ -43,6 +43,16 @@
     .steps li::before{content:counter(s);position:absolute;left:0;top:0;width:1.4rem;height:1.4rem;background:var(--clay);color:#fff;border-radius:50%;display:grid;place-items:center;font-size:.75rem;}
     #edDone{display:none;background:#eef0e4;border:1px solid #7C8362;color:#4f5540;padding:1rem 1.2rem;border-radius:4px;margin-top:1rem;font-size:.93rem;}
     code{background:#efe7d8;padding:.1rem .35rem;border-radius:3px;font-size:.88em;}
+    details summary{cursor:pointer;color:var(--clay);font-size:.92rem;padding:.35rem 0;font-weight:500;}
+    .howkey,.adv{margin:.4rem 0 1rem;}
+    .remember{display:flex;gap:.5rem;align-items:center;font-size:.85rem;color:var(--muted);text-transform:none;letter-spacing:0;margin:.6rem 0 1rem;}
+    .remember input{width:auto;}
+    .pub-status{margin-top:1rem;padding:.85rem 1.1rem;border-radius:4px;font-size:.93rem;}
+    .pub-status.ok{background:#eef0e4;border:1px solid #7C8362;color:#4f5540;}
+    .pub-status.err{background:#fbe9e2;border:1px solid #c9866a;color:#8a3f24;}
+    .pub-status.busy{background:#efe7d8;border:1px solid var(--line);color:var(--muted);}
+    .linklike{background:none;border:0;color:var(--muted);text-decoration:underline;cursor:pointer;font-size:.86rem;padding:0;}
+    .howkey ol{margin-top:.6rem;}
   </style>
 </head>
 <body>
@@ -56,11 +66,9 @@
     <p class="sub">Change your details and animals here, then publish with the button at the bottom. No code required.</p>
 
     <div class="callout">
-      <b>How publishing works:</b> this editor doesn't change the live site on its own —
-      it builds an updated <code>data.js</code> file for you to save. When you click
-      <b>Publish changes</b>, a file downloads; upload it to your project's
-      <code>assets</code> folder on GitHub (replacing the old one) and your site updates
-      in about a minute. Full steps appear after you click.
+      <b>Edit → Save → live.</b> Make your changes below, then hit <b>Save changes</b> at the
+      bottom — they go straight to your website (live in about a minute). The first time,
+      you'll paste a one-time access key; there's a quick how-to right by the Save button.
     </div>
 
     <h2>Ranch details</h2>
@@ -70,20 +78,39 @@
     <div id="edAnimals"></div>
     <button class="btn ghost" id="edAdd">+ Add an animal</button>
 
-    <div class="actions">
-      <button class="btn" id="edDownload">Publish changes ↓</button>
-      <span style="color:var(--muted);font-size:.86rem">Downloads an updated <code>data.js</code> to upload to GitHub.</span>
-    </div>
-
-    <div id="edDone">
-      <b>File downloaded — one more step to go live:</b>
+    <h2>Save &amp; publish</h2>
+    <details class="howkey">
+      <summary>First time here? Get your one-time access key (about 2 minutes)</summary>
       <ol class="steps">
-        <li>On <b>github.com</b>, open your project's <code>assets</code> folder.</li>
-        <li>Click <b>Add file → Upload files</b>, and drag in the <code>data.js</code> that just downloaded (it replaces the old one).</li>
-        <li>Click <b>Commit changes</b>. Your site updates in about a minute.</li>
+        <li>Open <a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener">this GitHub page</a> (sign in if it asks).</li>
+        <li>Token name: <code>Wallace editor</code>. Expiration: pick whatever you like (e.g. 1 year).</li>
+        <li>Under <b>Repository access</b>: choose <b>Only select repositories</b> → pick <b>wallace-family-farms</b>.</li>
+        <li>Under <b>Permissions → Repository permissions → Contents</b>: set it to <b>Read and write</b>.</li>
+        <li>Click <b>Generate token</b>, copy it, and paste it in the box below.</li>
       </ol>
-      <p style="margin-top:.6rem">Adding a new animal? Also upload its photo to <code>images/animals/&lt;nickname&gt;.jpg</code> — until then a stock photo fills in.</p>
+      <p style="font-size:.86rem;color:var(--muted)">Your key is saved only in this browser and only talks to GitHub. Treat it like a password — keep this page to yourself and don't use it on a shared computer.</p>
+    </details>
+
+    <label class="ed-full">Your GitHub access key
+      <input id="pubToken" type="password" placeholder="github_pat_…  (paste here)" autocomplete="off"></label>
+    <label class="remember"><input type="checkbox" id="pubRemember"> Remember this key on this device</label>
+
+    <details class="adv">
+      <summary>Advanced — repository settings</summary>
+      <div class="ed-row" style="margin-top:.6rem">
+        <label>Owner<input id="pubOwner"></label>
+        <label>Repository<input id="pubRepo"></label>
+        <label>Branch<input id="pubBranch"></label>
+      </div>
+    </details>
+
+    <div class="actions">
+      <button class="btn" id="edPublish">Save changes (publish live) ↑</button>
+      <button class="linklike" id="edDownload">or just download the file instead</button>
     </div>
+    <div class="pub-status" id="pubStatus" style="display:none"></div>
+
+    <p style="margin-top:1.2rem;font-size:.86rem;color:var(--muted)">Adding a new animal? Upload its photo to <code>images/animals/&lt;nickname&gt;.jpg</code> on GitHub — until then a stock photo fills in.</p>
   </div>
 
   <script src="assets/data.js"></script>
