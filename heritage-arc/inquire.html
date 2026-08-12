@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Inquire — The Heritage Arc</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='84'%3E%F0%9F%90%84%3C/text%3E%3C/svg%3E" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;1,9..144,400;1,9..144,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/styles.css" />
+</head>
+<body class="has-hero">
+  <section class="page-hero">
+    <div class="ph"><img src="https://images.unsplash.com/photo-1500595046743-cd271d694d30?auto=format&fit=crop&w=1800&q=80" alt="The herd grazing" loading="lazy" onerror="this.style.display='none'"></div>
+    <div class="scrim"></div>
+    <div class="ph-inner wrap">
+      <div class="breadcrumb"><a href="index.html">Home</a> / Inquire</div>
+      <h1>Begin a conversation about <em>your next animal</em>.</h1>
+    </div>
+  </section>
+
+  <section class="madlib">
+    <div class="letter-A" aria-hidden="true">A</div>
+    <div class="wrap section">
+      <form data-confirm novalidate>
+        <p class="ml">I am interested in
+          <select id="mlSpecies" name="species"><option>Goats</option><option>Sheep</option><option>Cattle</option><option>All of them</option></select>
+          specifically for
+          <select name="purpose"><option>Breeding</option><option>Fiber</option><option>Dairy</option><option>Companionship</option><option>Not sure yet</option></select>.
+          You can reach me at
+          <input type="email" name="email" placeholder="your email" required style="width:11ch" />.
+        </p>
+        <button class="btn" type="submit" style="margin-top:2rem">Send Inquiry →</button>
+        <div class="form-note">Thank you — your note is on its way to the ranch. We read every one ourselves and will write back soon.</div>
+      </form>
+    </div>
+  </section>
+
+  <script src="assets/data.js"></script>
+  <script src="assets/site.js"></script>
+</body>
+</html>
