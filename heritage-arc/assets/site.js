@@ -84,6 +84,7 @@
             '<li><a href="events.html">Events</a></li>'+
             '<li><a href="store.html">Store</a></li>'+
             '<li><a href="reserve.html">Reserve</a></li>'+
+            '<li><a href="index.html#join">Join our list</a></li>'+
             '<li><a href="inquire.html">Inquire</a></li>'+
           '</ul></div>'+
           '<div class="foot-col"><h4>Visit</h4><ul>'+
@@ -294,6 +295,49 @@
     }).join('');
   }
 
+  // ---------- join the list (email / text signup) ----------
+  function signupHTML(){
+    return '<div class="wrap section center">'+
+      '<span class="kicker center">Stay in the loop</span>'+
+      '<h2 class="big" style="margin-top:1rem">Be first to know when <em>new arrivals</em> hit the ground.</h2>'+
+      '<p class="lede" style="margin:1rem auto 2rem;max-width:54ch">Join our list and we\'ll send word the moment lambs, kids, and calves are born and when stock becomes available — by email or text, whichever you prefer.</p>'+
+      '<form class="join-form" novalidate>'+
+        '<div class="join-row">'+
+          '<input name="name" placeholder="First name" aria-label="First name">'+
+          '<input type="email" name="email" placeholder="Email address" aria-label="Email" required>'+
+          '<input type="tel" name="phone" placeholder="Phone (for texts)" aria-label="Phone">'+
+          '<select name="preference" aria-label="How should we reach you?"><option value="Email or text">Email or text</option><option value="Email only">Email only</option><option value="Text only">Text only</option></select>'+
+          '<button class="btn" type="submit">Join the list</button>'+
+        '</div>'+
+        '<div class="join-fine">No spam, ever — just farm news. Unsubscribe anytime.</div>'+
+        '<div class="form-note">You\'re on the list! We\'ll be in touch when there\'s news from the farm.</div>'+
+      '</form>'+
+    '</div>';
+  }
+  function renderSignup(){
+    var hosts = document.querySelectorAll('[data-join]'); if(!hosts.length) return;
+    hosts.forEach(function(host){
+      host.innerHTML = signupHTML();
+      var form = host.querySelector('.join-form');
+      var note = host.querySelector('.form-note');
+      form.addEventListener('submit', function(e){
+        e.preventDefault();
+        var email = form.querySelector('[name=email]');
+        if(email && !email.value.trim()){ email.focus(); return; }
+        function done(){
+          form.querySelectorAll('input,select,button').forEach(function(n){ n.setAttribute('disabled','disabled'); });
+          if(note){ note.classList.add('show'); }
+        }
+        var ep = S.listEndpoint;
+        if(!ep){ done(); return; }   // demo mode until a service is connected
+        var btn = form.querySelector('button'); if(btn){ btn.textContent = 'Joining…'; }
+        fetch(ep, { method:'POST', body: new FormData(form), headers:{ 'Accept':'application/json' } })
+          .then(function(){ done(); })
+          .catch(function(){ done(); });
+      });
+    });
+  }
+
   // ---------- forms ----------
   function initForms(){
     // visit form + generic confirm
@@ -335,7 +379,7 @@
   document.addEventListener('DOMContentLoaded',function(){
     mountChrome(); fillTokens();
     renderHorizon(); renderSpecies(); renderAvailable(); renderAnimal();
-    renderEvents(); renderStore();
+    renderEvents(); renderStore(); renderSignup();
     initForms(); initReveal();
   });
 })();
