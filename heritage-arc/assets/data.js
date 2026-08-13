@@ -116,7 +116,8 @@
     "sex": "Heifer",
     "age": "5 yr",
     "status": "Foundation Cow",
-    "desc": ""
+    "desc": "",
+    "gallery": []
   },
   {
     "slug": "oone",
@@ -127,7 +128,8 @@
     "sex": "Heifer",
     "age": "",
     "status": "Foundation Cow",
-    "desc": ""
+    "desc": "",
+    "gallery": []
   },
   {
     "slug": "moonshadow",
@@ -138,7 +140,8 @@
     "sex": "Heifer",
     "age": "",
     "status": "Foundation Cow",
-    "desc": ""
+    "desc": "",
+    "gallery": []
   },
   {
     "slug": "poppy",
@@ -149,7 +152,8 @@
     "sex": "Heifer",
     "age": "",
     "status": "Foundation Cow",
-    "desc": ""
+    "desc": "",
+    "gallery": []
   },
   {
     "slug": "farrah",
@@ -160,7 +164,8 @@
     "sex": "Heifer",
     "age": "",
     "status": "Foundation Cow",
-    "desc": ""
+    "desc": "",
+    "gallery": []
   },
   {
     "slug": "fiona",
@@ -171,7 +176,8 @@
     "sex": "Heifer",
     "age": "",
     "status": "Foundation Cow",
-    "desc": ""
+    "desc": "",
+    "gallery": []
   },
   {
     "slug": "new-animal",
@@ -182,7 +188,8 @@
     "sex": "Bull",
     "age": "",
     "status": "Not For Sale",
-    "desc": ""
+    "desc": "",
+    "gallery": []
   },
   {
     "slug": "august",
@@ -193,7 +200,8 @@
     "sex": "Bull",
     "age": "",
     "status": "Herd Sire",
-    "desc": ""
+    "desc": "",
+    "gallery": []
   },
   {
     "slug": "bulleit",
@@ -204,7 +212,8 @@
     "sex": "Bull",
     "age": "",
     "status": "Available",
-    "desc": ""
+    "desc": "",
+    "gallery": []
   },
   {
     "slug": "louie",
@@ -215,7 +224,8 @@
     "sex": "Male",
     "age": "",
     "status": "Herd Sire",
-    "desc": ""
+    "desc": "",
+    "gallery": []
   },
   {
     "slug": "pico",
@@ -226,7 +236,8 @@
     "sex": "Male",
     "age": "",
     "status": "Not For Sale",
-    "desc": ""
+    "desc": "",
+    "gallery": []
   },
   {
     "slug": "sundae",
@@ -237,7 +248,8 @@
     "sex": "Female",
     "age": "",
     "status": "Not For Sale",
-    "desc": ""
+    "desc": "",
+    "gallery": []
   },
   {
     "slug": "jojo",
@@ -248,7 +260,8 @@
     "sex": "Female",
     "age": "",
     "status": "Not For Sale",
-    "desc": ""
+    "desc": "",
+    "gallery": []
   },
   {
     "slug": "dolly",
@@ -259,7 +272,8 @@
     "sex": "Female",
     "age": "",
     "status": "Not For Sale",
-    "desc": ""
+    "desc": "",
+    "gallery": []
   },
   {
     "slug": "tulip",
@@ -270,7 +284,8 @@
     "sex": "Ewe",
     "age": "",
     "status": "Not For Sale",
-    "desc": ""
+    "desc": "",
+    "gallery": []
   },
   {
     "slug": "ginger",
@@ -281,7 +296,8 @@
     "sex": "Ewe",
     "age": "",
     "status": "Not For Sale",
-    "desc": ""
+    "desc": "",
+    "gallery": []
   },
   {
     "slug": "pearl",
@@ -292,7 +308,8 @@
     "sex": "Ewe",
     "age": "",
     "status": "Not For Sale",
-    "desc": ""
+    "desc": "",
+    "gallery": []
   },
   {
     "slug": "teddy",
@@ -303,7 +320,8 @@
     "sex": "Wether",
     "age": "",
     "status": "Not For Sale",
-    "desc": ""
+    "desc": "",
+    "gallery": []
   },
   {
     "slug": "charlie",
@@ -314,7 +332,8 @@
     "sex": "Wether",
     "age": "",
     "status": "Not For Sale",
-    "desc": ""
+    "desc": "",
+    "gallery": []
   }
 ];
   var HORIZON = [
