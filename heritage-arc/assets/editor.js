@@ -21,8 +21,19 @@
 
   function opt(list, val){ return list.map(function(o){ return '<option'+(o===val?' selected':'')+'>'+esc(o)+'</option>'; }).join(''); }
 
+  function animalPhotoSrc(a){ return a.photo || ('images/animals/'+(a.slug||'')+'.jpg'); }
+
   function animalRow(a, i){
     return '<div class="ed-card" data-i="'+i+'">'+
+      '<div class="ed-photo">'+
+        '<div class="ed-thumb"><span class="ed-thumb-ph">No photo yet</span>'+
+          '<img src="'+esc(animalPhotoSrc(a))+'" alt="" onerror="this.style.display=&#39;none&#39;">'+
+        '</div>'+
+        '<div class="ed-photo-side">'+
+          '<label class="btn ghost ed-photo-btn">Choose photo<input type="file" accept="image/*" data-photo="1"></label>'+
+          '<div class="ed-photo-note">'+(a.photo?'Photo set.':'A stock photo fills in until you add one.')+'</div>'+
+        '</div>'+
+      '</div>'+
       '<div class="ed-row"><label>Name<input data-f="name" value="'+esc(a.name)+'"></label>'+
         '<label>Nickname / photo name<input data-f="slug" value="'+esc(a.slug||'')+'" placeholder="auto"></label></div>'+
       '<div class="ed-row"><label>Kind<select data-f="species">'+opt(SPECIES,a.species)+'</select></label>'+
@@ -154,6 +165,44 @@
       var pp = t.getAttribute('data-pr').split('|'); state.PRODUCTS[+pp[0]][pp[1]] = t.value;
     }
   });
+  // ---------- photo picking (downscale in-browser, upload on Save) ----------
+  function processImage(file, cb){
+    var reader = new FileReader();
+    reader.onload = function(){
+      var img = new Image();
+      img.onload = function(){
+        var max = 1600, w = img.width, h = img.height;
+        if (w > max){ h = Math.round(h * max / w); w = max; }
+        var cv = document.createElement('canvas'); cv.width = w; cv.height = h;
+        cv.getContext('2d').drawImage(img, 0, 0, w, h);
+        var url = cv.toDataURL('image/jpeg', 0.85);
+        cb(url, url.split(',')[1], 'jpg');
+      };
+      img.onerror = function(){ // non-decodable (rare) — send the raw file through as-is
+        var ext = (file.name.split('.').pop() || 'jpg').toLowerCase(); if (ext === 'jpeg') ext = 'jpg';
+        cb(reader.result, reader.result.split(',')[1], ext);
+      };
+      img.src = reader.result;
+    };
+    reader.readAsDataURL(file);
+  }
+
+  document.addEventListener('change', function(e){
+    var t = e.target;
+    if (!t.getAttribute || !t.hasAttribute('data-photo')) return;
+    var file = t.files && t.files[0]; if (!file) return;
+    var card = t.closest('.ed-card'); if (!card) return;
+    var a = state.ANIMALS[+card.getAttribute('data-i')];
+    var note = card.querySelector('.ed-photo-note'); if (note) note.textContent = 'Reading photo…';
+    processImage(file, function(url, base64, ext){
+      a.photo = url;                 // instant preview (also works if you download the file)
+      a._up = { base64: base64, ext: ext };
+      var img = card.querySelector('.ed-thumb img');
+      if (img){ img.src = url; img.style.display = ''; }
+      if (note) note.textContent = 'New photo ready — it uploads when you Save.';
+    });
+  });
+
   document.addEventListener('click', function(e){
     var t = e.target; if(!t.getAttribute) return;
     if (t.getAttribute('data-del') !== null)   { state.ANIMALS.splice(+t.getAttribute('data-del'), 1); renderAnimals(); }
@@ -169,6 +218,9 @@
   function addEvent(){ state.EVENTS.push({ when:'', title:'New event', body:'', cta:'RSVP' }); renderEventsEd(); }
   function addProduct(){ state.PRODUCTS.push({ name:'New product', price:'', blurb:'', img:'wool' }); renderStoreEd(); }
 
+  function cleanAnimals(){
+    return state.ANIMALS.map(function(a){ var c = {}; for (var k in a){ if (k !== '_up') c[k] = a[k]; } return c; });
+  }
   function generate(){
     state.ANIMALS.forEach(function(a){ if(!a.slug) a.slug = slugify(a.name); });
     function o(x){ return JSON.stringify(x, null, 2); }
@@ -181,7 +233,7 @@
       '  var COPY = ' + o(state.COPY) + ';\n' +
       '  var EVENTS = ' + o(state.EVENTS) + ';\n' +
       '  var PRODUCTS = ' + o(state.PRODUCTS) + ';\n' +
-      '  var ANIMALS = ' + o(state.ANIMALS) + ';\n' +
+      '  var ANIMALS = ' + o(cleanAnimals()) + ';\n' +
       '  var HORIZON = ' + o(state.HORIZON) + ';\n' +
       '  window.HA = { SITE: SITE, SPECIES: SPECIES, ANIMALS: ANIMALS, HORIZON: HORIZON, IMG: IMG, STOCK: STOCK, COPY: COPY, EVENTS: EVENTS, PRODUCTS: PRODUCTS };\n' +
       '})();\n';
@@ -211,32 +263,52 @@
     var owner = (byId('pubOwner').value.trim() || DEFAULTS.owner);
     var repo  = (byId('pubRepo').value.trim()  || DEFAULTS.repo);
     var branch= (byId('pubBranch').value.trim()|| DEFAULTS.branch);
-    var path  = 'assets/data.js';
     if(!token){ status('Paste your GitHub access key first (see "How to get your key" above).', 'err'); return; }
     saveCfg({ owner:owner, repo:repo, branch:branch, token: byId('pubRemember').checked ? token : '' });
 
-    status('Saving to your site…', 'busy');
-    var api = 'https://api.github.com/repos/'+owner+'/'+repo+'/contents/'+path;
     var headers = { 'Authorization':'Bearer '+token, 'Accept':'application/vnd.github+json', 'X-GitHub-Api-Version':'2022-11-28' };
+    function cpath(p){ return 'https://api.github.com/repos/'+owner+'/'+repo+'/contents/'+p; }
+    // GET current sha (if any), then PUT the new content — works for text and binary (base64).
+    function ghPut(p, contentB64, message){
+      var url = cpath(p);
+      return fetch(url+'?ref='+encodeURIComponent(branch)+'&t='+Date.now(), { headers: headers, cache:'no-store' })
+        .then(function(g){
+          if(g.status===401) throw {msg:'That key was rejected. Copy it again fully — and check it hasn\'t expired.'};
+          if(g.status===404) return null; // file will be created
+          if(g.status!==200) throw {msg:'Couldn\'t reach your project (error '+g.status+'). Check the repo name below.'};
+          return g.json();
+        })
+        .then(function(gj){
+          var body = { message:message, content:contentB64, branch:branch };
+          if(gj && gj.sha) body.sha = gj.sha;
+          return fetch(url, { method:'PUT', headers: headers, body: JSON.stringify(body) });
+        })
+        .then(function(put){
+          if(put.status===200 || put.status===201) return;
+          if(put.status===401 || put.status===403) throw {msg:'Save was blocked (error '+put.status+'). Your key needs "Contents: Read and write" on this repository.'};
+          if(put.status===409) throw {msg:'Something changed at the same time — click Save changes again.'};
+          return put.json().then(function(pj){ throw {msg:'Save failed (error '+put.status+'). '+(pj.message||'')}; });
+        });
+    }
 
-    fetch(api+'?ref='+encodeURIComponent(branch)+'&t='+Date.now(), { headers: headers, cache:'no-store' })
-      .then(function(g){
-        if(g.status===401) throw {msg:'That key was rejected. Copy it again fully — and check it hasn\'t expired.'};
-        if(g.status===404) return null; // file will be created
-        if(g.status!==200) throw {msg:'Couldn\'t reach your project (error '+g.status+'). Check the repo name below.'};
-        return g.json();
-      })
-      .then(function(gj){
-        var body = { message:'Update site content via the editor', content:b64(generate()), branch:branch };
-        if(gj && gj.sha) body.sha = gj.sha;
-        return fetch(api, { method:'PUT', headers: headers, body: JSON.stringify(body) });
-      })
-      .then(function(put){
-        if(put.status===200 || put.status===201){ status('✓ Saved! Your live site updates in about a minute. Refresh it shortly.', 'ok'); return; }
-        if(put.status===401 || put.status===403){ throw {msg:'Save was blocked (error '+put.status+'). Your key needs "Contents: Read and write" on this repository.'}; }
-        if(put.status===409){ throw {msg:'The file just changed elsewhere — click Save changes again.'}; }
-        return put.json().then(function(pj){ throw {msg:'Save failed (error '+put.status+'). '+(pj.message||'')}; });
-      })
+    status('Saving to your site…', 'busy');
+    state.ANIMALS.forEach(function(a){ if(!a.slug) a.slug = slugify(a.name); });
+
+    // 1) upload any newly-chosen animal photos as their own files, 2) then save data.js
+    var chain = Promise.resolve();
+    state.ANIMALS.forEach(function(a){
+      if(!a._up) return;
+      chain = chain.then(function(){
+        var p = 'images/animals/'+a.slug+'.'+a._up.ext;
+        status('Uploading ' + (a.name || 'animal') + '’s photo…', 'busy');
+        return ghPut(p, a._up.base64, 'Add photo for ' + (a.name || a.slug)).then(function(){
+          a.photo = p; delete a._up;
+        });
+      });
+    });
+    chain
+      .then(function(){ status('Saving your changes…', 'busy'); return ghPut('assets/data.js', b64(generate()), 'Update site content via the editor'); })
+      .then(function(){ status('✓ Saved! Your live site updates in about a minute. Refresh it shortly.', 'ok'); renderAnimals(); })
       .catch(function(e){ status((e && e.msg) || 'Network error — check your connection and try again.', 'err'); });
   }
 

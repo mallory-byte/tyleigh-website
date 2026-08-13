@@ -16,7 +16,7 @@
       'onerror="var f=this.getAttribute(&quot;data-fb&quot;);if(f){this.removeAttribute(&quot;data-fb&quot;);this.src=f;}else{this.style.display=&quot;none&quot;;}">';
   }
   function img2(key,alt){ return imgTag(IMG[key], alt||S.name, STOCK[key]); }
-  function animalImg(a){ return imgTag('images/animals/'+a.slug+'.jpg', a.name, STOCK[a.species]); }
+  function animalImg(a){ return imgTag(a.photo || ('images/animals/'+a.slug+'.jpg'), a.name, STOCK[a.species]); }
   function photo(src,alt,cls,fb){ return '<div class="ph '+(cls||'')+'">'+imgTag(src,alt,fb)+'</div>'; }
   function photoKey(key,alt,cls){ return '<div class="ph '+(cls||'')+'">'+img2(key,alt)+'</div>'; }
   function photoAnimal(a,cls){ return '<div class="ph '+(cls||'')+'">'+animalImg(a)+'</div>'; }
