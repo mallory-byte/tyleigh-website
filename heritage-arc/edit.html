@@ -19,6 +19,7 @@
     .topbar a{color:var(--bone);opacity:.8;font-size:.85rem;text-decoration:none;}
     .topbar a:hover{opacity:1;}
     .wrap{max-width:920px;margin:0 auto;padding:2rem 1.5rem 5rem;}
+    @media(max-width:600px){ .wrap{padding:1.5rem 1rem 5rem;} .ed-row{flex-direction:column;gap:.7rem;} .ed-row label{min-width:0;} .ed-card{padding:1rem .9rem;} .topbar{font-size:.9rem;} .actions{gap:.6rem;} }
     h1{font-family:var(--serif);font-weight:500;font-size:2rem;margin-bottom:.4rem;}
     .sub{color:var(--muted);margin-bottom:1.5rem;}
     .callout{background:#fff;border:1px solid var(--line);border-left:3px solid var(--clay);padding:1rem 1.2rem;margin-bottom:2rem;font-size:.93rem;}
@@ -29,7 +30,7 @@
     .ed-row{display:flex;flex-wrap:wrap;gap:.8rem;margin-bottom:.8rem;}
     .ed-row label,.ed-full{flex:1;min-width:130px;display:flex;flex-direction:column;font-size:.72rem;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);gap:.3rem;}
     .ed-full{display:block;margin-bottom:.4rem;}
-    input,select,textarea{font-family:var(--sans);font-size:.95rem;color:var(--ink);background:var(--bone);border:1px solid var(--line);border-radius:3px;padding:.5rem .6rem;width:100%;text-transform:none;letter-spacing:0;}
+    input,select,textarea{font-family:var(--sans);font-size:16px;color:var(--ink);background:var(--bone);border:1px solid var(--line);border-radius:3px;padding:.55rem .6rem;width:100%;text-transform:none;letter-spacing:0;}
     input:focus,select:focus,textarea:focus{outline:none;border-color:var(--clay);}
     textarea{resize:vertical;}
     .ed-del{margin-top:.4rem;background:none;border:0;color:#a3402c;font-size:.8rem;cursor:pointer;text-decoration:underline;padding:0;}

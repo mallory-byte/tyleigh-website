@@ -30,7 +30,7 @@
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
 html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
-body { font-family: var(--sans); background: var(--bone); color: var(--ink); line-height: 1.7; font-size: 1.05rem; font-weight: 400; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+body { font-family: var(--sans); background: var(--bone); color: var(--ink); line-height: 1.7; font-size: 1.05rem; font-weight: 400; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; overflow-x: hidden; }
 img { max-width: 100%; display: block; }
 a { color: inherit; text-decoration: none; }
 
@@ -106,7 +106,7 @@ p { max-width: var(--measure); }
 .ph > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 1; }
 
 /* ---------- home hero ---------- */
-.hero { position: relative; min-height: calc(100vh - var(--hdr)); display: flex; align-items: flex-end; color: #fff; overflow: hidden; background: #4b463f center/cover no-repeat; background-image: linear-gradient(180deg, rgba(40,36,31,.28) 0%, rgba(40,36,31,.12) 42%, rgba(40,36,31,.72) 100%), radial-gradient(120% 90% at 60% 22%, #cdbfa4 0%, #9c9077 42%, #4c4436 100%); }
+.hero { position: relative; min-height: calc(100vh - var(--hdr)); min-height: calc(100svh - var(--hdr)); display: flex; align-items: flex-end; color: #fff; overflow: hidden; background: #4b463f center/cover no-repeat; background-image: linear-gradient(180deg, rgba(40,36,31,.28) 0%, rgba(40,36,31,.12) 42%, rgba(40,36,31,.72) 100%), radial-gradient(120% 90% at 60% 22%, #cdbfa4 0%, #9c9077 42%, #4c4436 100%); }
 .hero .hero-img { position: absolute; inset: 0; z-index: 0; }
 .hero .hero-img img { width: 100%; height: 100%; object-fit: cover; }
 .hero .hero-scrim { position: absolute; inset: 0; z-index: 1; background: linear-gradient(180deg, rgba(40,36,31,.28) 0%, rgba(40,36,31,.10) 42%, rgba(40,36,31,.74) 100%); }
@@ -144,6 +144,7 @@ p { max-width: var(--measure); }
 .feature-copy h2 { font-size: clamp(1.9rem, 4vw, 3rem); margin: .5rem 0 1.1rem; }
 .watermark-H { position: relative; }
 .watermark-H::after { content: "H"; position: absolute; top: -3rem; right: -1rem; font-family: var(--serif); font-size: 22rem; line-height: 1; color: #00000008; z-index: 0; pointer-events: none; }
+@media (max-width: 860px) { .watermark-H::after { display: none; } }
 
 /* ---------- horizon / countdown ---------- */
 .horizon { background: var(--bone-2); }
@@ -212,6 +213,7 @@ a.beast:hover { transform: translateY(-5px); box-shadow: 0 16px 34px rgba(43,39,
 .beast .body .id { font-family: var(--sans); font-size: .74rem; letter-spacing: .14em; color: var(--muted); }
 .beast .body .breed { font-family: var(--serif); font-style: italic; color: var(--muted); font-size: 1rem; margin-top: .1rem; }
 .beast .beast-meta { font-size: .82rem; color: var(--muted); margin-top: .5rem; }
+.beast .beast-price { font-family: var(--serif); color: var(--rust); font-size: 1.2rem; margin-top: .55rem; }
 .beast .beast-more { margin-top: 1rem; font-size: .72rem; letter-spacing: .12em; text-transform: uppercase; color: var(--clay); font-weight: 600; }
 a.beast:hover .beast-more { color: #8a4a2c; }
 .spec { display: grid; grid-template-columns: repeat(2, 1fr); border: 1px solid var(--line); margin: 1.1rem 0; }
@@ -343,3 +345,18 @@ a.beast:hover .beast-more { color: #8a4a2c; }
 .reveal.in { opacity: 1; transform: none; }
 @media (prefers-reduced-motion: reduce){ .reveal{opacity:1;transform:none;} html{scroll-behavior:auto;} }
 .muted { color: var(--muted); }
+
+/* ---------- small-phone refinements ---------- */
+@media (max-width: 600px) {
+  /* iOS zooms the page when a focused field is under 16px — keep them all at 16px */
+  input, select, textarea { font-size: 16px; }
+  .hero .sub { font-size: 1.05rem; }
+  .hero .cta { gap: 1rem; }
+  .hero .cta .btn { width: 100%; text-align: center; }
+  .beast .body { padding: 1.2rem 1.2rem 1.4rem; }
+  .animal-info .fact { grid-template-columns: 1fr auto; gap: 1.2rem; }
+}
+@media (max-width: 400px) {
+  .wordmark { font-size: 1.2rem; }
+  .foot-bottom { font-size: .72rem; }
+}

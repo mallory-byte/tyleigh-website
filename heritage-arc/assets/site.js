@@ -135,6 +135,7 @@
         '<div class="top"><h3>'+esc(a.name)+'</h3>'+(a.id?'<span class="id">'+esc(a.id)+'</span>':'')+'</div>'+
         (a.breed?'<div class="breed">'+esc(a.breed)+'</div>':'')+
         (meta?'<div class="beast-meta">'+esc(meta)+'</div>':'')+
+        (a.price?'<div class="beast-price">'+esc(a.price)+'</div>':'')+
         (a.desc?'<div class="desc">'+esc(a.desc)+'</div>':'')+
         (can?'<div class="beast-more">See '+esc(a.name)+'’s page →</div>':'')+
       '</div>';
