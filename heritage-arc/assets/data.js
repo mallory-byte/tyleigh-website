@@ -102,7 +102,7 @@
   "storeCta": "Want something you don't see here? <em>Just ask.</em>",
   "inquireHeading": "Begin a conversation about <em>your next animal</em>.",
   "reserveHeading": "Reservation <em>Form</em>",
-  "reserveIntro": "This form is to reserve a lamb or sheep that is listed as available on our Available Sheep page.\n\nWe are expecting lambs in April and May of 2026. Available lambs will be posted on our website as well as on our Facebook page as they are born.\n\nA deposit might be required to hold your sheep depending on circumstances.\n\nWe ask that you read the Breed Info and Requirements pages in their entirety before submitting the following form.\n\nBuyer is responsible for transportation from our ranch in Greenwood, Arkansas. Please contact us if you need transportation recommendations.\n\nPlease fill out the following form if you are ready to purchase any of our available sheep. Once we receive the form we will contact you via email to discuss steps to move forward. Thank you!"
+  "reserveIntro": "This form is to reserve a calf or goat that is listed as available on our Available Sheep page.\n\nWe are expecting goats in Spring of 2027. Available goats will be posted on our website as well as on our Facebook page as they are born.\n\nA deposit might be required to hold your goat depending on circumstances.\n\nWe ask that you read the Breed Info and Requirements pages in their entirety before submitting the following form.\n\nBuyer is responsible for transportation from our farm in Fulton, Mississippi. Please contact us if you need transportation recommendations.\n\nPlease fill out the following form if you are ready to purchase any of our available sheep. Once we receive the form we will contact you via email to discuss steps to move forward. Thank you!"
 };
   var EVENTS = [];
   var PRODUCTS = [];
@@ -204,6 +204,116 @@
     "sex": "Bull",
     "age": "",
     "status": "Available",
+    "desc": ""
+  },
+  {
+    "slug": "louie",
+    "name": "Louie",
+    "species": "goats",
+    "breed": "Nigerian Dwarf",
+    "id": "",
+    "sex": "Male",
+    "age": "",
+    "status": "Herd Sire",
+    "desc": ""
+  },
+  {
+    "slug": "pico",
+    "name": "Pico",
+    "species": "goats",
+    "breed": "Nigerian Dwarf",
+    "id": "",
+    "sex": "Male",
+    "age": "",
+    "status": "Not For Sale",
+    "desc": ""
+  },
+  {
+    "slug": "sundae",
+    "name": "Sundae",
+    "species": "goats",
+    "breed": "Nigerian Dwarf",
+    "id": "",
+    "sex": "Female",
+    "age": "",
+    "status": "Not For Sale",
+    "desc": ""
+  },
+  {
+    "slug": "jojo",
+    "name": "Jojo",
+    "species": "goats",
+    "breed": "Nigerian Dwarf",
+    "id": "",
+    "sex": "Female",
+    "age": "",
+    "status": "Not For Sale",
+    "desc": ""
+  },
+  {
+    "slug": "dolly",
+    "name": "Dolly",
+    "species": "goats",
+    "breed": "Nigerian Dwarf",
+    "id": "",
+    "sex": "Female",
+    "age": "",
+    "status": "Not For Sale",
+    "desc": ""
+  },
+  {
+    "slug": "tulip",
+    "name": "Tulip",
+    "species": "sheep",
+    "breed": "Babydoll",
+    "id": "",
+    "sex": "Ewe",
+    "age": "",
+    "status": "Not For Sale",
+    "desc": ""
+  },
+  {
+    "slug": "ginger",
+    "name": "Ginger",
+    "species": "sheep",
+    "breed": "Babydoll",
+    "id": "",
+    "sex": "Ewe",
+    "age": "",
+    "status": "Not For Sale",
+    "desc": ""
+  },
+  {
+    "slug": "pearl",
+    "name": "Pearl",
+    "species": "sheep",
+    "breed": "Babydoll",
+    "id": "",
+    "sex": "Ewe",
+    "age": "",
+    "status": "Not For Sale",
+    "desc": ""
+  },
+  {
+    "slug": "teddy",
+    "name": "Teddy",
+    "species": "sheep",
+    "breed": "Babydoll",
+    "id": "",
+    "sex": "Wether",
+    "age": "",
+    "status": "Not For Sale",
+    "desc": ""
+  },
+  {
+    "slug": "charlie",
+    "name": "Charlie",
+    "species": "sheep",
+    "breed": "Babydoll",
+    "id": "",
+    "sex": "Wether",
+    "age": "",
+    "status": "Not For Sale",
     "desc": ""
   }
 ];
