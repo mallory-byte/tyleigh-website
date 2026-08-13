@@ -39,7 +39,7 @@ h1 em, h2 em, h3 em, .serif em { font-style: italic; }
 
 /* ---------- layout ---------- */
 .wrap { max-width: var(--wrap); margin: 0 auto; padding: 0 clamp(1.25rem, 4vw, 3rem); }
-.section { padding: clamp(3.5rem, 8vw, 7.5rem) 0; }
+.section { padding-top: clamp(3.5rem, 8vw, 7.5rem); padding-bottom: clamp(3.5rem, 8vw, 7.5rem); }
 .center { text-align: center; }
 .rule { border: 0; border-top: 1px solid var(--line); }
 
@@ -275,6 +275,18 @@ a.beast:hover .beast-more { color: #8a4a2c; }
 .madlib .ml input::placeholder { color: rgba(198,167,104,.6); }
 .madlib .ml select:focus, .madlib .ml input:focus { outline: none; border-bottom-color: var(--gold); }
 .madlib .ml select option { color: #222; font-style: normal; }
+.madlib .ml-seg { display: inline; }
+.madlib .ml-lead { display: inline; }
+.madlib .ml input { width: 11ch; }
+/* on phones, stack the sentence into clear, full-width, tappable fields */
+@media (max-width: 600px) {
+  .madlib .ml { font-size: 1.4rem; line-height: 1.4; max-width: none; }
+  .madlib .ml-seg { display: block; margin-bottom: 1.5rem; }
+  .madlib .ml-lead { display: block; font-family: var(--sans); font-style: normal; font-size: .7rem; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; color: rgba(244,239,229,.6); margin-bottom: .6rem; }
+  .madlib .ml select, .madlib .ml input { display: block; width: 100%; font-size: 1.15rem; padding: .7rem .8rem; border: 1px solid rgba(198,167,104,.5); border-radius: 6px; }
+  .madlib .ml-dot { display: none; }
+  .madlib .letter-A { font-size: 20rem; bottom: -3rem; }
+}
 
 /* reservation application wizard */
 .wizard { max-width: 760px; }
