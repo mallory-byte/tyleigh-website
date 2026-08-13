@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Reserve — Wallace Family Farms</title>
-  <meta name="description" content="Reserve a lamb or sheep listed as available. Fill out our reservation form and we'll be in touch by email about next steps." />
+  <meta name="description" content="Apply to reserve one of our animals. Choose the animal you're hoping to bring home, then step through a short application." />
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='84'%3E%F0%9F%90%84%3C/text%3E%3C/svg%3E" />
   <link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;1,9..144,400;1,9..144,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
@@ -24,67 +24,21 @@
   <section class="section">
     <div class="wrap">
       <div style="max-width:680px">
-        <span class="kicker">Reserve a Sheep</span>
+        <span class="kicker">Reserve an Animal</span>
         <p class="lede" style="margin-top:1.2rem;white-space:pre-line" data-copy="reserveIntro"></p>
       </div>
     </div>
   </section>
 
-  <!-- FORM -->
+  <!-- APPLICATION WIZARD -->
   <section class="madlib">
     <div class="wrap section" style="position:relative;z-index:2">
-      <form data-confirm novalidate class="reserve-form">
-
-        <h3 class="form-legend">Your details</h3>
-        <div class="line-fields">
-          <div class="two">
-            <div class="line-field"><label>First Name</label><input name="firstName" required></div>
-            <div class="line-field"><label>Last Name</label><input name="lastName" required></div>
-          </div>
-          <div class="two">
-            <div class="line-field"><label>Farm Name</label><input name="farmName"></div>
-            <div class="line-field"><label>Email</label><input type="email" name="email" required></div>
-          </div>
-          <div class="two">
-            <div class="line-field"><label>Address</label><input name="address"></div>
-            <div class="line-field"><label>City, State, Zip Code</label><input name="cityStateZip"></div>
-          </div>
-          <div class="line-field"><label>Name(s) of Sheep to Reserve</label><input name="sheepNames"></div>
-        </div>
-
-        <h3 class="form-legend">Your set-up</h3>
-        <div class="line-fields">
-          <div class="line-field"><label>Do you currently have sheep? How many?</label><input name="currentSheep"></div>
-          <div class="line-field"><label>What is your current set-up / living conditions for sheep? (Barn, acreage, fencing, dry lot, etc.)</label><textarea name="setup" rows="3"></textarea></div>
-          <div class="line-field"><label>How will you provide protection from predators?</label><textarea name="predators" rows="2"></textarea></div>
-          <div class="line-field"><label>What is your veterinarian's name and phone number?</label><input name="vet"></div>
-          <div class="line-field"><label>Do you have a shearer available to you? Sheep must be sheared annually.</label>
-            <select name="shearer"><option value="" disabled selected>Choose an option</option><option>Yes</option><option>No</option></select></div>
-        </div>
-
-        <h3 class="form-legend">Care &amp; commitment</h3>
-        <div class="line-fields">
-          <div class="line-field"><label>Are you willing and prepared to care for a sheep for its lifetime (up to 15 years), including ensuring it has another sheep companion at all times?</label>
-            <select name="lifetime"><option value="" disabled selected>Choose an option</option><option>Yes</option><option>No</option></select></div>
-          <div class="line-field"><label>Are you prepared to provide healthcare to your sheep such as checking their FAMACHA, trimming hooves, deworming, and providing yearly vaccinations?</label>
-            <select name="healthcare"><option value="" disabled selected>Choose an option</option><option>Yes</option><option>No</option></select></div>
-          <div class="line-field"><label>Are you aware rams (intact males) will possibly become aggressive to people and other animals as they mature and should never be treated as pets?</label>
-            <select name="ramsAware"><option value="" disabled selected>Choose an option</option><option>Yes</option><option>No</option></select></div>
-          <div class="line-field"><label>Is your home and land zoned for livestock?</label>
-            <select name="zoned"><option value="" disabled selected>Choose an option</option><option>Yes</option><option>No</option><option>Not sure</option></select></div>
-          <div class="line-field"><label>Do you agree that your deposit is non-refundable if the buyer's circumstances change, and that all transportation is the responsibility of the buyer during the agreed-upon timeframe?</label>
-            <select name="depositAgree"><option value="" disabled selected>Choose an option</option><option>Yes</option><option>No</option></select></div>
-          <div class="line-field"><label>Payment Preference</label>
-            <select name="payment"><option value="" disabled selected>Choose an option</option><option>Cash</option><option>Check</option><option>Venmo</option><option>PayPal</option><option>Zelle</option><option>Other</option></select></div>
-        </div>
-
-        <button class="btn on-dark" type="submit" style="margin-top:2.2rem">Send →</button>
-        <div class="form-note">Thank you — your reservation request is on its way to the ranch. We'll contact you by email to discuss the next steps.</div>
-      </form>
+      <div id="reserveApp"></div>
     </div>
   </section>
 
   <script src="assets/data.js"></script>
   <script src="assets/site.js"></script>
+  <script src="assets/reserve.js"></script>
 </body>
 </html>
