@@ -16,7 +16,16 @@
       'onerror="var f=this.getAttribute(&quot;data-fb&quot;);if(f){this.removeAttribute(&quot;data-fb&quot;);this.src=f;}else{this.style.display=&quot;none&quot;;}">';
   }
   function img2(key,alt){ return imgTag(IMG[key], alt||S.name, STOCK[key]); }
-  function animalImg(a){ return imgTag(a.photo || ('images/animals/'+a.slug+'.jpg'), a.name, STOCK[a.species]); }
+  function animalCover(a){ return a.photo || (a.gallery && a.gallery[0]) || ('images/animals/'+a.slug+'.jpg'); }
+  function animalImg(a){ return imgTag(animalCover(a), a.name, STOCK[a.species]); }
+  // every photo for an animal's own page: cover first, then any gallery extras (deduped)
+  function animalGallery(a){
+    var list = [];
+    if(a.photo) list.push(a.photo);
+    if(Array.isArray(a.gallery)) a.gallery.forEach(function(s){ if(s && list.indexOf(s)===-1) list.push(s); });
+    if(!list.length) list.push('images/animals/'+a.slug+'.jpg');
+    return list;
+  }
   function photo(src,alt,cls,fb){ return '<div class="ph '+(cls||'')+'">'+imgTag(src,alt,fb)+'</div>'; }
   function photoKey(key,alt,cls){ return '<div class="ph '+(cls||'')+'">'+img2(key,alt)+'</div>'; }
   function photoAnimal(a,cls){ return '<div class="ph '+(cls||'')+'">'+animalImg(a)+'</div>'; }
@@ -113,15 +122,25 @@
     if(!showStatus(a)) return '';
     return '<div class="spec spec-1"><div><div class="k">Status</div><div class="v">'+esc(a.status)+'</div></div></div>';
   }
+  function statusClass(s){ return 's-'+String(s||'').toLowerCase().replace(/[^a-z]+/g,'-').replace(/^-|-$/g,''); }
   function beastCard(a){
-    return '<a class="beast" href="animal.html?a='+a.slug+'">'+
-      '<div class="ph" style="position:relative"><span class="tag">'+esc(SP[a.species].plural)+'</span>'+animalImg(a)+'</div>'+
+    var can = showStatus(a);                                   // Available / Reserved / Sold → clickable page
+    var badge = can
+      ? '<span class="beast-badge '+statusClass(a.status)+'">'+esc(a.status)+'</span>'
+      : '<span class="beast-badge s-herd">Our herd</span>';
+    var meta = [a.sex, a.dob ? 'Born '+a.dob : ''].filter(Boolean).join('  ·  ');
+    var inner =
+      '<div class="ph beast-ph"><span class="tag">'+esc(SP[a.species].plural)+'</span>'+badge+animalImg(a)+'</div>'+
       '<div class="body">'+
-        '<div class="top"><h3>'+esc(a.name)+'</h3><span class="id">'+esc(a.id)+'</span></div>'+
-        '<div class="breed">'+esc(a.breed)+'</div>'+
-        statusSpec(a)+
-        '<div class="desc">'+esc(a.desc)+'</div>'+
-      '</div></a>';
+        '<div class="top"><h3>'+esc(a.name)+'</h3>'+(a.id?'<span class="id">'+esc(a.id)+'</span>':'')+'</div>'+
+        (a.breed?'<div class="breed">'+esc(a.breed)+'</div>':'')+
+        (meta?'<div class="beast-meta">'+esc(meta)+'</div>':'')+
+        (a.desc?'<div class="desc">'+esc(a.desc)+'</div>':'')+
+        (can?'<div class="beast-more">See '+esc(a.name)+'’s page →</div>':'')+
+      '</div>';
+    return can
+      ? '<a class="beast" href="animal.html?a='+a.slug+'">'+inner+'</a>'
+      : '<div class="beast beast-static">'+inner+'</div>';
   }
 
   // ---------- home: countdown board ----------
@@ -188,6 +207,7 @@
   }
 
   // ---------- animal detail ----------
+  function fact(k, v){ return v ? '<div class="fact"><dt>'+esc(k)+'</dt><dd>'+esc(v)+'</dd></div>' : ''; }
   function renderAnimal(){
     var host=byId('animalDetail'); if(!host) return;
     var a=animalBySlug(qs('a'));
@@ -196,24 +216,59 @@
     var sp=SP[a.species];
     var cta = (a.status==='Available')
       ? '<a class="btn" style="margin-top:2rem" href="inquire.html?about='+encodeURIComponent(a.name)+'">Inquire about '+esc(a.name)+'</a>'
-      : '<p class="muted" style="margin-top:1.5rem"><em>'+esc(a.name)+' is '+a.status.toLowerCase()+'.</em> <a class="arrow rust" href="available.html">See who\'s available</a></p>';
+      : (showStatus(a)
+          ? '<p class="muted" style="margin-top:1.6rem"><em>'+esc(a.name)+' is '+esc(a.status.toLowerCase())+'.</em> <a class="arrow rust" href="available.html">See who\'s available</a></p>'
+          : '');
+
+    var pics = animalGallery(a);
+    var galleryHTML =
+      '<div class="gallery">'+
+        '<div class="gallery-main">'+imgTag(pics[0], a.name, STOCK[a.species])+'</div>'+
+        (pics.length>1
+          ? '<div class="gallery-thumbs">'+pics.map(function(s,i){
+              return '<button type="button" class="gthumb'+(i===0?' active':'')+'" data-src="'+esc(s)+'">'+imgTag(s, a.name, STOCK[a.species])+'</button>';
+            }).join('')+'</div>'
+          : '')+
+      '</div>';
+
+    var facts =
+      fact('Status',           showStatus(a)?a.status:'') +
+      fact('Sex',              a.sex) +
+      fact('Breed',            a.breed) +
+      fact('Date of birth',    a.dob) +
+      fact('Weaned / ready',   a.ready) +
+      fact('Dam (mother)',     a.dam) +
+      fact('Sire (father)',    a.sire) +
+      fact('Color / markings', a.color) +
+      fact('Registration',     a.id) +
+      fact('Price',            a.price);
+
     host.innerHTML=''+
-      '<section class="page-hero">'+photoAnimal(a)+'<div class="scrim"></div>'+
+      '<section class="page-hero">'+photo(animalCover(a), a.name, '', STOCK[a.species])+'<div class="scrim"></div>'+
         '<div class="ph-inner wrap"><div class="breadcrumb"><a href="index.html">Home</a> / <a href="species.html?s='+sp.key+'">'+esc(sp.crumb)+'</a> / '+esc(a.name)+'</div>'+
         '<h1>'+esc(a.name)+'</h1></div></section>'+
-      '<section class="section"><div class="wrap"><div class="split">'+
-        '<div class="col-img">'+photoAnimal(a)+'</div>'+
-        '<div><span class="kicker">'+esc(sp.kicker)+'</span>'+
-          '<h2 style="font-size:clamp(2rem,4vw,3rem);margin:.8rem 0 .3rem">'+esc(a.name)+'</h2>'+
-          '<div class="breed" style="font-family:var(--serif);font-style:italic;color:var(--muted);font-size:1.15rem;margin-bottom:1.4rem">'+esc(a.breed)+' · '+esc(a.sex)+'</div>'+
-          '<p class="lede">'+esc(a.desc)+'</p>'+
-          (showStatus(a) ? '<div class="spec spec-1" style="max-width:200px;margin-top:1.8rem">'+
-            '<div><div class="k">Status</div><div class="v">'+esc(a.status)+'</div></div></div>' : '')+
-          '<table style="width:100%;max-width:420px;border-collapse:collapse;margin-top:1.4rem;font-size:.95rem">'+
-            '<tr><td style="padding:.5rem 0;color:var(--muted);border-bottom:1px solid var(--line)">Registry ID</td><td style="text-align:right;border-bottom:1px solid var(--line)">'+esc(a.id)+'</td></tr>'+
-            '<tr><td style="padding:.5rem 0;color:var(--muted);border-bottom:1px solid var(--line)">Breed</td><td style="text-align:right;border-bottom:1px solid var(--line)">'+esc(a.breed)+'</td></tr>'+
-          '</table>'+cta+
-        '</div></div></div></section>';
+      '<section class="section"><div class="wrap"><div class="animal-detail-grid">'+
+        '<div>'+galleryHTML+'</div>'+
+        '<div class="animal-info">'+
+          '<span class="kicker">'+esc(sp.kicker)+'</span>'+
+          '<h2 style="font-size:clamp(2rem,4vw,3rem);margin:.7rem 0 .3rem">'+esc(a.name)+'</h2>'+
+          (a.breed||a.sex?'<div class="breed" style="font-family:var(--serif);font-style:italic;color:var(--muted);font-size:1.15rem;margin-bottom:1.3rem">'+esc([a.breed,a.sex].filter(Boolean).join(' · '))+'</div>':'')+
+          (a.desc?'<p class="lede">'+esc(a.desc)+'</p>':'')+
+          (facts?'<dl class="facts">'+facts+'</dl>':'')+
+          cta+
+        '</div>'+
+      '</div></div></section>';
+
+    // thumbnail → swap the main photo
+    var mainImg = host.querySelector('.gallery-main img');
+    host.querySelectorAll('.gthumb').forEach(function(btn){
+      btn.addEventListener('click', function(){
+        host.querySelectorAll('.gthumb').forEach(function(x){ x.classList.remove('active'); });
+        btn.classList.add('active');
+        var im = btn.querySelector('img');
+        if(mainImg && im){ mainImg.src = im.currentSrc || im.src; mainImg.style.display=''; }
+      });
+    });
   }
 
   // ---------- events ----------

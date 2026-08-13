@@ -196,14 +196,24 @@ p { max-width: var(--measure); }
 .beast-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(1.4rem, 2.5vw, 2rem); }
 @media (max-width: 900px) { .beast-grid { grid-template-columns: repeat(2, 1fr); } }
 @media (max-width: 560px) { .beast-grid { grid-template-columns: 1fr; max-width: 420px; margin: 0 auto; } }
-.beast { display: block; color: var(--ink); border: 1px solid var(--line); background: var(--bone); }
-.beast .ph { aspect-ratio: 4/5; }
-.beast .tag { position: absolute; top: .8rem; left: .8rem; z-index: 2; background: rgba(43,39,35,.85); color: #fff; font-size: .62rem; letter-spacing: .16em; text-transform: uppercase; padding: .4em .8em; }
+.beast { display: block; color: var(--ink); border: 1px solid var(--line); background: var(--bone); border-radius: 7px; overflow: hidden; position: relative; transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease; }
+a.beast:hover { transform: translateY(-5px); box-shadow: 0 16px 34px rgba(43,39,35,.16); border-color: var(--clay); }
+.beast-static { cursor: default; }
+.beast .ph, .beast .beast-ph { aspect-ratio: 4/5; position: relative; }
+.beast .tag { position: absolute; top: .8rem; left: .8rem; z-index: 2; background: rgba(43,39,35,.85); color: #fff; font-size: .62rem; letter-spacing: .16em; text-transform: uppercase; padding: .4em .8em; border-radius: 2px; }
+.beast-badge { position: absolute; top: .8rem; right: .8rem; z-index: 2; color: #fff; font-size: .6rem; letter-spacing: .14em; text-transform: uppercase; padding: .42em .8em; border-radius: 2px; font-weight: 600; }
+.beast-badge.s-available { background: #5f7a4f; }
+.beast-badge.s-reserved { background: var(--gold); color: #2b2723; }
+.beast-badge.s-sold { background: #8a7461; }
+.beast-badge.s-herd { background: rgba(43,39,35,.72); }
 .beast .body { padding: 1.4rem 1.4rem 1.6rem; }
 .beast .body .top { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; }
 .beast .body h3 { font-size: 1.5rem; }
 .beast .body .id { font-family: var(--sans); font-size: .74rem; letter-spacing: .14em; color: var(--muted); }
 .beast .body .breed { font-family: var(--serif); font-style: italic; color: var(--muted); font-size: 1rem; margin-top: .1rem; }
+.beast .beast-meta { font-size: .82rem; color: var(--muted); margin-top: .5rem; }
+.beast .beast-more { margin-top: 1rem; font-size: .72rem; letter-spacing: .12em; text-transform: uppercase; color: var(--clay); font-weight: 600; }
+a.beast:hover .beast-more { color: #8a4a2c; }
 .spec { display: grid; grid-template-columns: repeat(2, 1fr); border: 1px solid var(--line); margin: 1.1rem 0; }
 .spec.spec-1 { grid-template-columns: 1fr; max-width: 200px; }
 .spec div { padding: .7rem .4rem; text-align: center; }
@@ -211,6 +221,22 @@ p { max-width: var(--measure); }
 .spec .k { font-size: .58rem; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); margin-bottom: .3rem; }
 .spec .v { font-size: .92rem; }
 .beast .desc { font-size: .92rem; color: var(--muted); }
+
+/* ---------- animal detail page ---------- */
+.animal-detail-grid { display: grid; grid-template-columns: 1.15fr .85fr; gap: clamp(2rem, 4vw, 3.5rem); align-items: start; }
+@media (max-width: 860px) { .animal-detail-grid { grid-template-columns: 1fr; } }
+.gallery-main { aspect-ratio: 4/3; background: var(--panel-2); border: 1px solid var(--line); border-radius: 7px; overflow: hidden; }
+.gallery-main img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.gallery-thumbs { display: grid; grid-template-columns: repeat(5, 1fr); gap: .6rem; margin-top: .7rem; }
+@media (max-width: 560px) { .gallery-thumbs { grid-template-columns: repeat(4, 1fr); } }
+.gthumb { padding: 0; border: 1px solid var(--line); border-radius: 5px; overflow: hidden; aspect-ratio: 1; cursor: pointer; background: var(--panel-2); transition: border-color .2s ease; }
+.gthumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.gthumb:hover { border-color: var(--clay); }
+.gthumb.active { border-color: var(--clay); box-shadow: inset 0 0 0 1px var(--clay); }
+.animal-info .facts { margin-top: 1.8rem; border-top: 1px solid var(--line); }
+.animal-info .fact { display: grid; grid-template-columns: 44% 1fr; gap: 1rem; padding: .72rem 0; border-bottom: 1px solid var(--line); font-size: .95rem; }
+.animal-info .fact dt { color: var(--muted); margin: 0; }
+.animal-info .fact dd { margin: 0; text-align: right; }
 
 /* ---------- filters ---------- */
 .filters { display: flex; flex-wrap: wrap; gap: .6rem; margin-bottom: 2.5rem; }
