@@ -5,11 +5,7 @@
     "footer": {
       "type": "footer",
       "settings": {}
-    },
-    "popup": {
-      "type": "popup",
-      "settings": {}
     }
   },
-  "order": ["footer", "popup"]
+  "order": ["footer"]
 }

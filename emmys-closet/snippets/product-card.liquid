@@ -14,9 +14,9 @@
   assign is_new = false
   if settings.show_new_badge
     assign new_days = settings.new_badge_days | default: 30
-    assign cutoff = 'now' | date: '%s' | minus: 0
-    assign age_seconds = cutoff | minus: product.created_at | date: '%s'
-    assign age_days = age_seconds | divided_by: 86400
+    assign now_s = 'now' | date: '%s' | plus: 0
+    assign created_s = product.created_at | date: '%s' | plus: 0
+    assign age_days = now_s | minus: created_s | divided_by: 86400
     if age_days <= new_days
       assign is_new = true
     endif
