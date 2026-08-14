@@ -73,38 +73,38 @@
       {
         "type": "color",
         "id": "color_primary",
-        "label": "Primary (dusty rose)",
-        "default": "#9a6a72"
+        "label": "Primary (rose)",
+        "default": "#c25b7c"
       },
       {
         "type": "color",
         "id": "color_primary_dark",
         "label": "Primary dark / footer",
-        "default": "#4e2f36"
+        "default": "#6e2748"
       },
       {
         "type": "color",
         "id": "color_accent",
-        "label": "Accent (rose)",
-        "default": "#b8737d"
+        "label": "Accent (bright rose)",
+        "default": "#d95c86"
       },
       {
         "type": "color",
         "id": "color_text",
         "label": "Body text",
-        "default": "#40353a"
+        "default": "#4a2f3a"
       },
       {
         "type": "color",
         "id": "color_muted",
         "label": "Muted text",
-        "default": "#8a7d82"
+        "default": "#9a7f8a"
       },
       {
         "type": "color",
         "id": "color_bg",
         "label": "Page background",
-        "default": "#faf5f0"
+        "default": "#fdf1f4"
       },
       {
         "type": "color",
@@ -116,7 +116,7 @@
         "type": "color",
         "id": "color_border",
         "label": "Borders",
-        "default": "#ece0d8"
+        "default": "#f2dde3"
       }
     ]
   },
