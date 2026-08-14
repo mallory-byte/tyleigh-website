@@ -10,7 +10,7 @@
       },
       "block_order": ["p1", "p2", "p3", "p4"],
       "settings": {
-        "image_url": "https://images.unsplash.com/photo-1522771930-fbfd8bd8bcd7?w=1920&auto=format&fit=crop",
+        "image_url": "",
         "eyebrow": "Classic children's clothing · since 2016",
         "heading": "Timeless treasures,",
         "heading_emphasis": "made to be handed down",
@@ -33,10 +33,10 @@
     "categories": {
       "type": "featured-collections",
       "blocks": {
-        "c1": { "type": "category", "settings": { "title": "Girls", "subtitle": "Dresses & Sets", "icon": "sparkles", "image_url": "https://images.unsplash.com/photo-1518831959646-742c3a14ebf7?w=800&auto=format&fit=crop" } },
-        "c2": { "type": "category", "settings": { "title": "Boys", "subtitle": "Jon Jons & Sets", "icon": "star", "image_url": "https://images.unsplash.com/photo-1519238263530-99bdd11df2ea?w=800&auto=format&fit=crop" } },
-        "c3": { "type": "category", "settings": { "title": "Baby", "subtitle": "0–24 Months", "icon": "baby", "image_url": "https://images.unsplash.com/photo-1515488042361-ee00e0ddd4e4?w=800&auto=format&fit=crop" } },
-        "c4": { "type": "category", "settings": { "title": "Accessories", "subtitle": "Bows & Bonnets", "icon": "gift", "image_url": "https://images.unsplash.com/photo-1611759386164-c1a6b6a0f2d9?w=800&auto=format&fit=crop" } }
+        "c1": { "type": "category", "settings": { "title": "Girls", "subtitle": "Dresses & Sets", "icon": "sparkles", "image_url": "" } },
+        "c2": { "type": "category", "settings": { "title": "Boys", "subtitle": "Jon Jons & Sets", "icon": "star", "image_url": "" } },
+        "c3": { "type": "category", "settings": { "title": "Baby", "subtitle": "0–24 Months", "icon": "baby", "image_url": "" } },
+        "c4": { "type": "category", "settings": { "title": "Accessories", "subtitle": "Bows & Bonnets", "icon": "gift", "image_url": "" } }
       },
       "block_order": ["c1", "c2", "c3", "c4"],
       "settings": {
@@ -90,7 +90,7 @@
     "story": {
       "type": "media-text",
       "settings": {
-        "image_url": "https://images.unsplash.com/photo-1503919545889-aef636e10ad4?w=1000&auto=format&fit=crop",
+        "image_url": "",
         "image_position": "right",
         "eyebrow": "Our Story",
         "heading": "A boutique built on tradition",

@@ -1,6 +1,6 @@
 {%- liquid
   assign menu = section.settings.menu
-  assign brand = settings.brand_name | default: shop.name
+  assign brand = settings.brand_name | default: "Emmy's Closet"
   assign phone = settings.phone
   assign phone_href = phone | remove: ' ' | remove: '(' | remove: ')' | remove: '-'
 -%}
@@ -12,7 +12,7 @@
       {%- elsif settings.logo_url != blank -%}
         <img src="{{ settings.logo_url }}" alt="{{ brand | escape }}" style="height:42px;width:auto;max-width:{{ settings.logo_width }}px">
       {%- else -%}
-        {{ brand }}
+        <span class="header__wordmark">{{ brand }}<small>Est. Children's Boutique</small></span>
       {%- endif -%}
     </a>
 

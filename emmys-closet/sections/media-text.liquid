@@ -6,6 +6,8 @@
         {{ section.settings.image | image_url: width: 1000 | image_tag: loading: 'lazy', alt: mt_alt, style: 'height:auto;aspect-ratio:16/10;box-shadow:var(--shadow-lg)', sizes: '(min-width: 990px) 45vw, 90vw', widths: '500, 750, 1000' }}
       {%- elsif section.settings.image_url != blank -%}
         <img src="{{ section.settings.image_url }}" alt="{{ section.settings.heading | escape }}" loading="lazy" style="aspect-ratio:16/10;box-shadow:var(--shadow-lg)">
+      {%- else -%}
+        <div class="media-ph">{% render 'icon', icon: 'sparkles' %}</div>
       {%- endif -%}
     </div>
     <div class="whyus__body">
