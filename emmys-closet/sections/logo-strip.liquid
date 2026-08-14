@@ -1,0 +1,49 @@
+{%- comment -%} Emmy's Closet — brands-we-carry strip {%- endcomment -%}
+<div class="logo-strip">
+  <div class="page-width" style="padding-block:var(--space-8)">
+    {%- if section.settings.label != blank -%}
+      <p class="logo-strip__label">{{ section.settings.label }}</p>
+    {%- endif -%}
+    <div class="logo-strip__row">
+      {%- for block in section.blocks -%}
+        {%- if block.settings.image != blank -%}
+          <img src="{{ block.settings.image | image_url: width: 320 }}" alt="{{ block.settings.name | escape }}" loading="lazy" style="max-height:38px;width:auto;filter:brightness(0) invert(1);opacity:.85" {{ block.shopify_attributes }}>
+        {%- else -%}
+          <span {{ block.shopify_attributes }}>{{ block.settings.name }}</span>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Brand strip",
+  "settings": [
+    { "type": "text", "id": "label", "label": "Label", "default": "The Labels Families Trust — Now Under One Roof" }
+  ],
+  "blocks": [
+    {
+      "type": "brand",
+      "name": "Brand",
+      "settings": [
+        { "type": "text", "id": "name", "label": "Brand name", "default": "Petit Ami" },
+        { "type": "image_picker", "id": "image", "label": "Logo image (optional, shown white)" }
+      ]
+    }
+  ],
+  "max_blocks": 8,
+  "presets": [
+    {
+      "name": "Brand strip",
+      "blocks": [
+        { "type": "brand", "settings": { "name": "Feltman Brothers" } },
+        { "type": "brand", "settings": { "name": "Petit Ami" } },
+        { "type": "brand", "settings": { "name": "The Beaufort Bonnet Co." } },
+        { "type": "brand", "settings": { "name": "Properly Tied" } },
+        { "type": "brand", "settings": { "name": "Magnolia Baby" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

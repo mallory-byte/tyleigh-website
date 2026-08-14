@@ -13,7 +13,7 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,600&family=Nunito+Sans:wght@300;400;500;600;700;800&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Nunito+Sans:wght@300;400;600;700;800;900&display=swap">
 
     <title>
       {{ page_title }}
@@ -32,16 +32,17 @@
 
     <style>
       :root {
-        --color-primary: {{ settings.color_primary | default: '#c25b7c' }};
-        --color-primary-dark: {{ settings.color_primary_dark | default: '#6e2748' }};
-        --color-accent: {{ settings.color_accent | default: '#d95c86' }};
-        --color-text: {{ settings.color_text | default: '#4a2f3a' }};
-        --color-muted: {{ settings.color_muted | default: '#9a7f8a' }};
-        --color-bg: {{ settings.color_bg | default: '#fdf1f4' }};
+        --color-primary: {{ settings.color_primary | default: '#1e3557' }};
+        --color-primary-dark: {{ settings.color_primary_dark | default: '#14243d' }};
+        --color-accent: {{ settings.color_accent | default: '#b23a48' }};
+        --color-text: {{ settings.color_text | default: '#22324a' }};
+        --color-muted: {{ settings.color_muted | default: '#74809a' }};
+        --color-bg: {{ settings.color_bg | default: '#f6f1e6' }};
         --color-surface: {{ settings.color_surface | default: '#ffffff' }};
-        --color-border: {{ settings.color_border | default: '#f2dde3' }};
+        --color-border: {{ settings.color_border | default: '#e4dcc9' }};
+        --color-gold: {{ settings.color_gold | default: '#c39b53' }};
         --page-width: {{ settings.page_width | default: 1280 }}px;
-        --card-radius: {{ settings.card_radius | default: 14 }}px;
+        --card-radius: {{ settings.card_radius | default: 3 }}px;
         --heading-scale: {{ settings.heading_scale | default: 100 | divided_by: 100.0 }};
       }
     </style>

@@ -1,0 +1,56 @@
+{%- comment -%} Emmy's Closet — trust bar (shipping / secure / returns / reviews) {%- endcomment -%}
+<div class="trust-bar">
+  <div class="page-width">
+    <div class="trust-bar__grid">
+      {%- for block in section.blocks -%}
+        <div class="trust-item" {{ block.shopify_attributes }}>
+          {% render 'icon', icon: block.settings.icon %}
+          <div>
+            <b>{{ block.settings.title }}</b>
+            <span>{{ block.settings.text }}</span>
+          </div>
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Trust bar",
+  "blocks": [
+    {
+      "type": "item",
+      "name": "Trust item",
+      "settings": [
+        {
+          "type": "select", "id": "icon", "label": "Icon", "default": "truck",
+          "options": [
+            { "value": "truck", "label": "Shipping" },
+            { "value": "shield", "label": "Secure" },
+            { "value": "refresh", "label": "Returns" },
+            { "value": "star", "label": "Reviews" },
+            { "value": "gift", "label": "Gift" },
+            { "value": "sparkles", "label": "Quality" },
+            { "value": "heart", "label": "Heart" }
+          ]
+        },
+        { "type": "text", "id": "title", "label": "Title", "default": "Free Shipping" },
+        { "type": "text", "id": "text", "label": "Subtext", "default": "On orders over $75" }
+      ]
+    }
+  ],
+  "max_blocks": 4,
+  "presets": [
+    {
+      "name": "Trust bar",
+      "blocks": [
+        { "type": "item", "settings": { "icon": "truck", "title": "Free Shipping", "text": "On orders over $75" } },
+        { "type": "item", "settings": { "icon": "shield", "title": "Secure Checkout", "text": "256-bit encryption" } },
+        { "type": "item", "settings": { "icon": "refresh", "title": "Easy Returns", "text": "30-day exchanges" } },
+        { "type": "item", "settings": { "icon": "star", "title": "4.9★ Rated", "text": "2,300+ reviews" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

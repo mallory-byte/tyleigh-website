@@ -73,38 +73,44 @@
       {
         "type": "color",
         "id": "color_primary",
-        "label": "Primary (rose)",
-        "default": "#c25b7c"
+        "label": "Primary (navy)",
+        "default": "#1e3557"
       },
       {
         "type": "color",
         "id": "color_primary_dark",
         "label": "Primary dark / footer",
-        "default": "#6e2748"
+        "default": "#14243d"
       },
       {
         "type": "color",
         "id": "color_accent",
-        "label": "Accent (bright rose)",
-        "default": "#d95c86"
+        "label": "Accent (classic red)",
+        "default": "#b23a48"
+      },
+      {
+        "type": "color",
+        "id": "color_gold",
+        "label": "Gold detail",
+        "default": "#c39b53"
       },
       {
         "type": "color",
         "id": "color_text",
         "label": "Body text",
-        "default": "#4a2f3a"
+        "default": "#22324a"
       },
       {
         "type": "color",
         "id": "color_muted",
         "label": "Muted text",
-        "default": "#9a7f8a"
+        "default": "#74809a"
       },
       {
         "type": "color",
         "id": "color_bg",
-        "label": "Page background",
-        "default": "#fdf1f4"
+        "label": "Page background (ivory)",
+        "default": "#f6f1e6"
       },
       {
         "type": "color",
@@ -116,7 +122,7 @@
         "type": "color",
         "id": "color_border",
         "label": "Borders",
-        "default": "#f2dde3"
+        "default": "#e4dcc9"
       }
     ]
   },
@@ -125,7 +131,7 @@
     "settings": [
       {
         "type": "paragraph",
-        "content": "Headings use Fraunces and body text uses Nunito Sans (loaded from Google Fonts) for a soft, classic boutique feel."
+        "content": "Headings use Cormorant Garamond and body text uses Nunito Sans (loaded from Google Fonts) for a classic, heritage boutique feel."
       },
       {
         "type": "range",
@@ -160,7 +166,7 @@
         "step": 2,
         "unit": "px",
         "label": "Corner radius",
-        "default": 14
+        "default": 3
       }
     ]
   },
