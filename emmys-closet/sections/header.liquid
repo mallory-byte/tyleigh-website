@@ -1,0 +1,128 @@
+{%- liquid
+  assign menu = section.settings.menu
+  assign brand = settings.brand_name | default: shop.name
+  assign phone = settings.phone
+  assign phone_href = phone | remove: ' ' | remove: '(' | remove: ')' | remove: '-'
+-%}
+<header class="site-header">
+  <div class="page-width header__inner">
+    <a href="{{ routes.root_url }}" class="header__logo">
+      {%- if settings.logo != blank -%}
+        <img src="{{ settings.logo | image_url: width: 500 }}" alt="{{ brand | escape }}" style="height:42px;width:auto;max-width:{{ settings.logo_width }}px">
+      {%- elsif settings.logo_url != blank -%}
+        <img src="{{ settings.logo_url }}" alt="{{ brand | escape }}" style="height:42px;width:auto;max-width:{{ settings.logo_width }}px">
+      {%- else -%}
+        {{ brand }}
+      {%- endif -%}
+    </a>
+
+    <nav class="header__nav" aria-label="Primary">
+      {%- if menu != blank and linklists[menu].links.size > 0 -%}
+        {%- for link in linklists[menu].links -%}
+          {%- if link.links.size > 0 -%}
+            <div class="nav-dd">
+              <button type="button" class="nav-dd__trigger" aria-haspopup="true">
+                {{ link.title }} {% render 'icon', icon: 'chevron-down' %}
+              </button>
+              <div class="nav-dd__menu">
+                {%- for child in link.links -%}
+                  <a href="{{ child.url }}">{{ child.title }}</a>
+                {%- endfor -%}
+              </div>
+            </div>
+          {%- else -%}
+            <a href="{{ link.url }}" {% if link.active %}aria-current="page"{% endif %}>{{ link.title }}</a>
+          {%- endif -%}
+        {%- endfor -%}
+      {%- endif -%}
+      <a href="{{ routes.all_products_collection_url }}" class="btn btn--primary btn--pill" style="color:#fff;padding:0.55rem 1.1rem">{{ section.settings.cta_label | default: 'Shop New Arrivals' }}</a>
+    </nav>
+
+    <div class="header__actions">
+      <button type="button" class="header-icon" data-open-search aria-label="{{ 'accessibility.search' | t }}">
+        {% render 'icon', icon: 'search' %}
+      </button>
+      <a href="{{ routes.cart_url }}" class="header-icon" aria-label="{{ 'accessibility.cart' | t }}">
+        {% render 'icon', icon: 'cart' %}
+        <span class="cart-count" data-cart-count {% if cart.item_count == 0 %}hidden{% endif %}>{{ cart.item_count }}</span>
+      </a>
+      <button type="button" class="header-icon menu-toggle" data-open-menu aria-label="{{ 'accessibility.menu' | t }}">
+        {% render 'icon', icon: 'menu' %}
+      </button>
+    </div>
+  </div>
+</header>
+
+{%- comment -%} Mobile navigation drawer {%- endcomment -%}
+<div class="mobile-nav" id="MobileNav" aria-hidden="true">
+  <div class="mobile-nav__panel">
+    <div class="mobile-nav__head">
+      <span class="header__logo">{{ brand }}</span>
+      <button type="button" class="header-icon" data-close aria-label="{{ 'accessibility.close' | t }}">
+        {% render 'icon', icon: 'close' %}
+      </button>
+    </div>
+    {%- if menu != blank -%}
+      <ul class="mobile-nav__links">
+        {%- for link in linklists[menu].links -%}
+          {%- if link.links.size > 0 -%}
+            <li>
+              <details class="mobile-nav__group">
+                <summary>{{ link.title }}</summary>
+                <ul class="mobile-nav__sub">
+                  {%- for child in link.links -%}
+                    <li><a href="{{ child.url }}">{{ child.title }}</a></li>
+                  {%- endfor -%}
+                </ul>
+              </details>
+            </li>
+          {%- else -%}
+            <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+          {%- endif -%}
+        {%- endfor -%}
+      </ul>
+    {%- endif -%}
+    <a href="{{ routes.all_products_collection_url }}" class="btn btn--primary btn--block" style="margin-top:var(--space-4)">{{ section.settings.cta_label | default: 'Shop New Arrivals' }}</a>
+    {%- if phone != blank -%}
+      <a href="tel:{{ phone_href }}" class="mobile-nav__phone">{% render 'icon', icon: 'phone' %} {{ phone }}</a>
+    {%- endif -%}
+  </div>
+</div>
+
+{%- comment -%} Search overlay {%- endcomment -%}
+<div class="search-overlay" id="SearchOverlay" aria-hidden="true">
+  <div class="search-overlay__panel">
+    <form action="{{ routes.search_url }}" method="get" class="search-form" role="search">
+      <input type="hidden" name="type" value="product">
+      <label class="search-form__field">
+        <span class="visually-hidden">{{ 'general.search.search' | t }}</span>
+        {% render 'icon', icon: 'search' %}
+        <input type="search" name="q" value="{{ search.terms | escape }}" placeholder="{{ 'general.search.placeholder' | t }}" autocomplete="off">
+      </label>
+      <button type="submit" class="btn btn--primary">{{ 'general.search.submit' | t }}</button>
+      <button type="button" class="header-icon" data-close aria-label="{{ 'accessibility.close' | t }}">
+        {% render 'icon', icon: 'close' %}
+      </button>
+    </form>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Header",
+  "settings": [
+    {
+      "type": "link_list",
+      "id": "menu",
+      "label": "Navigation menu",
+      "default": "main-menu"
+    },
+    {
+      "type": "text",
+      "id": "cta_label",
+      "label": "Call-to-action button label",
+      "default": "Shop New Arrivals"
+    }
+  ]
+}
+{% endschema %}

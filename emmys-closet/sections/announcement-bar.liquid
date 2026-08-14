@@ -1,0 +1,30 @@
+{%- liquid
+  assign phone = settings.phone
+-%}
+<div class="announcement">
+  {%- if section.settings.show_phone and phone != blank -%}
+    📞 Call or Text: <a href="tel:{{ phone | remove: ' ' | remove: '(' | remove: ')' | remove: '-' }}">{{ phone }}</a>
+    <span class="sep">|</span>
+  {%- endif -%}
+  {%- if section.settings.text != blank -%}{{ section.settings.text }}{%- endif -%}
+</div>
+
+{% schema %}
+{
+  "name": "Announcement bar",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_phone",
+      "label": "Show phone number",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "text",
+      "label": "Text",
+      "default": "✦ New arrivals daily  ·  Free shipping over $75  ·  Complimentary gift wrapping ✦"
+    }
+  ]
+}
+{% endschema %}

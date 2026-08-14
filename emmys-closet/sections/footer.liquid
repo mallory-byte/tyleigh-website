@@ -1,0 +1,95 @@
+{%- liquid
+  assign brand = settings.brand_name | default: shop.name
+  assign phone = settings.contact_phone | default: settings.phone
+  assign phone_href = phone | remove: ' ' | remove: '(' | remove: ')' | remove: '-'
+  assign email = settings.contact_email
+
+  assign has_links = false
+  if section.settings.menu != blank and linklists[section.settings.menu].links.size > 0
+    assign has_links = true
+  endif
+  assign has_contact = false
+  if phone != blank or email != blank
+    assign has_contact = true
+  endif
+  assign has_social = false
+  if settings.social_facebook != blank or settings.social_instagram != blank or settings.social_youtube != blank or settings.social_linkedin != blank
+    assign has_social = true
+  endif
+-%}
+<footer class="site-footer">
+  <div class="page-width">
+    <div class="footer__top">
+      <div class="footer__brand">
+        <div class="footer__brand-row">
+          {% render 'icon', icon: 'heart' %}
+          <div>
+            <div class="footer__brand-name">{{ brand }}</div>
+            <div class="footer__brand-sub">{{ settings.brand_suffix | default: "Children's Boutique" }}</div>
+          </div>
+        </div>
+        {%- if section.settings.about_text != blank -%}
+          <p class="footer__about">{{ section.settings.about_text }}</p>
+        {%- endif -%}
+        {%- if has_social -%}
+          <div class="footer__social">
+            {%- if settings.social_facebook != blank -%}<a href="{{ settings.social_facebook }}" aria-label="Facebook">{% render 'icon', icon: 'facebook' %}</a>{%- endif -%}
+            {%- if settings.social_instagram != blank -%}<a href="{{ settings.social_instagram }}" aria-label="Instagram">{% render 'icon', icon: 'instagram' %}</a>{%- endif -%}
+            {%- if settings.social_youtube != blank -%}<a href="{{ settings.social_youtube }}" aria-label="YouTube">{% render 'icon', icon: 'youtube' %}</a>{%- endif -%}
+            {%- if settings.social_linkedin != blank -%}<a href="{{ settings.social_linkedin }}" aria-label="LinkedIn">{% render 'icon', icon: 'linkedin' %}</a>{%- endif -%}
+          </div>
+        {%- endif -%}
+      </div>
+
+      {%- if has_links or has_contact -%}
+        <div class="footer__links">
+          {%- if has_links -%}
+            <nav class="footer__col">
+              <h4>Quick Links</h4>
+              <ul>
+                {%- for link in linklists[section.settings.menu].links -%}
+                  <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+                {%- endfor -%}
+              </ul>
+            </nav>
+          {%- endif -%}
+
+          {%- if has_contact -%}
+            <div class="footer__col">
+              <h4>Contact</h4>
+              <ul>
+                {%- if phone != blank -%}<li><a href="tel:{{ phone_href }}">{% render 'icon', icon: 'phone' %}{{ phone }}</a></li>{%- endif -%}
+                {%- if email != blank -%}<li><a href="mailto:{{ email }}">{% render 'icon', icon: 'mail' %}{{ email }}</a></li>{%- endif -%}
+              </ul>
+            </div>
+          {%- endif -%}
+        </div>
+      {%- endif -%}
+    </div>
+
+    {%- if section.settings.disclaimer != blank -%}
+      <div class="footer__disclaimer">{{ section.settings.disclaimer }}</div>
+    {%- endif -%}
+
+    <div class="footer__bottom">
+      <span>&copy; {{ 'now' | date: '%Y' }} {{ brand }} {{ settings.brand_suffix }}. All rights reserved.</span>
+      {%- if shop.privacy_policy or shop.terms_of_service -%}
+        <span class="footer__legal">
+          {%- if shop.privacy_policy -%}<a href="{{ shop.privacy_policy.url }}">Privacy Policy</a>{%- endif -%}
+          {%- if shop.terms_of_service -%}<a href="{{ shop.terms_of_service.url }}">Terms of Service</a>{%- endif -%}
+        </span>
+      {%- endif -%}
+    </div>
+  </div>
+</footer>
+
+{% schema %}
+{
+  "name": "Footer",
+  "settings": [
+    { "type": "textarea", "id": "about_text", "label": "About text", "default": "Timeless, beautifully made clothing for babies, toddlers, and big kids — smocked, monogrammed, and lovingly curated to be treasured and passed down." },
+    { "type": "link_list", "id": "menu", "label": "Quick links menu", "default": "footer" },
+    { "type": "textarea", "id": "disclaimer", "label": "Disclaimer", "default": "" }
+  ]
+}
+{% endschema %}

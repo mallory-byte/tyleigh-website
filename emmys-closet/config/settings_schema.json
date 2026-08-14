@@ -1,0 +1,276 @@
+[
+  {
+    "name": "theme_info",
+    "theme_name": "Emmy's Closet — Children's Boutique",
+    "theme_version": "1.0.0",
+    "theme_author": "Emmy's Closet",
+    "theme_documentation_url": "https://emmyscloset.com",
+    "theme_support_url": "https://emmyscloset.com"
+  },
+  {
+    "name": "Brand",
+    "settings": [
+      {
+        "type": "text",
+        "id": "brand_name",
+        "label": "Brand name",
+        "default": "Emmy's Closet"
+      },
+      {
+        "type": "text",
+        "id": "brand_suffix",
+        "label": "Brand suffix",
+        "default": "Children's Boutique"
+      },
+      {
+        "type": "image_picker",
+        "id": "logo",
+        "label": "Logo image",
+        "info": "Optional. If empty, the brand name is shown as text."
+      },
+      {
+        "type": "text",
+        "id": "logo_url",
+        "label": "Logo image URL (fallback)",
+        "info": "Used if no logo image is uploaded above."
+      },
+      {
+        "type": "range",
+        "id": "logo_width",
+        "min": 80,
+        "max": 320,
+        "step": 10,
+        "unit": "px",
+        "label": "Logo width",
+        "default": 170
+      },
+      {
+        "type": "image_picker",
+        "id": "favicon",
+        "label": "Favicon"
+      },
+      {
+        "type": "text",
+        "id": "tagline",
+        "label": "Tagline",
+        "default": "Timeless treasures for little ones."
+      },
+      {
+        "type": "text",
+        "id": "phone",
+        "label": "Phone (call or text)",
+        "default": ""
+      }
+    ]
+  },
+  {
+    "name": "Colors",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Brand palette"
+      },
+      {
+        "type": "color",
+        "id": "color_primary",
+        "label": "Primary (dusty rose)",
+        "default": "#9a6a72"
+      },
+      {
+        "type": "color",
+        "id": "color_primary_dark",
+        "label": "Primary dark / footer",
+        "default": "#4e2f36"
+      },
+      {
+        "type": "color",
+        "id": "color_accent",
+        "label": "Accent (rose)",
+        "default": "#b8737d"
+      },
+      {
+        "type": "color",
+        "id": "color_text",
+        "label": "Body text",
+        "default": "#40353a"
+      },
+      {
+        "type": "color",
+        "id": "color_muted",
+        "label": "Muted text",
+        "default": "#8a7d82"
+      },
+      {
+        "type": "color",
+        "id": "color_bg",
+        "label": "Page background",
+        "default": "#faf5f0"
+      },
+      {
+        "type": "color",
+        "id": "color_surface",
+        "label": "Card surface",
+        "default": "#ffffff"
+      },
+      {
+        "type": "color",
+        "id": "color_border",
+        "label": "Borders",
+        "default": "#ece0d8"
+      }
+    ]
+  },
+  {
+    "name": "Typography",
+    "settings": [
+      {
+        "type": "paragraph",
+        "content": "Headings use Fraunces and body text uses Nunito Sans (loaded from Google Fonts) for a soft, classic boutique feel."
+      },
+      {
+        "type": "range",
+        "id": "heading_scale",
+        "min": 90,
+        "max": 130,
+        "step": 5,
+        "unit": "%",
+        "label": "Heading size scale",
+        "default": 100
+      }
+    ]
+  },
+  {
+    "name": "Layout",
+    "settings": [
+      {
+        "type": "range",
+        "id": "page_width",
+        "min": 1100,
+        "max": 1500,
+        "step": 20,
+        "unit": "px",
+        "label": "Max content width",
+        "default": 1280
+      },
+      {
+        "type": "range",
+        "id": "card_radius",
+        "min": 0,
+        "max": 24,
+        "step": 2,
+        "unit": "px",
+        "label": "Corner radius",
+        "default": 14
+      }
+    ]
+  },
+  {
+    "name": "Product cards",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "show_vendor",
+        "label": "Show brand / vendor name",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "show_new_badge",
+        "label": "Show \"New\" badge on recent arrivals",
+        "default": true
+      },
+      {
+        "type": "range",
+        "id": "new_badge_days",
+        "min": 7,
+        "max": 90,
+        "step": 7,
+        "unit": "days",
+        "label": "Count as \"New\" for",
+        "default": 30
+      },
+      {
+        "type": "checkbox",
+        "id": "show_sale_badge",
+        "label": "Show \"Sale\" badge when on sale",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "show_second_image",
+        "label": "Reveal second image on hover",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "show_color_swatches",
+        "label": "Show color option swatches",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_quick_add",
+        "label": "Enable quick add-to-cart on cards",
+        "default": true
+      }
+    ]
+  },
+  {
+    "name": "Social & contact",
+    "settings": [
+      {
+        "type": "text",
+        "id": "contact_email",
+        "label": "Contact email",
+        "default": "hello@emmyscloset.com"
+      },
+      {
+        "type": "text",
+        "id": "contact_phone",
+        "label": "Contact phone",
+        "default": ""
+      },
+      {
+        "type": "text",
+        "id": "hours_weekday",
+        "label": "Weekday hours",
+        "default": "Mon–Fri: 9am–5pm"
+      },
+      {
+        "type": "text",
+        "id": "hours_weekend",
+        "label": "Weekend hours",
+        "default": "Sat: 10am–3pm"
+      },
+      {
+        "type": "url",
+        "id": "social_facebook",
+        "label": "Facebook URL"
+      },
+      {
+        "type": "url",
+        "id": "social_instagram",
+        "label": "Instagram URL"
+      },
+      {
+        "type": "url",
+        "id": "social_youtube",
+        "label": "YouTube URL"
+      },
+      {
+        "type": "url",
+        "id": "social_linkedin",
+        "label": "Pinterest / LinkedIn URL"
+      }
+    ]
+  },
+  {
+    "name": "Promo popup",
+    "settings": [
+      {
+        "type": "paragraph",
+        "content": "Controls the newsletter popup shown to new visitors. Edit copy in the Footer group → Popup section."
+      }
+    ]
+  }
+]

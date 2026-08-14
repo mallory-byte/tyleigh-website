@@ -1,0 +1,92 @@
+{%- liquid
+  assign per_page = section.settings.products_per_page | default: 16
+  assign sort_by = collection.sort_by | default: collection.default_sort_by
+  assign coll_title = collection.title
+  if collection.handle == 'all' or collection.title == 'Products' or collection.title == 'All products'
+    assign coll_title = section.settings.all_title | default: 'Shop All'
+  endif
+-%}
+<section class="page-hero">
+  <div class="page-width">
+    <nav class="breadcrumb" style="color:rgba(255,255,255,0.7)"><a href="{{ routes.root_url }}" style="color:rgba(255,255,255,0.8)">Home</a><span>/</span>{{ coll_title }}</nav>
+    <h1>{{ coll_title }}</h1>
+    {%- if collection.description != blank and section.settings.show_description -%}
+      <p>{{ collection.description | strip_html | truncatewords: 40 }}</p>
+    {%- endif -%}
+  </div>
+</section>
+
+<div class="page-width section--sm">
+  {%- paginate collection.products by per_page -%}
+    {%- comment -%} ---- Toolbar: search + sort ---- {%- endcomment -%}
+    <div class="listings-toolbar">
+      <form action="{{ routes.search_url }}" method="get" class="search-form" role="search">
+        <input type="hidden" name="type" value="product">
+        <label class="search-form__field">
+          <span class="visually-hidden">{{ 'general.search.search' | t }}</span>
+          {% render 'icon', icon: 'search' %}
+          <input type="search" name="q" placeholder="Search dresses, sizes, brands…">
+        </label>
+      </form>
+      {%- if collection.sort_options.size > 0 -%}
+        <form method="get" class="sort-row" data-auto-submit>
+          {%- for filter in collection.filters -%}
+            {%- for value in filter.active_values -%}<input type="hidden" name="{{ value.param_name }}" value="{{ value.value }}">{%- endfor -%}
+            {%- if filter.type == 'price_range' -%}
+              {%- if filter.min_value.value -%}<input type="hidden" name="{{ filter.min_value.param_name }}" value="{{ filter.min_value.value }}">{%- endif -%}
+              {%- if filter.max_value.value -%}<input type="hidden" name="{{ filter.max_value.param_name }}" value="{{ filter.max_value.value }}">{%- endif -%}
+            {%- endif -%}
+          {%- endfor -%}
+          <span class="sort-row__label">{% render 'icon', icon: 'chevron-down' %} Sort:</span>
+          <label for="SortBy" class="visually-hidden">Sort by</label>
+          <select name="sort_by" id="SortBy" class="chip" style="appearance:auto">
+            {%- for option in collection.sort_options -%}
+              <option value="{{ option.value }}" {% if option.value == sort_by %}selected{% endif %}>{{ option.name }}</option>
+            {%- endfor -%}
+          </select>
+        </form>
+      {%- endif -%}
+    </div>
+
+    {%- comment -%} ---- Filter pills (size, color, brand, etc.) ---- {%- endcomment -%}
+    {%- for filter in collection.filters -%}
+      {%- if filter.type != 'price_range' -%}
+        <div class="state-pills">
+          <a href="{{ filter.url_to_remove }}" class="chip {% unless filter.active_values.size > 0 %}is-active{% endunless %}">All {{ filter.label }}</a>
+          {%- for value in filter.values -%}
+            <a href="{{ value.url_to_add }}" class="chip {% if value.active %}is-active{% endif %}">{{ value.label }} <span style="opacity:0.6">({{ value.count }})</span></a>
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+    {%- endfor -%}
+
+    <p class="results-count">Showing <strong>{{ collection.products_count }}</strong> item{% if collection.products_count != 1 %}s{% endif %}</p>
+
+    {%- if collection.products.size > 0 -%}
+      <div class="card-grid card-grid--4">
+        {%- for product in collection.products -%}
+          {% render 'product-card', product: product %}
+        {%- endfor -%}
+      </div>
+      {% render 'pagination', paginate: paginate %}
+    {%- else -%}
+      <div class="empty-state">
+        {% render 'icon', icon: 'gift' %}
+        <h3>Nothing here just yet.</h3>
+        <p class="text-muted">Try adjusting your filters, or browse everything in the shop.</p>
+        <a href="{{ collection.url }}" class="btn btn--primary btn--pill">Clear filters</a>
+      </div>
+    {%- endif -%}
+  {%- endpaginate -%}
+</div>
+
+{% schema %}
+{
+  "name": "Collection listings",
+  "settings": [
+    { "type": "range", "id": "products_per_page", "min": 8, "max": 24, "step": 4, "label": "Products per page", "default": 16 },
+    { "type": "text", "id": "all_title", "label": "Title for the all-products page", "default": "Shop All", "info": "Shown as the heading on the main /collections/all page instead of the default 'Products'." },
+    { "type": "checkbox", "id": "show_description", "label": "Show collection description", "default": true }
+  ]
+}
+{% endschema %}

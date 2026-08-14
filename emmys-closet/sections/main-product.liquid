@@ -1,0 +1,273 @@
+{%- liquid
+  assign p = product
+  assign current = p.selected_or_first_available_variant
+  assign on_sale = false
+  if current.compare_at_price > current.price
+    assign on_sale = true
+  endif
+-%}
+
+<div class="page-width pdp section--sm" data-product-root>
+  <a href="{{ collection.url | default: routes.all_products_collection_url }}" class="back-link">{% render 'icon', icon: 'arrow-left' %} Continue shopping</a>
+
+  <div class="pdp__grid">
+    {%- comment -%} ---------- Gallery ---------- {%- endcomment -%}
+    <div class="pdp__main" data-gallery>
+      <div class="pdp-hero" data-gallery-main>
+        {%- if p.featured_media -%}
+          {% assign product_alt = p.featured_media.alt | default: p.title | escape %}
+          {{ p.featured_media | image_url: width: 1200 | image_tag: alt: product_alt, fetchpriority: 'high' }}
+        {%- else -%}
+          <div style="aspect-ratio:4/5;display:grid;place-items:center;background:var(--color-bg);color:var(--color-muted)">{% render 'icon', icon: 'gift' %}</div>
+        {%- endif -%}
+        {%- if on_sale and p.available -%}<span class="pdp-hero__status pc__badge pc__badge--sale" style="top:1rem;left:1rem">Sale</span>{%- endif -%}
+        {%- unless p.available -%}<span class="pdp-hero__status pc__badge pc__badge--sold" style="top:1rem;left:1rem">Sold out</span>{%- endunless -%}
+      </div>
+      {%- if p.media.size > 1 -%}
+        <div class="pdp-thumbs">
+          {%- for media in p.media -%}
+            <button type="button" class="pdp-thumb" data-gallery-thumb data-full="{{ media | image_url: width: 1200 }}" data-alt="{{ media.alt | default: p.title | escape }}" aria-current="{% if forloop.first %}true{% else %}false{% endif %}">
+              {{ media | image_url: width: 160 | image_tag: loading: 'lazy', alt: media.alt | default: p.title | escape }}
+            </button>
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+    </div>
+
+    {%- comment -%} ---------- Buy box ---------- {%- endcomment -%}
+    <div class="pdp__aside">
+      <div class="buybox">
+        {%- if settings.show_vendor and p.vendor != blank -%}<span class="pc__vendor">{{ p.vendor }}</span>{%- endif -%}
+        <h1>{{ p.title }}</h1>
+
+        <div class="buybox__price">
+          <span data-price>{{ current.price | money }}</span>
+          {%- if on_sale -%}<span class="buybox__was" data-compare>{{ current.compare_at_price | money }}</span>{%- endif -%}
+        </div>
+
+        {%- if p.description != blank -%}
+          <div class="rte text-muted buybox__excerpt">{{ p.description | strip_html | truncatewords: 34 }}</div>
+        {%- endif -%}
+
+        {%- form 'product', p, id: 'ProductForm', class: 'buybox__form' -%}
+          <input type="hidden" name="id" data-variant-id value="{{ current.id }}">
+
+          {%- unless p.has_only_default_variant -%}
+            {%- for option in p.options_with_values -%}
+              {%- assign opt_name = option.name | downcase -%}
+              {%- assign is_color = false -%}
+              {%- if opt_name contains 'color' or opt_name contains 'colour' -%}{%- assign is_color = true -%}{%- endif -%}
+              <div class="opt-group" data-option-index="{{ forloop.index0 }}">
+                <div class="opt-group__head">
+                  <span class="opt-group__name">{{ option.name }}</span>
+                  <span class="opt-group__selected" data-option-label="{{ forloop.index0 }}">{{ option.selected_value }}</span>
+                </div>
+                <div class="opt-values {% if is_color %}opt-values--swatch{% endif %}">
+                  {%- for value in option.values -%}
+                    {%- assign checked = false -%}
+                    {%- if option.selected_value == value -%}{%- assign checked = true -%}{%- endif -%}
+                    <label class="opt {% if is_color %}opt--swatch{% else %}opt--pill{% endif %}{% if checked %} is-active{% endif %}"{% if is_color %} title="{{ value | escape }}" style="--sw:{{ value | downcase | split: ' ' | last | replace: 'navy','#2f3b55' | replace: 'cream','#f3ebdd' | replace: 'blush','#e7c4c7' | replace: 'sage','#b7c3ab' }}"{% endif %}>
+                      <input type="radio" name="option-{{ forloop.parentloop.index0 }}" value="{{ value | escape }}" data-option-input {% if checked %}checked{% endif %}>
+                      <span>{{ value }}</span>
+                    </label>
+                  {%- endfor -%}
+                </div>
+              </div>
+            {%- endfor -%}
+          {%- endunless -%}
+
+          <div class="buybox__actions">
+            <div class="qty" aria-label="Quantity">
+              <button type="button" class="qty__btn" data-qty-minus aria-label="Decrease quantity">−</button>
+              <input type="number" name="quantity" value="1" min="1" class="qty__input" data-qty-input aria-label="Quantity">
+              <button type="button" class="qty__btn" data-qty-plus aria-label="Increase quantity">+</button>
+            </div>
+            <button type="submit" name="add" class="btn btn--accent btn--lg btn--pill" data-add-btn {% unless p.available %}disabled{% endunless %}>
+              <span data-add-text>{% if p.available %}Add to Cart{% else %}Sold Out{% endif %}</span>
+            </button>
+          </div>
+
+          {{ form | payment_button }}
+        {%- endform -%}
+
+        <ul class="buybox__perks">
+          <li>{% render 'icon', icon: 'truck' %} Free shipping on orders over $75</li>
+          <li>{% render 'icon', icon: 'gift' %} Complimentary gift wrapping available</li>
+          <li>{% render 'icon', icon: 'refresh' %} Easy 30-day returns</li>
+        </ul>
+
+        {%- comment -%} Details accordion {%- endcomment -%}
+        <div class="pdp-accordion">
+          {%- if p.description != blank -%}
+            <details class="faq-item" open>
+              <summary>Product Details</summary>
+              <div class="faq-item__body rte">{{ p.description }}</div>
+            </details>
+          {%- endif -%}
+          <details class="faq-item">
+            <summary>Shipping &amp; Returns</summary>
+            <div class="faq-item__body">
+              <p>We ship within 1–2 business days. Free U.S. shipping on orders over $75. Not quite right? Return unworn items with tags within 30 days for a refund or exchange.</p>
+            </div>
+          </details>
+          <details class="faq-item">
+            <summary>Sizing &amp; Care</summary>
+            <div class="faq-item__body">
+              <p>Our pieces run true to size — see each listing for specific measurements. Machine wash cold, tumble dry low, and iron on reverse to keep smocking and monograms looking sweet.</p>
+            </div>
+          </details>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{%- comment -%} Related products {%- endcomment -%}
+{%- if recommendations.performed and recommendations.products_count > 0 -%}
+  <section class="section contact-section">
+    <div class="page-width">
+      <div class="section-head"><span class="eyebrow">You may also love</span><h2>More little treasures</h2></div>
+      <div class="card-grid card-grid--4">
+        {%- for rec in recommendations.products limit: 4 -%}
+          {% render 'product-card', product: rec %}
+        {%- endfor -%}
+      </div>
+    </div>
+  </section>
+{%- elsif p.collections.first and p.collections.first.products.size > 1 -%}
+  <section class="section contact-section">
+    <div class="page-width">
+      <div class="section-head"><span class="eyebrow">You may also love</span><h2>More little treasures</h2></div>
+      <div class="card-grid card-grid--4">
+        {%- assign shown = 0 -%}
+        {%- for rec in p.collections.first.products -%}
+          {%- if rec.id != p.id and shown < 4 -%}
+            {% render 'product-card', product: rec %}
+            {%- assign shown = shown | plus: 1 -%}
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    </div>
+  </section>
+{%- endif -%}
+
+<script type="application/json" data-variants-json>{{ p.variants | json }}</script>
+
+{%- comment -%} Gallery: swap main image on thumbnail click {%- endcomment -%}
+<script>
+  (function () {
+    var g = document.querySelector('[data-gallery]');
+    if (!g) return;
+    var mainImg = g.querySelector('[data-gallery-main] img');
+    if (!mainImg) return;
+    g.querySelectorAll('[data-gallery-thumb]').forEach(function (thumb) {
+      thumb.addEventListener('click', function () {
+        var full = thumb.getAttribute('data-full');
+        var alt = thumb.getAttribute('data-alt') || '';
+        if (full) {
+          mainImg.removeAttribute('srcset'); mainImg.removeAttribute('sizes'); mainImg.removeAttribute('loading');
+          mainImg.src = full; mainImg.alt = alt;
+        }
+        g.querySelectorAll('[data-gallery-thumb]').forEach(function (t) {
+          t.setAttribute('aria-current', t === thumb ? 'true' : 'false');
+        });
+      });
+    });
+  })();
+</script>
+
+{%- comment -%} Variant selection {%- endcomment -%}
+<script>
+  (function () {
+    var root = document.querySelector('[data-product-root]');
+    if (!root) return;
+    var dataEl = root.parentNode.querySelector('[data-variants-json]') || document.querySelector('[data-variants-json]');
+    if (!dataEl) return;
+    var variants;
+    try { variants = JSON.parse(dataEl.textContent); } catch (e) { return; }
+
+    var form = root.querySelector('[data-variant-id]') ? root.querySelector('#ProductForm') : null;
+    var idInput = root.querySelector('[data-variant-id]');
+    var priceEl = root.querySelector('[data-price]');
+    var compareEl = root.querySelector('[data-compare]');
+    var addBtn = root.querySelector('[data-add-btn]');
+    var addText = root.querySelector('[data-add-text]');
+
+    function fmt(cents) {
+      return '$' + (cents / 100).toFixed(2).replace(/\.00$/, '');
+    }
+
+    function selectedValues() {
+      var groups = root.querySelectorAll('.opt-group');
+      var vals = [];
+      groups.forEach(function (grp) {
+        var checked = grp.querySelector('[data-option-input]:checked');
+        vals.push(checked ? checked.value : null);
+        var lbl = grp.querySelector('[data-option-label]');
+        if (lbl && checked) lbl.textContent = checked.value;
+        grp.querySelectorAll('.opt').forEach(function (o) {
+          var input = o.querySelector('[data-option-input]');
+          o.classList.toggle('is-active', input && input.checked);
+        });
+      });
+      return vals;
+    }
+
+    function findVariant(vals) {
+      if (!vals.length) return variants[0];
+      return variants.find(function (v) {
+        return (v.options || []).every(function (opt, i) { return opt === vals[i]; });
+      });
+    }
+
+    function update() {
+      var vals = selectedValues();
+      var v = findVariant(vals);
+      if (!v) {
+        if (addText) addText.textContent = 'Unavailable';
+        if (addBtn) addBtn.setAttribute('disabled', 'disabled');
+        return;
+      }
+      if (idInput) idInput.value = v.id;
+      if (priceEl) priceEl.textContent = fmt(v.price);
+      if (compareEl) {
+        if (v.compare_at_price && v.compare_at_price > v.price) {
+          compareEl.textContent = fmt(v.compare_at_price); compareEl.hidden = false;
+        } else { compareEl.hidden = true; }
+      }
+      if (addBtn && addText) {
+        if (v.available) { addBtn.removeAttribute('disabled'); addText.textContent = 'Add to Cart'; }
+        else { addBtn.setAttribute('disabled', 'disabled'); addText.textContent = 'Sold Out'; }
+      }
+      try {
+        var url = new URL(window.location.href);
+        url.searchParams.set('variant', v.id);
+        window.history.replaceState({}, '', url.toString());
+      } catch (e) {}
+    }
+
+    root.querySelectorAll('[data-option-input]').forEach(function (input) {
+      input.addEventListener('change', update);
+    });
+
+    // Quantity stepper
+    var qtyInput = root.querySelector('[data-qty-input]');
+    var minus = root.querySelector('[data-qty-minus]');
+    var plus = root.querySelector('[data-qty-plus]');
+    if (qtyInput) {
+      if (minus) minus.addEventListener('click', function () { qtyInput.value = Math.max(1, (parseInt(qtyInput.value, 10) || 1) - 1); });
+      if (plus) plus.addEventListener('click', function () { qtyInput.value = (parseInt(qtyInput.value, 10) || 1) + 1; });
+    }
+
+    update();
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Product",
+  "settings": [
+    { "type": "paragraph", "content": "Standard product page with size/color variant selection, gallery, quantity, and add-to-cart. Related products use Shopify's product recommendations." }
+  ]
+}
+{% endschema %}

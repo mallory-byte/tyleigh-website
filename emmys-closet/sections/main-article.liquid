@@ -1,0 +1,44 @@
+<article class="page-width section" style="max-width:46rem">
+  <nav class="breadcrumb"><a href="{{ routes.root_url }}">Home</a><span>/</span><a href="{{ blog.url }}">{{ blog.title }}</a></nav>
+  <header style="margin-bottom:var(--space-6)">
+    <span class="eyebrow">{{ article.published_at | date: '%B %d, %Y' }}</span>
+    <h1>{{ article.title }}</h1>
+    {%- if article.author != blank -%}<p class="text-muted">By {{ article.author }}</p>{%- endif -%}
+  </header>
+  {%- if article.image -%}
+    <div style="margin-bottom:var(--space-6)">
+      {% assign article_alt = article.title | escape %}
+      {{ article.image | image_url: width: 1400 | image_tag: alt: article_alt, style: 'border-radius:var(--card-radius)' }}
+    </div>
+  {%- endif -%}
+  <div class="rte">{{ article.content }}</div>
+
+  {%- if blog.comments_enabled? -%}
+    <div style="margin-top:var(--space-8)">
+      <h2>Comments</h2>
+      {%- if article.comments_count > 0 -%}
+        {%- for comment in article.comments -%}
+          <div style="border-bottom:1px solid var(--color-border);padding:var(--space-4) 0">
+            <strong>{{ comment.author }}</strong>
+            <div class="rte">{{ comment.content }}</div>
+          </div>
+        {%- endfor -%}
+      {%- endif -%}
+      {%- form 'new_comment', article -%}
+        {%- if form.posted_successfully? -%}
+          <div class="form-note form-note--success">Thanks — your comment has been submitted.</div>
+        {%- endif -%}
+        <div class="form-grid">
+          <div class="form-field"><label>Name</label><input type="text" name="comment[author]" value="{{ form.author }}" required></div>
+          <div class="form-field"><label>Email</label><input type="email" name="comment[email]" value="{{ form.email }}" required></div>
+        </div>
+        <div class="form-field"><label>Comment</label><textarea name="comment[body]" required>{{ form.body }}</textarea></div>
+        <button type="submit" class="btn btn--primary">Post comment</button>
+      {%- endform -%}
+    </div>
+  {%- endif -%}
+</article>
+
+{% schema %}
+{ "name": "Article", "settings": [] }
+{% endschema %}

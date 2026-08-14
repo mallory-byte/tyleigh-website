@@ -1,0 +1,32 @@
+<div class="page-width section">
+  <div class="collection-toolbar">
+    <h1 class="mb-0">Hi, {{ customer.first_name | default: 'there' }}</h1>
+    <a href="{{ routes.account_logout_url }}" class="btn btn--outline">Log out</a>
+  </div>
+
+  <div class="collection-layout">
+    <aside>
+      <div class="feature-card">
+        <h3>Account details</h3>
+        <p class="text-muted mb-0">{{ customer.name }}<br>{{ customer.email }}</p>
+        <a href="{{ routes.account_addresses_url }}" class="btn btn--ghost" style="padding-left:0;margin-top:var(--space-3)">Manage addresses {% render 'icon', icon: 'arrow-right' %}</a>
+      </div>
+    </aside>
+
+    <div>
+      <h2>Order history</h2>
+      {%- if customer.orders.size > 0 -%}
+        {%- for order in customer.orders -%}
+          <div class="cart-item">
+            <div><strong>{{ order.name }}</strong><div class="cart-item__meta">{{ order.created_at | date: '%b %d, %Y' }} · {{ order.financial_status }}</div></div>
+            <div class="cart-item__meta">{{ order.fulfillment_status }}</div>
+            <div><a href="{{ order.customer_url }}" class="btn btn--ghost">View {% render 'icon', icon: 'arrow-right' %}</a> <span class="cart-item__price">{{ order.total_price | money }}</span></div>
+          </div>
+        {%- endfor -%}
+      {%- else -%}
+        <p class="text-muted">You haven't placed any orders yet.</p>
+        <a href="{{ routes.all_products_collection_url }}" class="btn btn--primary">Start shopping</a>
+      {%- endif -%}
+    </div>
+  </div>
+</div>

@@ -1,0 +1,13 @@
+{
+  "sections": {
+    "main": {
+      "type": "contact-section",
+      "settings": {
+        "eyebrow": "Get In Touch",
+        "heading": "We'd love to hear from you",
+        "subtext": "Questions about sizing, monograms, gift wrapping, or an order? We're happy to help."
+      }
+    }
+  },
+  "order": ["main"]
+}

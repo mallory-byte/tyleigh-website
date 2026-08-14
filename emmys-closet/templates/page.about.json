@@ -1,0 +1,47 @@
+{
+  "sections": {
+    "hero": {
+      "type": "page-hero",
+      "settings": {
+        "eyebrow": "Our Story",
+        "heading": "About Emmy's Closet",
+        "subtext": "A little boutique with a big love for timeless, beautifully made children's clothing."
+      }
+    },
+    "mission": {
+      "type": "media-text",
+      "settings": {
+        "image_url": "https://images.unsplash.com/photo-1503919545889-aef636e10ad4?w=1000&auto=format&fit=crop",
+        "image_position": "left",
+        "eyebrow": "Our Mission",
+        "heading": "Classic style, lovingly curated",
+        "text": "<p>Emmy's Closet began with a simple wish — to dress little ones in the timeless, beautifully made pieces that never go out of style. Think soft smocking, sweet gingham, delicate ruffles, and monograms made just for them.</p><p>Every style is hand-picked for quality and comfort, so the clothes your children play, twirl, and grow in become the keepsakes you'll treasure for years to come.</p>"
+      }
+    },
+    "values": {
+      "type": "value-props",
+      "settings": {
+        "muted_bg": true,
+        "eyebrow": "What We Stand For",
+        "heading": "The little things we care about"
+      },
+      "blocks": {
+        "v1": { "type": "value", "settings": { "icon": "sparkles", "title": "Timeless Quality", "text": "Heirloom details and durable fabrics chosen to look sweet wash after wash — and be handed down." } },
+        "v2": { "type": "value", "settings": { "icon": "heart", "title": "Made with Love", "text": "Every piece is hand-selected by our team of parents who know what matters for little ones." } },
+        "v3": { "type": "value", "settings": { "icon": "gift", "title": "Gift-Ready", "text": "Beautiful, complimentary gift wrapping makes every order ready for the sweetest occasions." } },
+        "v4": { "type": "value", "settings": { "icon": "truck", "title": "Caring Service", "text": "Fast shipping, easy returns, and a friendly team happy to help with sizing or monograms." } }
+      },
+      "block_order": ["v1", "v2", "v3", "v4"]
+    },
+    "cta": {
+      "type": "cta-band",
+      "settings": {
+        "emoji": "🎀",
+        "heading": "Come find something sweet",
+        "subtext": "Browse our newest arrivals and discover pieces your little ones will love.",
+        "button_label": "Shop New Arrivals"
+      }
+    }
+  },
+  "order": ["hero", "mission", "values", "cta"]
+}

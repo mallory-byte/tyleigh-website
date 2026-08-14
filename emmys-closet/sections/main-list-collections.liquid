@@ -1,0 +1,36 @@
+<div class="page-width section">
+  <div class="section-head section-head--center">
+    <span class="eyebrow">Shop by Category</span>
+    <h1>{{ page_title }}</h1>
+    <p>Explore our collections — sweetly curated by age, occasion, and style.</p>
+  </div>
+
+  <div class="card-grid card-grid--4">
+    {%- for collection in collections -%}
+      {%- if collection.handle != 'frontpage' -%}
+        <a href="{{ collection.url }}" class="p-card">
+          <div class="p-card__media">
+            {%- if collection.image -%}
+              {{ collection.image | image_url: width: 600 | image_tag: loading: 'lazy', alt: collection.title | escape }}
+            {%- elsif collection.products.first.featured_media -%}
+              {{ collection.products.first.featured_media | image_url: width: 600 | image_tag: loading: 'lazy', alt: collection.title | escape }}
+            {%- else -%}
+              <span style="display:grid;place-items:center;height:100%;color:var(--color-muted)">{% render 'icon', icon: 'tree' %}</span>
+            {%- endif -%}
+          </div>
+          <div class="p-card__body">
+            <h3 class="p-card__title">{{ collection.title }}</h3>
+            <p class="text-muted mb-0">{{ collection.all_products_count }} properties</p>
+          </div>
+        </a>
+      {%- endif -%}
+    {%- endfor -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "List collections",
+  "settings": []
+}
+{% endschema %}

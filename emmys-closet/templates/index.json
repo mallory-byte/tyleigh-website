@@ -1,0 +1,113 @@
+{
+  "sections": {
+    "hero": {
+      "type": "hero",
+      "blocks": {
+        "p1": { "type": "perk", "settings": { "text": "New Arrivals Daily" } },
+        "p2": { "type": "perk", "settings": { "text": "Smocked & Monogrammed" } },
+        "p3": { "type": "perk", "settings": { "text": "Free Shipping Over $75" } },
+        "p4": { "type": "perk", "settings": { "text": "Gift Wrapping Available" } }
+      },
+      "block_order": ["p1", "p2", "p3", "p4"],
+      "settings": {
+        "image_url": "https://images.unsplash.com/photo-1522771930-fbfd8bd8bcd7?w=1920&auto=format&fit=crop",
+        "eyebrow": "Emmy's Closet",
+        "heading": "Timeless treasures",
+        "heading_emphasis": "for little ones",
+        "subtext": "Classic smocked, monogrammed & everyday styles for babies, toddlers, and big kids — sweetly curated and lovingly made to last.",
+        "button_label": "Shop New Arrivals",
+        "button_label_2": "Shop by Category",
+        "button_link_2": "#shop-by-category"
+      }
+    },
+    "categories": {
+      "type": "featured-collections",
+      "blocks": {
+        "c1": { "type": "category", "settings": { "title": "Girls", "subtitle": "Dresses & sets", "icon": "sparkles", "image_url": "https://images.unsplash.com/photo-1518831959646-742c3a14ebf7?w=800&auto=format&fit=crop" } },
+        "c2": { "type": "category", "settings": { "title": "Boys", "subtitle": "Classic & preppy", "icon": "star", "image_url": "https://images.unsplash.com/photo-1519238263530-99bdd11df2ea?w=800&auto=format&fit=crop" } },
+        "c3": { "type": "category", "settings": { "title": "Baby", "subtitle": "0–24 months", "icon": "baby", "image_url": "https://images.unsplash.com/photo-1515488042361-ee00e0ddd4e4?w=800&auto=format&fit=crop" } },
+        "c4": { "type": "category", "settings": { "title": "Accessories", "subtitle": "Bows, socks & more", "icon": "gift", "image_url": "https://images.unsplash.com/photo-1611759386164-c1a6b6a0f2d9?w=800&auto=format&fit=crop" } }
+      },
+      "block_order": ["c1", "c2", "c3", "c4"],
+      "settings": {
+        "eyebrow": "Shop by Category",
+        "heading": "Find their perfect look",
+        "subtext": "From smocked special-occasion pieces to everyday essentials — sweetly curated for every little one."
+      }
+    },
+    "new-arrivals": {
+      "type": "featured-products",
+      "settings": {
+        "eyebrow": "Just In",
+        "heading": "New Arrivals",
+        "subtext": "Fresh little finds added weekly — shop them before they're gone.",
+        "products_to_show": 8,
+        "muted_bg": false,
+        "show_view_all": true,
+        "view_all_label": "Shop all new arrivals"
+      }
+    },
+    "value-props": {
+      "type": "value-props",
+      "blocks": {
+        "v1": { "type": "value", "settings": { "icon": "sparkles", "title": "Smocked & Monogrammed", "text": "Heirloom details, hand-smocking, and personalized monograms on our signature pieces." } },
+        "v2": { "type": "value", "settings": { "icon": "gift", "title": "Free Gift Wrapping", "text": "Every order can arrive gift-ready — perfect for showers, birthdays, and holidays." } },
+        "v3": { "type": "value", "settings": { "icon": "truck", "title": "Fast, Free Shipping", "text": "Complimentary U.S. shipping on orders over $75, packed and sent within 1–2 days." } },
+        "v4": { "type": "value", "settings": { "icon": "refresh", "title": "Easy 30-Day Returns", "text": "Not quite right? Send unworn pieces back within 30 days — no fuss, no worries." } }
+      },
+      "block_order": ["v1", "v2", "v3", "v4"],
+      "settings": {
+        "muted_bg": true,
+        "eyebrow": "The Emmy's Closet Promise",
+        "heading": "Made to be treasured",
+        "subtext": "Thoughtful details and gentle service, from our closet to yours."
+      }
+    },
+    "story": {
+      "type": "media-text",
+      "settings": {
+        "image_url": "https://images.unsplash.com/photo-1503919545889-aef636e10ad4?w=1000&auto=format&fit=crop",
+        "image_position": "right",
+        "eyebrow": "Our Story",
+        "heading": "Classic style, lovingly curated",
+        "text": "<p>Emmy's Closet began with a simple wish — to dress little ones in the timeless, beautifully made pieces that never go out of style. Think soft smocking, sweet gingham, delicate ruffles, and monograms made just for them.</p><p>Every style is hand-picked for quality and comfort, so the clothes your children play, twirl, and grow in become the keepsakes you'll treasure for years.</p>",
+        "button_label": "About Emmy's Closet",
+        "button_link": "/pages/about"
+      }
+    },
+    "best-sellers": {
+      "type": "featured-products",
+      "settings": {
+        "eyebrow": "Loved by Little Ones",
+        "heading": "Best Sellers",
+        "subtext": "The pieces our families come back for again and again.",
+        "products_to_show": 4,
+        "muted_bg": false,
+        "show_view_all": true,
+        "view_all_label": "Shop best sellers"
+      }
+    },
+    "testimonials": {
+      "type": "testimonials",
+      "blocks": {
+        "t1": { "type": "quote", "settings": { "quote": "The smocking is absolutely beautiful and the quality is better than I hoped. My daughter's Easter dress became an instant heirloom.", "author": "Caroline M.", "detail": "Charleston, SC", "stars": true } },
+        "t2": { "type": "quote", "settings": { "quote": "Fast shipping, adorable gift wrapping, and the monogram was perfect. Emmy's Closet is my go-to for every baby shower.", "author": "Jessica P.", "detail": "Dallas, TX", "stars": true } },
+        "t3": { "type": "quote", "settings": { "quote": "Timeless, classic pieces that hold up wash after wash. I've dressed both my kids from here and couldn't be happier.", "author": "Meredith L.", "detail": "Nashville, TN", "stars": true } }
+      },
+      "block_order": ["t1", "t2", "t3"],
+      "settings": {
+        "eyebrow": "Happy Families",
+        "heading": "Loved by parents everywhere"
+      }
+    },
+    "newsletter": {
+      "type": "newsletter",
+      "settings": {
+        "eyebrow": "Join the family",
+        "heading": "Be first to shop new arrivals",
+        "subtext": "Sign up for sweet updates, early access, and a little something for your first order."
+      }
+    }
+  },
+  "order": ["hero", "categories", "new-arrivals", "value-props", "story", "best-sellers", "testimonials", "newsletter"]
+}

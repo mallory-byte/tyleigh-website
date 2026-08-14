@@ -1,0 +1,54 @@
+<div class="page-width section">
+  <div class="section-head">
+    {%- if section.settings.eyebrow != blank -%}<span class="eyebrow">{{ section.settings.eyebrow }}</span>{%- endif -%}
+    <h2>{{ section.settings.heading }}</h2>
+  </div>
+  <div class="card-grid">
+    {%- for block in section.blocks -%}
+      <figure class="testimonial-card" {{ block.shopify_attributes }}>
+        {%- if block.settings.stars != false -%}
+          <div class="testimonial-card__stars">★★★★★</div>
+        {%- endif -%}
+        <blockquote class="testimonial-card__quote">"{{ block.settings.quote }}"</blockquote>
+        <figcaption class="testimonial-card__by">
+          {%- if block.settings.photo != blank -%}
+            <img class="testimonial-card__avatar" src="{{ block.settings.photo | image_url: width: 96 }}" alt="{{ block.settings.author | escape }}" width="48" height="48" loading="lazy">
+          {%- else -%}
+            <span class="testimonial-card__avatar testimonial-card__avatar--initial">{{ block.settings.author | slice: 0 }}</span>
+          {%- endif -%}
+          <span>
+            <span class="testimonial-card__name">{{ block.settings.author }}</span>
+            {%- if block.settings.detail != blank -%}<span class="testimonial-card__detail">{{ block.settings.detail }}</span>{%- endif -%}
+          </span>
+        </figcaption>
+      </figure>
+    {%- endfor -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Testimonials",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Happy Families" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Loved by parents everywhere" }
+  ],
+  "blocks": [
+    {
+      "type": "quote",
+      "name": "Testimonial",
+      "settings": [
+        { "type": "textarea", "id": "quote", "label": "Quote", "default": "The smocking is beautiful and the quality is even better than I hoped. An instant heirloom." },
+        { "type": "image_picker", "id": "photo", "label": "Customer photo (optional)" },
+        { "type": "text", "id": "author", "label": "Author", "default": "Caroline M." },
+        { "type": "text", "id": "detail", "label": "Detail (location)", "default": "Charleston, SC" },
+        { "type": "checkbox", "id": "stars", "label": "Show 5-star rating", "default": true }
+      ]
+    }
+  ],
+  "max_blocks": 6,
+  "presets": [
+    { "name": "Testimonials", "blocks": [ { "type": "quote" }, { "type": "quote" }, { "type": "quote" } ] }
+  ]
+}
+{% endschema %}

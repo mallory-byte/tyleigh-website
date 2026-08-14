@@ -1,0 +1,108 @@
+{%- comment -%} sync: rev2 {%- endcomment -%}
+{%- liquid
+  assign phone = settings.contact_phone | default: settings.phone
+  assign phone_href = phone | remove: ' ' | remove: '(' | remove: ')' | remove: '-'
+  assign email = settings.contact_email
+-%}
+<section id="contact" class="section contact-section">
+  <div class="page-width">
+    <div class="section-head">
+      {%- if section.settings.eyebrow != blank -%}<span class="eyebrow">{{ section.settings.eyebrow }}</span>{%- endif -%}
+      <h2>{{ section.settings.heading | default: page.title }}</h2>
+      {%- if section.settings.subtext != blank -%}<p>{{ section.settings.subtext }}</p>{%- endif -%}
+    </div>
+
+    <div class="contact__grid">
+      <div class="contact__cards">
+        {%- if phone != blank -%}
+          <div class="contact-card">
+            <a href="tel:{{ phone_href }}" class="contact-card__row">
+              <span class="contact-card__icon icon-accent">{% render 'icon', icon: 'phone' %}</span>
+              <span>
+                <span class="contact-card__label">Call or Text</span>
+                <span class="contact-card__value">{{ phone }}</span>
+              </span>
+            </a>
+          </div>
+        {%- endif -%}
+        {%- if email != blank -%}
+          <div class="contact-card">
+            <a href="mailto:{{ email }}" class="contact-card__row">
+              <span class="contact-card__icon icon-primary">{% render 'icon', icon: 'mail' %}</span>
+              <span>
+                <span class="contact-card__label">Email Us</span>
+                <span class="contact-card__value" style="font-size:1.05rem">{{ email }}</span>
+              </span>
+            </a>
+          </div>
+        {%- endif -%}
+        {%- if settings.hours_weekday != blank -%}
+          <div class="contact-card">
+            <div class="contact-card__row">
+              <span class="contact-card__icon icon-green">{% render 'icon', icon: 'clock' %}</span>
+              <span>
+                <span class="contact-card__label">Business Hours</span>
+                <strong style="display:block;color:var(--color-text)">{{ settings.hours_weekday }}</strong>
+                <span class="contact-card__label">{{ settings.hours_weekend }}</span>
+              </span>
+            </div>
+          </div>
+        {%- endif -%}
+        <div class="contact-card contact-card--primary">
+          {% render 'icon', icon: 'message' %}
+          <strong>We'd love to help!</strong>
+          <p>Questions about sizing, monograms, or an order? Send us a note and we'll get back to you quickly.</p>
+        </div>
+      </div>
+
+      <div class="contact-form-card">
+        <h3>Send Us a Message</h3>
+        {%- form 'contact', id: 'ContactForm' -%}
+          {%- if form.posted_successfully? -%}
+            <div class="form-note form-note--success">{{ 'contact.form.success' | t }}</div>
+          {%- elsif form.errors -%}
+            <div class="form-note form-note--error">{{ form.errors | default_errors }}</div>
+          {%- endif -%}
+          <div class="field">
+            <label for="ContactName">Your Name</label>
+            <input type="text" id="ContactName" name="contact[name]" value="{{ form.name }}" placeholder="John Doe" required>
+          </div>
+          <div class="field">
+            <label for="ContactEmail">Email Address</label>
+            <input type="email" id="ContactEmail" name="contact[email]" value="{{ form.email }}" placeholder="john@example.com" required autocomplete="email">
+          </div>
+          <div class="field">
+            <label for="ContactParcel">Order number <span style="color:var(--color-muted);font-weight:400">(optional)</span></label>
+            <input type="text" id="ContactParcel" name="contact[Order number]" data-parcel-field placeholder="e.g. #1024">
+          </div>
+          <div class="field">
+            <label for="ContactMessage">Message</label>
+            <textarea id="ContactMessage" name="contact[body]" placeholder="How can we help? Questions about sizing, monograms, or an order are all welcome." required>{{ form.body }}</textarea>
+          </div>
+          <button type="submit" class="btn btn--accent btn--block btn--lg">Send Message</button>
+        {%- endform -%}
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  (function () {
+    var order = new URLSearchParams(window.location.search).get('order');
+    if (order) { var f = document.querySelector('[data-parcel-field]'); if (f) f.value = order; }
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Contact section",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Get In Touch" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "We'd love to hear from you" },
+    { "type": "textarea", "id": "subtext", "label": "Subtext", "default": "Questions about sizing, monograms, gift wrapping, or an order? We're happy to help." }
+  ],
+  "presets": [
+    { "name": "Contact section" }
+  ]
+}
+{% endschema %}

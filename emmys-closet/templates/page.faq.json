@@ -1,0 +1,33 @@
+{
+  "sections": {
+    "hero": {
+      "type": "page-hero",
+      "settings": {
+        "heading": "Frequently Asked Questions",
+        "subtext": "Everything you need to know about shopping with Emmy's Closet."
+      }
+    },
+    "faq": {
+      "type": "faq",
+      "settings": {
+        "heading": "",
+        "cta_heading": "Still have questions?",
+        "cta_text": "Our team is happy to help with sizing, monograms, or anything else. Reach out and we'll get right back to you."
+      },
+      "blocks": {
+        "q1": { "type": "qa", "settings": { "category": "Orders & Shipping", "question": "How long does shipping take?", "answer": "<p>We pack and ship orders within 1–2 business days. Standard U.S. shipping typically arrives in 3–5 business days, and it's free on orders over $75.</p>" } },
+        "q2": { "type": "qa", "settings": { "category": "Orders & Shipping", "question": "Do you offer gift wrapping?", "answer": "<p>Yes! We offer complimentary gift wrapping on any order — just choose the gift-wrap option at checkout and add a note if you'd like a message included.</p>" } },
+        "q3": { "type": "qa", "settings": { "category": "Orders & Shipping", "question": "Do you ship internationally?", "answer": "<p>At this time we ship within the United States. Sign up for our newsletter to be the first to know when international shipping becomes available.</p>" } },
+        "q4": { "type": "qa", "settings": { "category": "Sizing & Fit", "question": "How do your sizes run?", "answer": "<p>Our pieces generally run true to size, but fit can vary by brand and style. Each product page lists specific sizing guidance and measurements to help you choose the perfect fit.</p>" } },
+        "q5": { "type": "qa", "settings": { "category": "Sizing & Fit", "question": "What if I'm between sizes?", "answer": "<p>For classic, roomy silhouettes we usually recommend staying true to size. For fitted styles or fast-growing little ones, sizing up is a safe bet. Reach out and we're glad to advise!</p>" } },
+        "q6": { "type": "qa", "settings": { "category": "Monograms & Personalization", "question": "Can I add a monogram?", "answer": "<p>Many of our pieces can be personalized with a monogram. Where available, you'll see monogram options on the product page. Personalized items are made just for you, so please allow a little extra time.</p>" } },
+        "q7": { "type": "qa", "settings": { "category": "Monograms & Personalization", "question": "Are personalized items returnable?", "answer": "<p>Because monogrammed and personalized pieces are made specifically for you, they're final sale unless there's a defect or error on our part. Please double-check spelling and initials at checkout.</p>" } },
+        "q8": { "type": "qa", "settings": { "category": "Returns & Exchanges", "question": "What is your return policy?", "answer": "<p>We accept returns of unworn, unwashed items with tags attached within 30 days of delivery for a refund or exchange. Personalized and final-sale items are excluded.</p>" } },
+        "q9": { "type": "qa", "settings": { "category": "Returns & Exchanges", "question": "How do I start a return or exchange?", "answer": "<p>Just email us at hello@emmyscloset.com with your order number and we'll send you a prepaid return label and simple instructions.</p>" } },
+        "q10": { "type": "qa", "settings": { "category": "Care", "question": "How should I care for smocked and monogrammed pieces?", "answer": "<p>To keep smocking and monograms looking sweet, machine wash cold on a gentle cycle, tumble dry low, and iron on reverse if needed. Always check the garment's care label for specifics.</p>" } }
+      },
+      "block_order": ["q1","q2","q3","q4","q5","q6","q7","q8","q9","q10"]
+    }
+  },
+  "order": ["hero", "faq"]
+}

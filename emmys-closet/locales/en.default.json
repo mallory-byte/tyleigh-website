@@ -1,0 +1,96 @@
+{
+  "accessibility": {
+    "skip_to_content": "Skip to content",
+    "menu": "Menu",
+    "close": "Close",
+    "search": "Search",
+    "cart": "Cart",
+    "previous": "Previous",
+    "next": "Next",
+    "loading": "Loading"
+  },
+  "general": {
+    "meta": {
+      "tags": "Tagged \"{{ tags }}\"",
+      "page": "Page {{ page }}"
+    },
+    "search": {
+      "search": "Search",
+      "placeholder": "Search dresses, sizes, brands…",
+      "no_results": "No results for \"{{ terms }}\". Try a different search.",
+      "results_count": "{{ count }} results for \"{{ terms }}\"",
+      "submit": "Search",
+      "reset": "Clear"
+    },
+    "pagination": {
+      "label": "Pagination",
+      "previous": "Previous",
+      "next": "Next"
+    },
+    "newsletter": {
+      "success": "Thanks for subscribing! Watch your inbox for sweet updates.",
+      "label": "Email",
+      "placeholder": "you@email.com",
+      "button": "Sign up"
+    },
+    "404": {
+      "title": "Page not found",
+      "subtext": "The page you were looking for doesn't exist or has moved.",
+      "link": "Back to shopping"
+    }
+  },
+  "products": {
+    "product": {
+      "add_to_cart": "Add to cart",
+      "sold_out": "Sold out",
+      "unavailable": "Unavailable",
+      "on_sale": "Sale",
+      "from_price": "From {{ price }}",
+      "quantity": "Quantity",
+      "view_details": "View details",
+      "inquire": "Ask about this item",
+      "price": "Price",
+      "vendor": "Brand"
+    },
+    "facets": {
+      "filter_and_sort": "Filter & sort",
+      "filter_by": "Filter",
+      "sort_by": "Sort by",
+      "all": "All",
+      "clear": "Clear",
+      "clear_all": "Clear all",
+      "apply": "Apply",
+      "price_from": "From",
+      "price_to": "To",
+      "results": "{{ count }} items",
+      "no_results": "No items match these filters."
+    }
+  },
+  "cart": {
+    "general": {
+      "title": "Your cart",
+      "empty": "Your cart is empty.",
+      "continue_shopping": "Continue shopping",
+      "subtotal": "Subtotal",
+      "checkout": "Checkout",
+      "remove": "Remove",
+      "note": "Add a note or gift message for our team",
+      "taxes_and_shipping": "Taxes and shipping calculated at checkout."
+    }
+  },
+  "contact": {
+    "form": {
+      "name": "Name",
+      "email": "Email",
+      "phone": "Phone",
+      "message": "Message",
+      "send": "Send message",
+      "success": "Thanks — we'll be in touch shortly.",
+      "parcel": "Order number"
+    }
+  },
+  "footer": {
+    "newsletter_title": "New arrivals, first",
+    "copyright": "All rights reserved."
+  }
+}

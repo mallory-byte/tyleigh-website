@@ -1,0 +1,31 @@
+<div class="page-width section" style="max-width:40rem">
+  <nav class="breadcrumb"><a href="{{ routes.account_url }}">Account</a><span>/</span>Addresses</nav>
+  <h1>Your addresses</h1>
+
+  {%- form 'customer_address', customer.new_address, id: 'AddressNew' -%}
+    <h2>Add a new address</h2>
+    <div class="form-grid">
+      <div class="form-field"><label>First name</label><input type="text" name="address[first_name]" value="{{ form.first_name }}"></div>
+      <div class="form-field"><label>Last name</label><input type="text" name="address[last_name]" value="{{ form.last_name }}"></div>
+    </div>
+    <div class="form-field"><label>Address</label><input type="text" name="address[address1]" value="{{ form.address1 }}"></div>
+    <div class="form-grid">
+      <div class="form-field"><label>City</label><input type="text" name="address[city]" value="{{ form.city }}"></div>
+      <div class="form-field"><label>Zip</label><input type="text" name="address[zip]" value="{{ form.zip }}"></div>
+    </div>
+    <div class="form-grid">
+      <div class="form-field"><label>Province</label><input type="text" name="address[province]" value="{{ form.province }}"></div>
+      <div class="form-field"><label>Country</label><input type="text" name="address[country]" value="{{ form.country }}"></div>
+    </div>
+    <button type="submit" class="btn btn--primary">Save address</button>
+  {%- endform -%}
+
+  {%- if customer.addresses.size > 0 -%}
+    <h2 style="margin-top:var(--space-7)">Saved addresses</h2>
+    {%- for address in customer.addresses -%}
+      <div class="feature-card" style="margin-bottom:var(--space-4)">
+        {{ address | format_address }}
+      </div>
+    {%- endfor -%}
+  {%- endif -%}
+</div>

@@ -1,0 +1,94 @@
+{%- comment -%}
+  Emmy's Closet — product card
+  Params:
+    product (required)
+  Reads theme settings: show_vendor, show_new_badge, new_badge_days,
+  show_sale_badge, show_second_image, show_color_swatches, enable_quick_add.
+{%- endcomment -%}
+{%- liquid
+  assign on_sale = false
+  if product.compare_at_price > product.price
+    assign on_sale = true
+  endif
+
+  assign is_new = false
+  if settings.show_new_badge
+    assign new_days = settings.new_badge_days | default: 30
+    assign cutoff = 'now' | date: '%s' | minus: 0
+    assign age_seconds = cutoff | minus: product.created_at | date: '%s'
+    assign age_days = age_seconds | divided_by: 86400
+    if age_days <= new_days
+      assign is_new = true
+    endif
+  endif
+
+  assign second_image = product.media[1]
+  assign color_opt = null
+  for opt in product.options_with_values
+    assign dn = opt.name | downcase
+    if dn contains 'color' or dn contains 'colour'
+      assign color_opt = opt
+    endif
+  endfor
+-%}
+<article class="pc">
+  <a href="{{ product.url }}" class="pc__media {% unless settings.show_second_image and second_image %}pc__media--single{% endunless %}" aria-label="{{ product.title | escape }}">
+    {%- if product.featured_media -%}
+      {{ product.featured_media | image_url: width: 700 | image_tag: class: 'pc__img--one', loading: 'lazy', widths: '300, 450, 600, 700', sizes: '(min-width: 990px) 25vw, 45vw', alt: product.featured_media.alt | default: product.title | escape }}
+      {%- if settings.show_second_image and second_image -%}
+        {{ second_image | image_url: width: 700 | image_tag: class: 'pc__img--two', loading: 'lazy', widths: '300, 450, 600, 700', sizes: '(min-width: 990px) 25vw, 45vw', alt: second_image.alt | default: product.title | escape }}
+      {%- endif -%}
+    {%- else -%}
+      <span class="pc__ph">{% render 'icon', icon: 'gift' %}</span>
+    {%- endif -%}
+
+    <div class="pc__badges">
+      {%- unless product.available -%}
+        <span class="pc__badge pc__badge--sold">Sold out</span>
+      {%- else -%}
+        {%- if settings.show_sale_badge and on_sale -%}<span class="pc__badge pc__badge--sale">Sale</span>{%- endif -%}
+        {%- if is_new -%}<span class="pc__badge pc__badge--new">New</span>{%- endif -%}
+      {%- endunless -%}
+    </div>
+  </a>
+
+  <div class="pc__body">
+    {%- if settings.show_vendor and product.vendor != blank -%}
+      <span class="pc__vendor">{{ product.vendor }}</span>
+    {%- endif -%}
+    <h3 class="pc__title"><a href="{{ product.url }}">{{ product.title }}</a></h3>
+
+    <div class="pc__price">
+      {%- if on_sale -%}
+        <span class="pc__price--was">{{ product.compare_at_price | money }}</span>
+        <span class="pc__price--now">{{ product.price | money }}</span>
+      {%- else -%}
+        <span>{% if product.price_varies %}From {% endif %}{{ product.price | money }}</span>
+      {%- endif -%}
+    </div>
+
+    {%- if settings.show_color_swatches and color_opt and color_opt.values.size > 1 -%}
+      <div class="pc__swatches" aria-label="Available colors">
+        {%- for value in color_opt.values limit: 6 -%}
+          <span class="pc__swatch" title="{{ value | escape }}" style="background:{{ value | downcase | split: ' ' | last | replace: 'navy','#2f3b55' | replace: 'cream','#f3ebdd' | replace: 'blush','#e7c4c7' | replace: 'sage','#b7c3ab' }}"></span>
+        {%- endfor -%}
+        {%- if color_opt.values.size > 6 -%}<span class="pc__swatch" style="background:var(--color-border)" title="more"></span>{%- endif -%}
+      </div>
+    {%- endif -%}
+
+    <div class="pc__cta">
+      {%- if product.available -%}
+        {%- if settings.enable_quick_add and product.variants.size == 1 -%}
+          {%- form 'product', product, id: null, class: 'pc__form' -%}
+            <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+            <button type="submit" name="add" class="btn btn--primary btn--pill">Add to Cart</button>
+          {%- endform -%}
+        {%- else -%}
+          <a href="{{ product.url }}" class="btn btn--outline btn--pill">Choose Options</a>
+        {%- endif -%}
+      {%- else -%}
+        <a href="{{ product.url }}" class="btn btn--outline btn--pill">View Details</a>
+      {%- endif -%}
+    </div>
+  </div>
+</article>
