@@ -13,29 +13,7 @@
         "subtext": "Heirloom-quality smocked, monogrammed, and everyday styles.",
         "button_label": "Shop New Arrivals"
       }
-    },
-    "promise": {
-      "type": "value-props",
-      "blocks": {
-        "v1": { "type": "value", "settings": { "icon": "sparkles", "title": "Heirloom Quality", "text": "Chosen to be worn, washed, and handed down." } }
-      },
-      "block_order": ["v1"],
-      "settings": {
-        "muted_bg": true,
-        "eyebrow": "Our Promise",
-        "heading": "The Emmy's Closet standard"
-      }
-    },
-    "story": {
-      "type": "media-text",
-      "settings": {
-        "image_url": "",
-        "image_position": "right",
-        "eyebrow": "Our Story",
-        "heading": "A boutique built on tradition",
-        "text": "<p>Emmy's Closet began in 2016 with a simple belief.</p>"
-      }
     }
   },
-  "order": ["hero", "promise", "story"]
+  "order": ["hero"]
 }
