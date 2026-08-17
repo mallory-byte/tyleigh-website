@@ -1,5 +1,5 @@
 {%- liquid
-  assign brand = settings.brand_name | default: "Emmy's Closet"
+  assign brand = settings.brand_name | default: shop.name
   assign phone = settings.contact_phone | default: settings.phone
   assign phone_href = phone | remove: ' ' | remove: '(' | remove: ')' | remove: '-'
   assign email = settings.contact_email
