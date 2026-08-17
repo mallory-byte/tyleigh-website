@@ -3,26 +3,23 @@
     "hero": {
       "type": "hero",
       "blocks": {
-        "p1": { "type": "perk", "settings": { "text": "New Arrivals Weekly" } },
-        "p2": { "type": "perk", "settings": { "text": "Smocked & Monogrammed" } }
+        "p1": { "type": "perk", "settings": { "text": "New Arrivals Weekly" } }
       },
-      "block_order": ["p1", "p2"],
+      "block_order": ["p1"],
       "settings": {
         "image_url": "",
         "eyebrow": "Classic children's clothing · since 2016",
-        "heading": "Timeless treasures,",
-        "heading_emphasis": "made to be handed down",
-        "subtext": "Heirloom-quality smocked, monogrammed, and everyday styles for babies, toddlers, and big kids.",
+        "heading": "Timeless treasures",
+        "subtext": "Heirloom-quality smocked, monogrammed, and everyday styles.",
         "button_label": "Shop New Arrivals"
       }
     },
     "promise": {
       "type": "value-props",
       "blocks": {
-        "v1": { "type": "value", "settings": { "icon": "sparkles", "title": "Heirloom Quality", "text": "Hand-smocked details and natural fabrics chosen to be worn, washed, and handed down." } },
-        "v2": { "type": "value", "settings": { "icon": "gift", "title": "Gift-Ready Always", "text": "Complimentary wrapping and monogramming make every order gift-ready." } }
+        "v1": { "type": "value", "settings": { "icon": "sparkles", "title": "Heirloom Quality", "text": "Chosen to be worn, washed, and handed down." } }
       },
-      "block_order": ["v1", "v2"],
+      "block_order": ["v1"],
       "settings": {
         "muted_bg": true,
         "eyebrow": "Our Promise",
@@ -36,28 +33,9 @@
         "image_position": "right",
         "eyebrow": "Our Story",
         "heading": "A boutique built on tradition",
-        "text": "<p>Emmy's Closet began in 2016 with a simple belief — that childhood deserves clothing made to last.</p>"
-      }
-    },
-    "testimonials": {
-      "type": "testimonials",
-      "blocks": {
-        "t1": { "type": "quote", "settings": { "quote": "The smocking is exquisite and the quality far exceeded my expectations.", "author": "Caroline M.", "detail": "Charleston, SC", "stars": true } }
-      },
-      "block_order": ["t1"],
-      "settings": {
-        "eyebrow": "Kind Words",
-        "heading": "Loved by families everywhere"
-      }
-    },
-    "newsletter": {
-      "type": "newsletter",
-      "settings": {
-        "eyebrow": "Join the List",
-        "heading": "10% off your first order",
-        "subtext": "Be first to shop new arrivals, restocks, and members-only sales."
+        "text": "<p>Emmy's Closet began in 2016 with a simple belief.</p>"
       }
     }
   },
-  "order": ["hero", "promise", "story", "testimonials", "newsletter"]
+  "order": ["hero", "promise", "story"]
 }
