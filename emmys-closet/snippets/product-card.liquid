@@ -79,7 +79,7 @@
     <div class="pc__cta">
       {%- if product.available -%}
         {%- if settings.enable_quick_add and product.variants.size == 1 -%}
-          {%- form 'product', product, id: null, class: 'pc__form' -%}
+          {%- form 'product', product, class: 'pc__form' -%}
             <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
             <button type="submit" name="add" class="btn btn--primary btn--pill">Add to Cart</button>
           {%- endform -%}
