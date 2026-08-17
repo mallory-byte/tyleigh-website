@@ -9,13 +9,25 @@
   <div class="cat-grid">
     {%- for block in section.blocks -%}
       {%- liquid
-        assign coll = collections[block.settings.collection]
-        assign card_url = block.settings.link | default: coll.url | default: '#'
-        assign card_title = block.settings.title
-        if card_title == blank
-          assign card_title = coll.title | default: 'Shop'
+        assign coll = block.settings.collection
+        assign card_url = block.settings.link
+        if card_url == blank and coll != blank
+          assign card_url = coll.url
         endif
-        assign card_img = block.settings.image | default: coll.featured_image
+        if card_url == blank
+          assign card_url = '#'
+        endif
+        assign card_title = block.settings.title
+        if card_title == blank and coll != blank
+          assign card_title = coll.title
+        endif
+        if card_title == blank
+          assign card_title = 'Shop'
+        endif
+        assign card_img = block.settings.image
+        if card_img == blank and coll != blank
+          assign card_img = coll.featured_image
+        endif
       -%}
       <a href="{{ card_url }}" class="cat-card" {{ block.shopify_attributes }}>
         {%- if card_img != blank -%}

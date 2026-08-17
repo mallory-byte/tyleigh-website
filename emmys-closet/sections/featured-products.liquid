@@ -1,6 +1,6 @@
 {%- comment -%} Emmy's Closet — featured products grid {%- endcomment -%}
 {%- liquid
-  assign coll = collections[section.settings.collection]
+  assign coll = section.settings.collection
   assign limit = section.settings.products_to_show | default: 8
 -%}
 <section class="section {% if section.settings.muted_bg %}contact-section{% endif %}">
