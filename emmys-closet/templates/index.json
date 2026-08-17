@@ -2,15 +2,11 @@
   "sections": {
     "hero": {
       "type": "hero",
-      "blocks": {
-        "p1": { "type": "perk", "settings": { "text": "New Arrivals Weekly" } }
-      },
-      "block_order": ["p1"],
       "settings": {
-        "image_url": "",
         "eyebrow": "Classic children's clothing · since 2016",
         "heading": "Timeless treasures",
-        "subtext": "Heirloom-quality smocked, monogrammed, and everyday styles.",
+        "heading_emphasis": "made to be handed down",
+        "subtext": "Heirloom-quality smocked, monogrammed, and everyday styles for babies, toddlers, and big kids.",
         "button_label": "Shop New Arrivals"
       }
     }
