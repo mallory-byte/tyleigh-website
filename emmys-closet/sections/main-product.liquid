@@ -16,7 +16,7 @@
       <div class="pdp-hero" data-gallery-main>
         {%- if p.featured_media -%}
           {% assign product_alt = p.featured_media.alt | default: p.title | escape %}
-          {{ p.featured_media | image_url: width: 1200 | image_tag: alt: product_alt, fetchpriority: 'high' }}
+          {{ p.featured_media | image_url: width: 1200 | image_tag: alt: product_alt }}
         {%- else -%}
           <div style="aspect-ratio:4/5;display:grid;place-items:center;background:var(--color-bg);color:var(--color-muted)">{% render 'icon', icon: 'gift' %}</div>
         {%- endif -%}

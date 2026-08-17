@@ -3,7 +3,7 @@
     <div class="whyus__media" style="box-shadow:none">
       {%- if section.settings.image != blank -%}
         {% assign mt_alt = section.settings.heading | escape %}
-        {{ section.settings.image | image_url: width: 1000 | image_tag: loading: 'lazy', alt: mt_alt, style: 'height:auto;aspect-ratio:16/10;box-shadow:var(--shadow-lg)', sizes: '(min-width: 990px) 45vw, 90vw', widths: '500, 750, 1000' }}
+        {{ section.settings.image | image_url: width: 1000 | image_tag: alt: mt_alt, loading: 'lazy', style: 'aspect-ratio:16/10;box-shadow:var(--shadow-lg)' }}
       {%- elsif section.settings.image_url != blank -%}
         <img src="{{ section.settings.image_url }}" alt="{{ section.settings.heading | escape }}" loading="lazy" style="aspect-ratio:16/10;box-shadow:var(--shadow-lg)">
       {%- else -%}

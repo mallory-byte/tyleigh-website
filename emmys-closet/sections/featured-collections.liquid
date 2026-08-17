@@ -31,7 +31,7 @@
       -%}
       <a href="{{ card_url }}" class="cat-card" {{ block.shopify_attributes }}>
         {%- if card_img != blank -%}
-          {{ card_img | image_url: width: 600 | image_tag: loading: 'lazy', widths: '300, 450, 600', sizes: '(min-width: 750px) 22vw, 45vw', alt: card_title | escape }}
+          {{ card_img | image_url: width: 600 | image_tag: loading: 'lazy', alt: card_title | escape }}
         {%- elsif block.settings.image_url != blank -%}
           <img src="{{ block.settings.image_url }}" alt="{{ card_title | escape }}" loading="lazy">
         {%- else -%}

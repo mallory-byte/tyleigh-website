@@ -34,9 +34,9 @@
 <article class="pc">
   <a href="{{ product.url }}" class="pc__media {% unless settings.show_second_image and second_image %}pc__media--single{% endunless %}" aria-label="{{ product.title | escape }}">
     {%- if product.featured_media -%}
-      {{ product.featured_media | image_url: width: 700 | image_tag: class: 'pc__img--one', loading: 'lazy', widths: '300, 450, 600, 700', sizes: '(min-width: 990px) 25vw, 45vw', alt: product.featured_media.alt | default: product.title | escape }}
+      {{ product.featured_media | image_url: width: 700 | image_tag: class: 'pc__img--one', loading: 'lazy', alt: product.featured_media.alt | default: product.title | escape }}
       {%- if settings.show_second_image and second_image -%}
-        {{ second_image | image_url: width: 700 | image_tag: class: 'pc__img--two', loading: 'lazy', widths: '300, 450, 600, 700', sizes: '(min-width: 990px) 25vw, 45vw', alt: second_image.alt | default: product.title | escape }}
+        {{ second_image | image_url: width: 700 | image_tag: class: 'pc__img--two', loading: 'lazy', alt: second_image.alt | default: product.title | escape }}
       {%- endif -%}
     {%- else -%}
       <span class="pc__ph">{% render 'icon', icon: 'gift' %}</span>

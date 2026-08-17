@@ -3,13 +3,128 @@
     "hero": {
       "type": "hero",
       "settings": {
+        "image_url": "",
         "eyebrow": "Classic children's clothing · since 2016",
-        "heading": "Timeless treasures",
+        "heading": "Timeless treasures,",
         "heading_emphasis": "made to be handed down",
-        "subtext": "Heirloom-quality smocked, monogrammed, and everyday styles for babies, toddlers, and big kids.",
-        "button_label": "Shop New Arrivals"
+        "subtext": "Heirloom-quality smocked, monogrammed, and everyday styles for babies, toddlers, and big kids — from the labels families have trusted for generations.",
+        "button_label": "Shop New Arrivals",
+        "button_label_2": "Shop by Category",
+        "button_link_2": "#shop-by-category"
+      }
+    },
+    "trust-bar": {
+      "type": "trust-bar",
+      "blocks": {
+        "t1": { "type": "item", "settings": { "icon": "truck", "title": "Free Shipping", "text": "On orders over $75" } },
+        "t2": { "type": "item", "settings": { "icon": "shield", "title": "Secure Checkout", "text": "256-bit encryption" } },
+        "t3": { "type": "item", "settings": { "icon": "refresh", "title": "Easy Returns", "text": "30-day exchanges" } },
+        "t4": { "type": "item", "settings": { "icon": "star", "title": "4.9★ Rated", "text": "2,300+ reviews" } }
+      },
+      "block_order": ["t1", "t2", "t3", "t4"]
+    },
+    "categories": {
+      "type": "featured-collections",
+      "blocks": {
+        "c1": { "type": "category", "settings": { "title": "Girls", "subtitle": "Dresses & Sets", "icon": "sparkles", "image_url": "" } },
+        "c2": { "type": "category", "settings": { "title": "Boys", "subtitle": "Jon Jons & Sets", "icon": "star", "image_url": "" } },
+        "c3": { "type": "category", "settings": { "title": "Baby", "subtitle": "0–24 Months", "icon": "baby", "image_url": "" } },
+        "c4": { "type": "category", "settings": { "title": "Accessories", "subtitle": "Bows & Bonnets", "icon": "gift", "image_url": "" } }
+      },
+      "block_order": ["c1", "c2", "c3", "c4"],
+      "settings": {
+        "eyebrow": "Shop by Category",
+        "heading": "Find their perfect look",
+        "subtext": "From Sunday best to everyday play — sweetly curated for every little one."
+      }
+    },
+    "brands": {
+      "type": "logo-strip",
+      "blocks": {
+        "b1": { "type": "brand", "settings": { "name": "Feltman Brothers" } },
+        "b2": { "type": "brand", "settings": { "name": "Petit Ami" } },
+        "b3": { "type": "brand", "settings": { "name": "The Beaufort Bonnet Co." } },
+        "b4": { "type": "brand", "settings": { "name": "Properly Tied" } },
+        "b5": { "type": "brand", "settings": { "name": "Magnolia Baby" } }
+      },
+      "block_order": ["b1", "b2", "b3", "b4", "b5"],
+      "settings": {
+        "label": "The Labels Families Trust — Now Under One Roof"
+      }
+    },
+    "new-arrivals": {
+      "type": "featured-products",
+      "settings": {
+        "eyebrow": "Just Arrived",
+        "heading": "New Arrivals",
+        "subtext": "Fresh little finds added weekly — from Sunday best to everyday play.",
+        "products_to_show": 8,
+        "muted_bg": false,
+        "show_view_all": true,
+        "view_all_label": "Shop All New Arrivals"
+      }
+    },
+    "promise": {
+      "type": "value-props",
+      "blocks": {
+        "v1": { "type": "value", "settings": { "icon": "sparkles", "title": "Heirloom Quality", "text": "Hand-smocked details and natural fabrics chosen to be worn, washed, and handed down." } },
+        "v2": { "type": "value", "settings": { "icon": "shield", "title": "Shop with Confidence", "text": "Secure checkout, honest sizing, and easy 30-day returns — with a caring team a message away." } },
+        "v3": { "type": "value", "settings": { "icon": "gift", "title": "Gift-Ready Always", "text": "Complimentary wrapping and monogramming make every order ready for the sweetest occasions." } },
+        "v4": { "type": "value", "settings": { "icon": "truck", "title": "Fast, Free Shipping", "text": "Packed and sent within 1–2 days, with complimentary shipping over $75." } }
+      },
+      "block_order": ["v1", "v2", "v3", "v4"],
+      "settings": {
+        "muted_bg": true,
+        "eyebrow": "Our Promise",
+        "heading": "The Emmy's Closet standard",
+        "subtext": "Thoughtful details and gentle service, from our closet to yours."
+      }
+    },
+    "story": {
+      "type": "media-text",
+      "settings": {
+        "image_url": "",
+        "image_position": "right",
+        "eyebrow": "Our Story",
+        "heading": "A boutique built on tradition",
+        "text": "<p>Emmy's Closet began in 2016 with a simple belief — that childhood deserves clothing made to last. We hand-select every piece from the heritage labels parents have trusted for generations, so the smocked dresses and classic Jon Jons your little ones wear today become the keepsakes you'll pass down tomorrow.</p><p>Family-owned, endlessly detail-obsessed, and here for every milestone — from coming-home outfits to first-day portraits.</p>",
+        "button_label": "About Emmy's Closet",
+        "button_link": "/pages/about"
+      }
+    },
+    "best-sellers": {
+      "type": "featured-products",
+      "settings": {
+        "eyebrow": "Loved by Little Ones",
+        "heading": "Best Sellers",
+        "subtext": "The pieces our families come back for, again and again.",
+        "products_to_show": 4,
+        "muted_bg": false,
+        "show_view_all": true,
+        "view_all_label": "Shop Best Sellers"
+      }
+    },
+    "testimonials": {
+      "type": "testimonials",
+      "blocks": {
+        "t1": { "type": "quote", "settings": { "quote": "The smocking is exquisite and the quality far exceeded my expectations. My daughter's Easter dress is already a family heirloom.", "author": "Caroline M.", "detail": "Verified Buyer · Charleston, SC", "stars": true } },
+        "t2": { "type": "quote", "settings": { "quote": "Beautifully wrapped, perfectly monogrammed, and it arrived in two days. Emmy's Closet is my go-to for every baby shower.", "author": "Jessica P.", "detail": "Verified Buyer · Dallas, TX", "stars": true } },
+        "t3": { "type": "quote", "settings": { "quote": "Timeless pieces that hold up wash after wash. I've dressed both my children from here and wouldn't shop anywhere else.", "author": "Meredith L.", "detail": "Verified Buyer · Nashville, TN", "stars": true } }
+      },
+      "block_order": ["t1", "t2", "t3"],
+      "settings": {
+        "eyebrow": "Kind Words",
+        "heading": "Loved by families everywhere"
+      }
+    },
+    "newsletter": {
+      "type": "newsletter",
+      "settings": {
+        "eyebrow": "Join the List",
+        "heading": "10% off your first order",
+        "subtext": "Be first to shop new arrivals, restocks, and members-only sales."
       }
     }
   },
-  "order": ["hero"]
+  "order": ["hero", "trust-bar", "categories", "brands", "new-arrivals", "promise", "story", "best-sellers", "testimonials", "newsletter"]
 }
