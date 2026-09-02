@@ -64,21 +64,23 @@
     {%- endif -%}
 
     <div class="p-card__pricing">
-      <div class="price-fin">
-        {%- if settings.show_monthly_price and monthly != blank -%}
-          <div class="price-fin__label">Owner Financing</div>
-          <div class="price-fin__amount">${{ monthly }}<small>/mo</small></div>
-          {%- if down != blank or term != blank -%}<div class="price-fin__down">{% if down != blank %}Down: ${{ down }}{% endif %}{% if down != blank and term != blank %} · {% endif %}{% if term != blank %}{{ term }} mo term{% endif %}</div>{%- endif -%}
-          {%- if settings.show_zero_interest -%}<div class="price-fin__nointerest">0% interest</div>{%- endif -%}
-        {%- else -%}
-          <div class="price-fin__label">Cash Price</div>
-          <div class="price-fin__amount">{{ cash_display }}</div>
-        {%- endif -%}
-      </div>
       {%- if settings.show_monthly_price and monthly != blank -%}
-        <div class="price-cash">
-          <div class="price-cash__label">Cash Price</div>
-          <div class="price-cash__amount">{{ cash_display }}</div>
+        <div class="pcp">
+          <div class="pcp__lead">
+            <span class="pcp__amt">${{ monthly }}</span><span class="pcp__per">/mo</span>
+          </div>
+          <div class="pcp__terms">
+            {%- if down != blank -%}${{ down }} down{%- endif -%}
+            {%- if down != blank and term != blank %} · {% endif -%}
+            {%- if term != blank -%}{{ term }} months{%- endif -%}
+            {%- if settings.show_zero_interest %} · 0% interest{% endif -%}
+          </div>
+          <div class="pcp__cash">or {{ cash_display }} paid in cash</div>
+        </div>
+      {%- else -%}
+        <div class="pcp">
+          <div class="pcp__lead"><span class="pcp__amt">{{ cash_display }}</span></div>
+          <div class="pcp__terms">Cash price</div>
         </div>
       {%- endif -%}
     </div>
