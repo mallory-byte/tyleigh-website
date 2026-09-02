@@ -47,6 +47,10 @@
       {%- assign plat = product.metafields.custom.latitude.value -%}
       {%- assign plng = product.metafields.custom.longitude.value -%}
       {%- if plat != blank and plng != blank -%}
+        {%- assign pimg = '' -%}
+        {%- if product.featured_media != blank -%}
+          {%- assign pimg = product.featured_media | image_url: width: 240 -%}
+        {%- endif -%}
         {
           "lat": {{ plat | json }},
           "lng": {{ plng | json }},
@@ -56,7 +60,7 @@
           "county": {{ product.metafields.custom.county.value | json }},
           "acres": {{ product.metafields.custom.acres.value | json }},
           "monthly": {{ product.metafields.custom.monthly_payment.value | json }},
-          "img": {{ product.featured_image | image_url: width: 240 | json }},
+          "img": {{ pimg | json }},
           "available": {{ product.available | json }}
         },
       {%- endif -%}
