@@ -1,28 +1,12 @@
 {%- liquid
   assign s = section.settings
 -%}
-{%- liquid
-  assign has_video = false
-  if s.video != blank or s.video_url != blank
-    assign has_video = true
-  endif
-  assign has_media = false
-  if s.image != blank or has_video
-    assign has_media = true
-  endif
--%}
-<div class="page-width section" id="meet-the-owner">
-  <div class="owner {% unless has_media %}owner--no-image{% endunless %}">
-    {%- if has_media -%}
-      <div class="owner__media {% if has_video %}owner__media--video{% endif %}">
-        {%- if s.video != blank -%}
-          {{ s.video | video_tag: controls: true, playsinline: true, preload: 'metadata', image_size: '900x' }}
-        {%- elsif s.video_url != blank -%}
-          {{ s.video_url | external_video_tag }}
-        {%- else -%}
-          <img src="{{ s.image | image_url: width: 900 }}" alt="{{ s.name | escape }}" width="900" height="1100" loading="lazy">
-        {%- endif -%}
-        {%- if s.badge != blank and has_video == false -%}<span class="owner__badge">{% render 'icon', icon: 'shield' %} {{ s.badge }}</span>{%- endif -%}
+<div class="page-width section">
+  <div class="owner {% if s.image == blank %}owner--no-image{% endif %}">
+    {%- if s.image != blank -%}
+      <div class="owner__media">
+        <img src="{{ s.image | image_url: width: 900 }}" alt="{{ s.name | escape }}" width="900" height="1100" loading="lazy">
+        {%- if s.badge != blank -%}<span class="owner__badge">{% render 'icon', icon: 'shield' %} {{ s.badge }}</span>{%- endif -%}
       </div>
     {%- endif -%}
     <div class="owner__body">
@@ -57,11 +41,7 @@
 {
   "name": "Meet the owner",
   "settings": [
-    { "type": "header", "content": "Intro video (recommended)" },
-    { "type": "paragraph", "content": "A short 30–60 sec “Hi, I'm Mallory” video is the single biggest trust-builder — it's the thing scammy sellers can't fake. Upload one below, or paste a YouTube/Vimeo link. If both are empty, your photo shows instead." },
-    { "type": "video", "id": "video", "label": "Upload intro video" },
-    { "type": "video_url", "id": "video_url", "label": "…or YouTube / Vimeo link", "accept": ["youtube", "vimeo"] },
-    { "type": "image_picker", "id": "image", "label": "Your photo", "info": "Shown when no video is set. A real, friendly photo of you builds the most trust. Portrait orientation works best." },
+    { "type": "image_picker", "id": "image", "label": "Your photo", "info": "A real, friendly photo of you builds the most trust. Portrait orientation works best." },
     { "type": "text", "id": "badge", "label": "Photo badge (optional)", "default": "" },
     { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "The person behind Ty-Leigh" },
     { "type": "text", "id": "heading", "label": "Heading", "default": "Hi — I'm the one you'll actually talk to." },
