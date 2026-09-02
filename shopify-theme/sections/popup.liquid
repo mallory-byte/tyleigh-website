@@ -4,7 +4,7 @@
   assign days = s.frequency_days | default: 7
   assign fcol = collections.all
   if s.finder_collection != blank
-    assign fcol = collections[s.finder_collection]
+    assign fcol = s.finder_collection
   endif
   assign fapi = settings.finder_api_url
 -%}

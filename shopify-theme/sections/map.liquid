@@ -1,7 +1,7 @@
 {%- liquid
   assign map_col = collections.all
   if section.settings.collection != blank
-    assign map_col = collections[section.settings.collection]
+    assign map_col = section.settings.collection
   endif
   assign states = section.settings.states | split: ','
   assign uid = 'tylmap-' | append: section.id
