@@ -47,7 +47,7 @@
         <div class="pdp-hero" data-gallery-main {% if p.featured_media %}data-zoom-open role="button" tabindex="0" aria-label="Click to enlarge photo"{% endif %}>
           {%- if p.featured_media -%}
             {% assign product_alt = p.featured_media.alt | default: p.title | escape %}
-            {{ p.featured_media | image_url: width: 1600 | image_tag: alt: product_alt, fetchpriority: 'high' }}
+            {{ p.featured_media | image_url: width: 1600 | image_tag: alt: product_alt }}
             <span class="pdp-hero__zoom">{% render 'icon', icon: 'maximize' %} Click to zoom</span>
           {%- else -%}
             <div style="height:24rem;display:grid;place-items:center;background:var(--color-bg);color:var(--color-muted)">{% render 'icon', icon: 'tree' %}</div>

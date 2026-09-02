@@ -5,7 +5,7 @@
       <div class="whyus__media">
         {%- if section.settings.image != blank -%}
           {% assign why_alt = section.settings.heading | escape %}
-          {{ section.settings.image | image_url: width: 900 | image_tag: loading: 'lazy', alt: why_alt, widths: '450, 700, 900', sizes: '(min-width: 990px) 45vw, 90vw' }}
+          {{ section.settings.image | image_url: width: 900 | image_tag: loading: 'lazy', alt: why_alt }}
         {%- elsif section.settings.image_url != blank -%}
           <img src="{{ section.settings.image_url }}" alt="{{ section.settings.heading | escape }}" loading="lazy">
         {%- endif -%}
