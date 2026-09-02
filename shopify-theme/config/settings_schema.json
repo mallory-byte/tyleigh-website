@@ -262,6 +262,45 @@
     ]
   },
   {
+    "name": "Meet the owner",
+    "settings": [
+      {
+        "type": "paragraph",
+        "content": "A real face + name is what sketchy land sellers can't fake. Set it once here and it shows on every listing next to the buy panel."
+      },
+      {
+        "type": "text",
+        "id": "owner_name",
+        "label": "Your name (first name is best)",
+        "default": "Mallory"
+      },
+      {
+        "type": "image_picker",
+        "id": "owner_photo",
+        "label": "Your photo",
+        "info": "A real, friendly photo of you. A close-up headshot works best here."
+      },
+      {
+        "type": "text",
+        "id": "owner_photo_url",
+        "label": "Your photo URL (fallback)",
+        "info": "Used only if no photo is uploaded above."
+      },
+      {
+        "type": "textarea",
+        "id": "owner_line",
+        "label": "Personal line shown on listings",
+        "default": "I'm a real person — not a call center. I personally know every parcel we sell, and I'll walk you through this one start to finish."
+      },
+      {
+        "type": "url",
+        "id": "owner_intro_link",
+        "label": "“Watch my intro” link (optional)",
+        "info": "Point this at your intro video (or the homepage “Meet the owner” section). Leave blank to hide the link."
+      }
+    ]
+  },
+  {
     "name": "Property Finder",
     "settings": [
       {

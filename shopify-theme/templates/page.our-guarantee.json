@@ -7,7 +7,7 @@
     "content": {
       "type": "prose",
       "settings": {
-        "intro": "<p>🛡️ We're so confident you'll love your land that we back every purchase with a <strong>60-day money-back guarantee</strong>. If you're not completely happy for any reason, we'll refund every payment you've made.</p>"
+        "intro": "<p>🛡️ We're so confident you'll love your land that we back every purchase with a <strong>60-day money-back guarantee</strong>. If you're not completely happy for any reason, we'll refund every payment you've made toward the land. The one-time document fee is non-refundable.</p>"
       },
       "blocks": {
         "b1": { "type": "card", "settings": { "icon": "shield", "heading": "What's Covered", "text": "<ul><li>No complicated forms or hoops to jump through</li><li>No questions asked — just let us know</li><li>Applies to all owner-financed properties</li><li>Refund processed promptly upon request</li></ul>" } },

@@ -1,0 +1,41 @@
+{%- comment -%}
+  A "real person behind this listing" band. Reuses the global Meet-the-owner
+  settings so the same face + name appears on every listing.
+{%- endcomment -%}
+{%- liquid
+  assign o_name = settings.owner_name | default: 'Mallory'
+  assign o_photo = settings.owner_photo
+  assign o_photo_url = settings.owner_photo_url
+  assign o_line = settings.owner_line | default: "I'm a real person — not a call center. I personally know every parcel we sell, and I'll walk you through this one start to finish."
+  assign o_intro = settings.owner_intro_link
+  assign phone = settings.contact_phone | default: settings.phone
+  assign phone_href = phone | remove: ' ' | remove: '(' | remove: ')' | remove: '-'
+  assign email = settings.contact_email
+-%}
+<div class="owner-band">
+  <div class="owner-band__face">
+    {%- if o_photo != blank -%}
+      <img src="{{ o_photo | image_url: width: 220 }}" alt="{{ o_name | escape }}, Ty-Leigh Capital" width="88" height="88" loading="lazy">
+    {%- elsif o_photo_url != blank -%}
+      <img src="{{ o_photo_url }}" alt="{{ o_name | escape }}, Ty-Leigh Capital" width="88" height="88" loading="lazy">
+    {%- else -%}
+      <span class="owner-band__initial">{{ o_name | slice: 0 }}</span>
+    {%- endif -%}
+  </div>
+  <div class="owner-band__body">
+    <p class="owner-band__eyebrow">{% render 'icon', icon: 'check-circle' %} A real person, not a call center</p>
+    <p class="owner-band__name">{{ o_name }}<span> · Ty-Leigh Capital</span></p>
+    <p class="owner-band__line">{{ o_line }}</p>
+    <div class="owner-band__actions">
+      {%- if o_intro != blank -%}
+        <a href="{{ o_intro }}" class="owner-band__btn owner-band__btn--play">{% render 'icon', icon: 'play' %} Watch my intro</a>
+      {%- endif -%}
+      {%- if phone != blank -%}
+        <a href="tel:{{ phone_href }}" class="owner-band__btn">{% render 'icon', icon: 'phone' %} Text or call {{ phone }}</a>
+      {%- endif -%}
+      {%- if email != blank -%}
+        <a href="mailto:{{ email }}" class="owner-band__btn owner-band__btn--ghost">{% render 'icon', icon: 'mail' %} Email me</a>
+      {%- endif -%}
+    </div>
+  </div>
+</div>
