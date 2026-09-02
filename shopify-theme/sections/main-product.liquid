@@ -44,10 +44,11 @@
     {%- comment -%} ---------- Main column ---------- {%- endcomment -%}
     <div class="pdp__main" data-gallery>
       <div>
-        <div class="pdp-hero" data-gallery-main>
+        <div class="pdp-hero" data-gallery-main {% if p.featured_media %}data-zoom-open role="button" tabindex="0" aria-label="Click to enlarge photo"{% endif %}>
           {%- if p.featured_media -%}
             {% assign product_alt = p.featured_media.alt | default: p.title | escape %}
-            {{ p.featured_media | image_url: width: 1400 | image_tag: alt: product_alt, fetchpriority: 'high' }}
+            {{ p.featured_media | image_url: width: 1600 | image_tag: alt: product_alt, fetchpriority: 'high' }}
+            <span class="pdp-hero__zoom">{% render 'icon', icon: 'maximize' %} Click to zoom</span>
           {%- else -%}
             <div style="height:24rem;display:grid;place-items:center;background:var(--color-bg);color:var(--color-muted)">{% render 'icon', icon: 'tree' %}</div>
           {%- endif -%}
@@ -65,11 +66,27 @@
         {%- endif -%}
       </div>
 
-      <div>
-        <h1>{{ p.title }}</h1>
-        {%- if state != blank -%}
-          <span class="pdp__loc">{% render 'icon', icon: 'map-pin' %}{% if county != blank %}{{ county }} County, {% endif %}{{ state }}</span>
-        {%- endif -%}
+      <div class="pdp__title-row">
+        <div>
+          <h1>{{ p.title }}</h1>
+          {%- if state != blank -%}
+            <span class="pdp__loc">{% render 'icon', icon: 'map-pin' %}{% if county != blank %}{{ county }} County, {% endif %}{{ state }}</span>
+          {%- endif -%}
+        </div>
+
+        {%- assign share_url = canonical_url | default: p.url -%}
+        <div class="share" data-share>
+          <button type="button" class="btn btn--outline share__btn" data-share-btn aria-haspopup="true" aria-expanded="false">
+            {% render 'icon', icon: 'share' %} Share
+          </button>
+          <div class="share__menu" data-share-menu hidden>
+            <button type="button" class="share__item" data-share-copy>{% render 'icon', icon: 'link' %} <span data-copy-label>Copy link</span></button>
+            <a class="share__item" href="https://www.facebook.com/sharer/sharer.php?u={{ share_url | url_encode }}" target="_blank" rel="noopener">{% render 'icon', icon: 'facebook' %} Facebook</a>
+            <a class="share__item" href="https://twitter.com/intent/tweet?url={{ share_url | url_encode }}&text={{ p.title | url_encode }}" target="_blank" rel="noopener">{% render 'icon', icon: 'x-twitter' %} Post on X</a>
+            <a class="share__item" href="mailto:?subject={{ p.title | url_encode }}&body={{ share_url | url_encode }}">{% render 'icon', icon: 'mail' %} Email</a>
+            <a class="share__item" href="sms:?&body={{ p.title | url_encode }}%20{{ share_url | url_encode }}">{% render 'icon', icon: 'message' %} Text a friend</a>
+          </div>
+        </div>
       </div>
 
       {%- if p.description != blank -%}
@@ -162,20 +179,72 @@
         </script>
       {%- endif -%}
 
-      {%- comment -%} ---- Financing Details ---- {%- endcomment -%}
+      {%- comment -%} ---- Financing, explained step by step ---- {%- endcomment -%}
       {%- if monthly != blank -%}
-        <div class="financing-box">
-          <h2>Financing Details</h2>
-          <div class="fin-stats">
-            <div class="fin-stat"><div class="fin-stat__label">Monthly Payment</div><div class="fin-stat__num fin-stat__num--accent">${{ monthly }}</div><div class="fin-stat__sub">/month</div></div>
-            {%- if down != blank -%}<div class="fin-stat"><div class="fin-stat__label">Down Payment</div><div class="fin-stat__num">${{ down }}</div><div class="fin-stat__sub">to get started</div></div>{%- endif -%}
-            {%- if term != blank -%}<div class="fin-stat"><div class="fin-stat__label">Term</div><div class="fin-stat__num">{{ term }}</div><div class="fin-stat__sub">months</div></div>{%- endif -%}
-            <div class="fin-stat"><div class="fin-stat__label">Cash Price</div><div class="fin-stat__num">{{ cash_display }}</div><div class="fin-stat__sub">paid in full</div></div>
+        {%- liquid
+          assign monthly_num = monthly | plus: 0
+          assign down_num = down | plus: 0
+          assign term_num = term | plus: 0
+          assign payments_total = monthly_num | times: term_num
+          assign fin_total = payments_total | plus: down_num
+          assign step_pay = 2
+          if down_num > 0
+            assign step_pay = 3
+          endif
+          assign step_own = step_pay | plus: 1
+        -%}
+        <div class="financing-box" id="financing">
+          <h2>Owner Financing, Step by Step</h2>
+          <p class="fin-intro">No banks and no credit check. You make a small down payment, then equal monthly payments until it's paid off — and then the land is yours. Here's exactly how it works for this parcel:</p>
+
+          <ol class="fin-steps">
+            <li>
+              <span class="fin-steps__n">1</span>
+              <div class="fin-steps__body">
+                <strong>Reserve it today — {{ p.price | money_without_trailing_zeros }}</strong>
+                <p>A one-time document fee takes this parcel off the market so no one else can grab it. Refundable within 60 days.</p>
+              </div>
+            </li>
+            {%- if down_num > 0 -%}
+              <li>
+                <span class="fin-steps__n">2</span>
+                <div class="fin-steps__body">
+                  <strong>Down payment — ${{ down }}</strong>
+                  <p>A one-time amount paid when you sign, to start your financing.</p>
+                </div>
+              </li>
+            {%- endif -%}
+            <li>
+              <span class="fin-steps__n">{{ step_pay }}</span>
+              <div class="fin-steps__body">
+                <strong>${{ monthly }} per month{% if term != blank %} for {{ term }} months{% endif %}</strong>
+                <p>Equal, predictable monthly payments{% if settings.show_zero_interest %} at 0% interest{% endif %}. Want to finish sooner? Pay extra or pay it off anytime — no penalty.</p>
+              </div>
+            </li>
+            <li>
+              <span class="fin-steps__n">{{ step_own }}</span>
+              <div class="fin-steps__body">
+                <strong>The land is yours</strong>
+                <p>Once it's paid in full, we transfer the deed into your name — real, recorded ownership.</p>
+              </div>
+            </li>
+          </ol>
+
+          <div class="fin-breakdown">
+            <div class="fin-breakdown__head">The numbers at a glance</div>
+            <div class="fin-breakdown__row"><span>Due today (reserves this parcel)</span><span>{{ p.price | money }}</span></div>
+            {%- if down_num > 0 -%}<div class="fin-breakdown__row"><span>Down payment to start</span><span>${{ down }}</span></div>{%- endif -%}
+            <div class="fin-breakdown__row"><span>Monthly payment{% if term != blank %} &times; {{ term }} months{% endif %}</span><span>${{ monthly }}{% if term != blank %}/mo{% endif %}</span></div>
+            {%- if term_num > 0 and monthly_num > 0 -%}
+              <div class="fin-breakdown__row fin-breakdown__row--total"><span>Total you'll pay{% if down_num > 0 %} (down + all payments){% endif %}</span><span>${{ fin_total }}</span></div>
+            {%- endif -%}
+            <div class="fin-breakdown__row fin-breakdown__row--alt"><span>Prefer to pay cash?</span><span>{{ cash_display }} in full</span></div>
           </div>
+
           <div class="fin-checks">
             {%- if settings.show_zero_interest -%}<span>{% render 'icon', icon: 'check-circle' %} 0% interest — you pay the sticker price, nothing more</span>{%- endif -%}
             <span>{% render 'icon', icon: 'check-circle' %} No credit check required</span>
-            <span>{% render 'icon', icon: 'check-circle' %} No pre-payment penalty</span>
+            <span>{% render 'icon', icon: 'check-circle' %} No pre-payment penalty — pay off early anytime</span>
             <span>{% render 'icon', icon: 'check-circle' %} 60-day money-back guarantee</span>
           </div>
         </div>
@@ -266,29 +335,131 @@
   </div>
 </div>
 
-{%- comment -%} Product gallery: swap the main image when a thumbnail is clicked {%- endcomment -%}
+{%- comment -%} Zoom lightbox {%- endcomment -%}
+<div class="lightbox" id="Lightbox" hidden role="dialog" aria-modal="true" aria-label="Photo viewer">
+  <button type="button" class="lightbox__close" data-lb-close aria-label="Close">{% render 'icon', icon: 'close' %}</button>
+  <button type="button" class="lightbox__nav lightbox__prev" data-lb-prev aria-label="Previous photo">{% render 'icon', icon: 'arrow-left' %}</button>
+  <img class="lightbox__img" data-lb-img alt="{{ p.title | escape }}">
+  <button type="button" class="lightbox__nav lightbox__next" data-lb-next aria-label="Next photo">{% render 'icon', icon: 'arrow-right' %}</button>
+  <div class="lightbox__count" data-lb-count></div>
+</div>
+
+{%- comment -%} Product gallery: swap the main image, plus click-to-zoom lightbox {%- endcomment -%}
 <script>
   (function () {
     var g = document.querySelector('[data-gallery]');
     if (!g) return;
     var mainImg = g.querySelector('[data-gallery-main] img');
-    if (!mainImg) return;
-    g.querySelectorAll('[data-gallery-thumb]').forEach(function (thumb) {
+    var thumbs = Array.prototype.slice.call(g.querySelectorAll('[data-gallery-thumb]'));
+
+    // Build the ordered list of full-size image URLs.
+    var images = thumbs.length
+      ? thumbs.map(function (t) { return t.getAttribute('data-full'); })
+      : (mainImg ? [mainImg.src] : []);
+    var current = 0;
+
+    // Thumbnail click swaps the main image.
+    thumbs.forEach(function (thumb, i) {
       thumb.addEventListener('click', function () {
         var full = thumb.getAttribute('data-full');
         var alt = thumb.getAttribute('data-alt') || '';
-        if (full) {
-          mainImg.removeAttribute('srcset');
-          mainImg.removeAttribute('sizes');
-          mainImg.removeAttribute('loading');
-          mainImg.src = full;
-          mainImg.alt = alt;
+        if (full && mainImg) {
+          mainImg.removeAttribute('srcset'); mainImg.removeAttribute('sizes'); mainImg.removeAttribute('loading');
+          mainImg.src = full; mainImg.alt = alt;
         }
-        g.querySelectorAll('[data-gallery-thumb]').forEach(function (t) {
-          t.setAttribute('aria-current', t === thumb ? 'true' : 'false');
-        });
+        current = i;
+        thumbs.forEach(function (t) { t.setAttribute('aria-current', t === thumb ? 'true' : 'false'); });
       });
     });
+
+    // Lightbox
+    var lb = document.getElementById('Lightbox');
+    if (!lb || !images.length) return;
+    var lbImg = lb.querySelector('[data-lb-img]');
+    var lbCount = lb.querySelector('[data-lb-count]');
+    var multi = images.length > 1;
+
+    function render() {
+      lbImg.src = images[current];
+      if (lbCount) lbCount.textContent = multi ? (current + 1) + ' / ' + images.length : '';
+      lb.querySelectorAll('.lightbox__nav').forEach(function (n) { n.hidden = !multi; });
+    }
+    function open(i) {
+      current = typeof i === 'number' ? i : current;
+      render();
+      lb.hidden = false;
+      requestAnimationFrame(function () { lb.classList.add('is-open'); });
+      document.body.style.overflow = 'hidden';
+    }
+    function close() {
+      lb.classList.remove('is-open');
+      document.body.style.overflow = '';
+      setTimeout(function () { lb.hidden = true; }, 200);
+    }
+    function step(d) { current = (current + d + images.length) % images.length; render(); }
+
+    var opener = g.querySelector('[data-zoom-open]');
+    if (opener) {
+      opener.addEventListener('click', function () {
+        // open at whichever image is currently showing
+        var active = thumbs.findIndex(function (t) { return t.getAttribute('aria-current') === 'true'; });
+        open(active > -1 ? active : 0);
+      });
+      opener.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(); }
+      });
+    }
+    lb.querySelector('[data-lb-close]').addEventListener('click', close);
+    lb.querySelector('[data-lb-prev]').addEventListener('click', function () { step(-1); });
+    lb.querySelector('[data-lb-next]').addEventListener('click', function () { step(1); });
+    lb.addEventListener('click', function (e) { if (e.target === lb) close(); });
+    document.addEventListener('keydown', function (e) {
+      if (lb.hidden) return;
+      if (e.key === 'Escape') close();
+      else if (e.key === 'ArrowLeft' && multi) step(-1);
+      else if (e.key === 'ArrowRight' && multi) step(1);
+    });
+  })();
+</script>
+
+{%- comment -%} Share {%- endcomment -%}
+<script>
+  (function () {
+    var wrap = document.querySelector('[data-share]');
+    if (!wrap) return;
+    var btn = wrap.querySelector('[data-share-btn]');
+    var menu = wrap.querySelector('[data-share-menu]');
+    var copyBtn = wrap.querySelector('[data-share-copy]');
+    var shareData = { title: {{ p.title | json }}, url: window.location.href };
+
+    function closeMenu() { menu.hidden = true; btn.setAttribute('aria-expanded', 'false'); }
+    function toggleMenu() {
+      var open = menu.hidden;
+      menu.hidden = !open;
+      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    }
+
+    btn.addEventListener('click', function (e) {
+      e.stopPropagation();
+      if (navigator.share) {
+        navigator.share(shareData).catch(function () {});
+      } else {
+        toggleMenu();
+      }
+    });
+
+    if (copyBtn) {
+      copyBtn.addEventListener('click', function () {
+        var done = function () {
+          var lbl = copyBtn.querySelector('[data-copy-label]');
+          if (lbl) { var t = lbl.textContent; lbl.textContent = 'Link copied!'; setTimeout(function () { lbl.textContent = t; closeMenu(); }, 1200); }
+        };
+        if (navigator.clipboard) navigator.clipboard.writeText(window.location.href).then(done, done);
+        else done();
+      });
+    }
+
+    document.addEventListener('click', function (e) { if (!wrap.contains(e.target)) closeMenu(); });
   })();
 </script>
 
