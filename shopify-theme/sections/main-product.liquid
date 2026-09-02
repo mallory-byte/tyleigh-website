@@ -297,16 +297,6 @@
               {%- endform -%}
               <p class="secure-note">🔒 Secure checkout · 60-day money-back guarantee</p>
 
-              <div class="after-reserve">
-                <p class="after-reserve__head">What happens after you reserve</p>
-                <ol class="after-reserve__steps">
-                  <li><span>1</span><div><strong>We lock this parcel for you.</strong> Your {{ p.price | money_without_trailing_zeros }} document fee takes it off the market so no one else can grab it.</div></li>
-                  <li><span>2</span><div><strong>We set up your agreement personally.</strong> A simple land contract for owner financing — no credit check — or a cash sale if you're paying in full.</div></li>
-                  <li><span>3</span><div><strong>You can start using your land</strong> right away while you make your payments.</div></li>
-                  <li><span>4</span><div><strong>You receive the warranty deed once it's paid in full.</strong> Paying cash? That's right away. Financing? The deed transfers into your name after your final payment.</div></li>
-                </ol>
-              </div>
-
               <div class="panel-contacts">
                 {%- assign phone = settings.contact_phone | default: settings.phone -%}
                 {%- if phone != blank -%}
