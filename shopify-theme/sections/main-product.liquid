@@ -193,16 +193,16 @@
           endif
           assign step_own = step_pay | plus: 1
         -%}
-        <div class="financing-box" id="financing">
-          <h2>Owner Financing, Step by Step</h2>
-          <p class="fin-intro">No banks and no credit check. You make a small down payment, then equal monthly payments until it's paid off — and then the land is yours. Here's exactly how it works for this parcel:</p>
-
+        {%- comment -%} 1) How financing works — the steps {%- endcomment -%}
+        <div class="pdp-section" id="financing">
+          <h2>How Owner Financing Works</h2>
+          <p class="fin-intro">No banks, no credit check. A small down payment, then equal monthly payments until it's paid off — and then the land is yours.</p>
           <ol class="fin-steps">
             <li>
               <span class="fin-steps__n">1</span>
               <div class="fin-steps__body">
                 <strong>Reserve it today — {{ p.price | money_without_trailing_zeros }}</strong>
-                <p>A one-time document fee takes this parcel off the market so no one else can grab it. Refundable within 60 days.</p>
+                <p>A one-time document fee takes this parcel off the market. Refundable within 60 days.</p>
               </div>
             </li>
             {%- if down_num > 0 -%}
@@ -210,7 +210,7 @@
                 <span class="fin-steps__n">2</span>
                 <div class="fin-steps__body">
                   <strong>Down payment — ${{ down }}</strong>
-                  <p>A one-time amount paid when you sign, to start your financing.</p>
+                  <p>Paid once when you sign, to start your financing.</p>
                 </div>
               </li>
             {%- endif -%}
@@ -218,20 +218,23 @@
               <span class="fin-steps__n">{{ step_pay }}</span>
               <div class="fin-steps__body">
                 <strong>${{ monthly }} per month{% if term != blank %} for {{ term }} months{% endif %}</strong>
-                <p>Equal, predictable monthly payments{% if settings.show_zero_interest %} at 0% interest{% endif %}. Want to finish sooner? Pay extra or pay it off anytime — no penalty.</p>
+                <p>Equal payments{% if settings.show_zero_interest %} at 0% interest{% endif %}. Pay it off early anytime — no penalty.</p>
               </div>
             </li>
             <li>
               <span class="fin-steps__n">{{ step_own }}</span>
               <div class="fin-steps__body">
                 <strong>The land is yours</strong>
-                <p>Once it's paid in full, we transfer the deed into your name — real, recorded ownership.</p>
+                <p>Once it's paid in full, the deed transfers into your name.</p>
               </div>
             </li>
           </ol>
+        </div>
 
+        {%- comment -%} 2) The numbers {%- endcomment -%}
+        <div class="pdp-section">
+          <h2>The Numbers</h2>
           <div class="fin-breakdown">
-            <div class="fin-breakdown__head">The numbers at a glance</div>
             <div class="fin-breakdown__row"><span>Due today (reserves this parcel)</span><span>{{ p.price | money }}</span></div>
             {%- if down_num > 0 -%}<div class="fin-breakdown__row"><span>Down payment to start</span><span>${{ down }}</span></div>{%- endif -%}
             <div class="fin-breakdown__row"><span>Monthly payment{% if term != blank %} &times; {{ term }} months{% endif %}</span><span>${{ monthly }}{% if term != blank %}/mo{% endif %}</span></div>
@@ -240,11 +243,10 @@
             {%- endif -%}
             <div class="fin-breakdown__row fin-breakdown__row--alt"><span>Prefer to pay cash?</span><span>{{ cash_display }} in full</span></div>
           </div>
-
           <div class="fin-checks">
-            {%- if settings.show_zero_interest -%}<span>{% render 'icon', icon: 'check-circle' %} 0% interest — you pay the sticker price, nothing more</span>{%- endif -%}
-            <span>{% render 'icon', icon: 'check-circle' %} No credit check required</span>
-            <span>{% render 'icon', icon: 'check-circle' %} No pre-payment penalty — pay off early anytime</span>
+            {%- if settings.show_zero_interest -%}<span>{% render 'icon', icon: 'check-circle' %} 0% interest</span>{%- endif -%}
+            <span>{% render 'icon', icon: 'check-circle' %} No credit check</span>
+            <span>{% render 'icon', icon: 'check-circle' %} No pre-payment penalty</span>
             <span>{% render 'icon', icon: 'check-circle' %} 60-day money-back guarantee</span>
           </div>
         </div>
