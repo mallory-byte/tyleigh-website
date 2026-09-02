@@ -71,7 +71,7 @@ export default function Footer() {
             </ul>
             <div className="mt-6 bg-white/5 rounded-xl p-4">
               <p className="text-xs text-primary-foreground/60 leading-relaxed">
-                Licensed Land Dealer. All properties sold as-is. Buyer responsible for due diligence. Financing subject to terms.
+                All properties sold as-is. Buyer responsible for due diligence. Financing subject to terms.
               </p>
             </div>
           </div>
