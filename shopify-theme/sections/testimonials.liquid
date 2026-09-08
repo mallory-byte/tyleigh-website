@@ -10,11 +10,9 @@
           <div class="testimonial-card__stars">★★★★★</div>
         {%- endif -%}
         <blockquote class="testimonial-card__quote">"{{ block.settings.quote }}"</blockquote>
-        {%- assign t_photo = '' -%}
-        {%- if block.settings.photo != blank -%}{%- assign t_photo = block.settings.photo | image_url: width: 96 -%}{%- endif -%}
         <figcaption class="testimonial-card__by">
-          {%- if t_photo != blank -%}
-            <img class="testimonial-card__avatar" src="{{ t_photo }}" alt="{{ block.settings.author | escape }}" width="48" height="48" loading="lazy">
+          {%- if block.settings.photo_url != blank -%}
+            <img class="testimonial-card__avatar" src="{{ block.settings.photo_url }}" alt="{{ block.settings.author | escape }}" width="48" height="48" loading="lazy">
           {%- else -%}
             <span class="testimonial-card__avatar testimonial-card__avatar--initial">{{ block.settings.author | slice: 0 }}</span>
           {%- endif -%}
@@ -41,7 +39,7 @@
       "name": "Testimonial",
       "settings": [
         { "type": "textarea", "id": "quote", "label": "Quote", "default": "The whole process was transparent and quick. I had the deed to my land in a few weeks." },
-        { "type": "image_picker", "id": "photo", "label": "Buyer photo (optional)" },
+        { "type": "text", "id": "photo_url", "label": "Buyer photo URL (optional)" },
         { "type": "text", "id": "author", "label": "Author", "default": "Dana R." },
         { "type": "text", "id": "detail", "label": "Detail (location)", "default": "Costilla County, CO" },
         { "type": "checkbox", "id": "stars", "label": "Show 5-star rating", "default": true }

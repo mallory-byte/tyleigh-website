@@ -1,15 +1,11 @@
 {%- liquid
   assign s = section.settings
-  assign owner_photo = ''
-  if s.image != blank
-    assign owner_photo = s.image | image_url: width: 900
-  endif
 -%}
 <div class="page-width section">
-  <div class="owner {% if owner_photo == blank %}owner--no-image{% endif %}">
-    {%- if owner_photo != blank -%}
+  <div class="owner {% if s.image_url == blank %}owner--no-image{% endif %}">
+    {%- if s.image_url != blank -%}
       <div class="owner__media">
-        <img src="{{ owner_photo }}" alt="{{ s.name | escape }}" width="900" height="1100" loading="lazy">
+        <img src="{{ s.image_url }}" alt="{{ s.name | escape }}" width="900" height="1100" loading="lazy">
         {%- if s.badge != blank -%}<span class="owner__badge">{% render 'icon', icon: 'shield' %} {{ s.badge }}</span>{%- endif -%}
       </div>
     {%- endif -%}
@@ -45,7 +41,7 @@
 {
   "name": "Meet the owner",
   "settings": [
-    { "type": "image_picker", "id": "image", "label": "Your photo", "info": "A real, friendly photo of you builds the most trust. Portrait orientation works best." },
+    { "type": "text", "id": "image_url", "label": "Your photo URL", "info": "Paste a link to a photo of you. In Shopify: Content → Files → upload your photo → copy its link and paste here. Leave blank for no photo." },
     { "type": "text", "id": "badge", "label": "Photo badge (optional)", "default": "" },
     { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "The person behind Ty-Leigh" },
     { "type": "text", "id": "heading", "label": "Heading", "default": "Hi — I'm the one you'll actually talk to." },
