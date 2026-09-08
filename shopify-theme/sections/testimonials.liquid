@@ -10,9 +10,11 @@
           <div class="testimonial-card__stars">★★★★★</div>
         {%- endif -%}
         <blockquote class="testimonial-card__quote">"{{ block.settings.quote }}"</blockquote>
+        {%- assign t_photo = '' -%}
+        {%- if block.settings.photo != blank -%}{%- assign t_photo = block.settings.photo | image_url: width: 96 -%}{%- endif -%}
         <figcaption class="testimonial-card__by">
-          {%- if block.settings.photo != blank -%}
-            <img class="testimonial-card__avatar" src="{{ block.settings.photo | image_url: width: 96 }}" alt="{{ block.settings.author | escape }}" width="48" height="48" loading="lazy">
+          {%- if t_photo != blank -%}
+            <img class="testimonial-card__avatar" src="{{ t_photo }}" alt="{{ block.settings.author | escape }}" width="48" height="48" loading="lazy">
           {%- else -%}
             <span class="testimonial-card__avatar testimonial-card__avatar--initial">{{ block.settings.author | slice: 0 }}</span>
           {%- endif -%}

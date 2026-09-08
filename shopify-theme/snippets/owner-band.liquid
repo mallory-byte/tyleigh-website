@@ -11,11 +11,15 @@
   assign phone = settings.contact_phone | default: settings.phone
   assign phone_href = phone | remove: ' ' | remove: '(' | remove: ')' | remove: '-'
   assign email = settings.contact_email
+  assign o_photo_src = ''
+  if o_photo != blank
+    assign o_photo_src = o_photo | image_url: width: 220
+  endif
 -%}
 <div class="owner-band">
   <div class="owner-band__face">
-    {%- if o_photo != blank -%}
-      <img src="{{ o_photo | image_url: width: 220 }}" alt="{{ o_name | escape }}, Ty-Leigh Capital" width="88" height="88" loading="lazy">
+    {%- if o_photo_src != blank -%}
+      <img src="{{ o_photo_src }}" alt="{{ o_name | escape }}, Ty-Leigh Capital" width="88" height="88" loading="lazy">
     {%- elsif o_photo_url != blank -%}
       <img src="{{ o_photo_url }}" alt="{{ o_name | escape }}, Ty-Leigh Capital" width="88" height="88" loading="lazy">
     {%- else -%}
