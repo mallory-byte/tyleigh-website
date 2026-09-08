@@ -1,11 +1,15 @@
 {%- liquid
   assign s = section.settings
+  assign owner_photo = ''
+  if s.image != blank
+    assign owner_photo = s.image | image_url: width: 900
+  endif
 -%}
 <div class="page-width section">
-  <div class="owner {% if s.image == blank %}owner--no-image{% endif %}">
-    {%- if s.image != blank -%}
+  <div class="owner {% if owner_photo == blank %}owner--no-image{% endif %}">
+    {%- if owner_photo != blank -%}
       <div class="owner__media">
-        <img src="{{ s.image | image_url: width: 900 }}" alt="{{ s.name | escape }}" width="900" height="1100" loading="lazy">
+        <img src="{{ owner_photo }}" alt="{{ s.name | escape }}" width="900" height="1100" loading="lazy">
         {%- if s.badge != blank -%}<span class="owner__badge">{% render 'icon', icon: 'shield' %} {{ s.badge }}</span>{%- endif -%}
       </div>
     {%- endif -%}
