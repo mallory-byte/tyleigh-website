@@ -41,9 +41,8 @@
   <a href="{{ routes.all_products_collection_url }}" class="back-link">{% render 'icon', icon: 'arrow-left' %} Back to All Listings</a>
 
   <div class="pdp__grid">
-    {%- comment -%} ---------- Main column ---------- {%- endcomment -%}
-    <div class="pdp__main" data-gallery>
-      <div>
+    {%- comment -%} ---------- Photo / gallery ---------- {%- endcomment -%}
+    <div class="pdp__media" data-gallery>
         <div class="pdp-hero" data-gallery-main {% if p.featured_media %}data-zoom-open role="button" tabindex="0" aria-label="Click to enlarge photo"{% endif %}>
           {%- if p.featured_media -%}
             {% assign product_alt = p.featured_media.alt | default: p.title | escape %}
@@ -64,8 +63,10 @@
             {%- endfor -%}
           </div>
         {%- endif -%}
-      </div>
+    </div>
 
+    {%- comment -%} ---------- Details column ---------- {%- endcomment -%}
+    <div class="pdp__main">
       <div class="pdp__title-row">
         <div>
           <h1>{{ p.title }}</h1>
