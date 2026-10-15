@@ -60,10 +60,10 @@
             '</span></span>'+
           '<a href="available.html">Available Stock</a>'+
           '<a href="events.html">Events</a>'+
-          '<a href="store.html">Store</a>'+
-          '<a href="inquire.html">Inquire</a>'+
+          '<a href="index.html#philosophy">Our Story</a>'+
+          '<a href="inquire.html">Contact</a>'+
         '</nav>'+
-        '<a class="reserve-btn" href="reserve.html">Reserve</a>'+
+        '<a class="reserve-btn" href="inquire.html">Inquire</a>'+
         '<button class="nav-toggle" id="navToggle" aria-label="Menu"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><line x1="3" y1="7" x2="21" y2="7"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="17" x2="21" y2="17"/></svg></button>'+
       '</div>'+
       '<div class="mobile-nav" id="mobileNav">'+
@@ -72,8 +72,9 @@
         '<a href="species.html?s=goats">Goats</a>'+
         '<a href="available.html">Available Stock</a>'+
         '<a href="events.html">Events</a>'+
+        '<a href="index.html#philosophy">Our Story</a>'+
         '<a href="store.html">Store</a>'+
-        '<a href="inquire.html">Inquire</a>'+
+        '<a href="inquire.html">Contact</a>'+
         '<a href="reserve.html">Reserve</a>'+
       '</div>'+
     '</header>';

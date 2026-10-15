@@ -445,6 +445,15 @@ h1 em, h2 em, h3 em, .big em { color: var(--clay); font-style: italic; }
 .beast .body .id { color: var(--clay); }
 .beast .beast-price { color: var(--clay); font-weight: 500; }
 
+/* --- home mockup match: uppercase nav, solid Inquire, hero buttons --- */
+.nav-links > a, .ha-drop > a { text-transform: uppercase; letter-spacing: .09em; font-size: .78rem; }
+.reserve-btn, .site-header.solid .reserve-btn { background: var(--dark); color: #fff; border-color: var(--dark); border-radius: 8px; padding: .7rem 1.5rem; }
+.reserve-btn:hover, .site-header.solid .reserve-btn:hover { background: var(--clay); border-color: var(--clay); color: #fff; }
+.hero .hero-primary { background: var(--dark); border-color: var(--dark); color: #fff; }
+.hero .hero-primary:hover { background: var(--clay); border-color: var(--clay); color: #fff; }
+.hero .hero-ghost { background: transparent; border-color: rgba(255,255,255,.65); color: #fff; }
+.hero .hero-ghost:hover { background: #fff; color: var(--ink); border-color: #fff; }
+
 /* ---------- small-phone refinements ---------- */
 @media (max-width: 600px) {
   /* iOS zooms the page when a focused field is under 16px — keep them all at 16px */

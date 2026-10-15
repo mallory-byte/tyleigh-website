@@ -81,9 +81,9 @@
   }
 };
   var COPY = {
-  "heroOverline": "Goats · Sheep · Cattle",
-  "heroHeadline": "Bloodlines kept for the <em>long</em> arc of a breed.",
-  "heroSub": "A sanctuary of heritage husbandry where goats, sheep, and cattle are raised as breeding stock, fiber, and dairy — known by name, recorded for life, and stewarded with quiet care.",
+  "heroOverline": "Raised with care in Mississippi",
+  "heroHeadline": "Highlands, goats &amp; sheep — raised the family way.",
+  "heroSub": "Registered AHCA Highland cattle, Nigerian Dwarf goats, and Babydoll Southdown sheep — from our family to yours.",
   "storyKicker": "The Philosophy",
   "storyHeading": "We raise livestock as <em>heritage</em>, not as commodity.",
   "storyP1": "From the first acre we fenced, we have tended this high-plains pasture with deliberate care — keeping meticulous records of every bloodline, every temperament, every season. The result is livestock of uncommon constitution and quiet dignity.",
