@@ -384,6 +384,45 @@ a.beast:hover .beast-more { color: #8a4a2c; }
 .edit-fab { position: fixed; right: 16px; bottom: 16px; z-index: 300; background: var(--ink); color: #fff; padding: .7rem 1.1rem; border-radius: 999px; font-family: var(--sans); font-size: .82rem; font-weight: 600; letter-spacing: .04em; box-shadow: 0 8px 24px rgba(0,0,0,.3); transition: transform .2s, background .2s; }
 .edit-fab:hover { background: var(--clay); transform: translateY(-2px); color: #fff; }
 
+/* ======================================================================
+   Warm & lively pass — sunnier accents, gentle motion, springier controls
+   ====================================================================== */
+:root { --honey: #D9A94E; --green: #6E8B5A; }
+
+/* big imagery breathes with a slow ken-burns drift */
+@media (prefers-reduced-motion: no-preference) {
+  .hero .hero-img img { animation: wff-drift 28s ease-in-out infinite alternate; transform-origin: 60% 42%; }
+  .page-hero .ph > img { animation: wff-drift 34s ease-in-out infinite alternate; }
+  @keyframes wff-drift { from { transform: scale(1.03); } to { transform: scale(1.11); } }
+}
+
+/* photos zoom softly when you hover a card */
+.beast .ph > img, .product .ph > img, .col-img .ph > img, .feature-row .ph > img { transition: transform .7s ease; }
+a.beast:hover .ph > img, .product:hover .ph > img { transform: scale(1.06); }
+
+/* springier buttons */
+.btn { transition: background .2s, color .2s, border-color .2s, transform .15s ease, box-shadow .2s; }
+.btn:hover { transform: translateY(-2px); box-shadow: 0 10px 22px rgba(168,91,55,.28); }
+
+/* sliding underline on the top nav */
+.nav-links > a, .ha-drop > a { position: relative; }
+.nav-links > a::after, .ha-drop > a::after { content: ""; position: absolute; left: 0; right: 100%; bottom: -5px; height: 2px; background: var(--clay); transition: right .28s ease; }
+.nav-links > a:hover::after, .ha-drop:hover > a::after { right: 0; }
+
+/* warmer, sunnier accents */
+.countdown .n { color: var(--clay); }
+.expected { color: var(--rust); }
+.eyebrow { color: var(--clay); }
+.paths .path { transition: background .25s ease; }
+.paths .path:hover { background: var(--bone-2); }
+.horizon { background: linear-gradient(180deg, #F2E9D7 0%, var(--bone-2) 100%); }
+
+/* a touch of golden-hour warmth over the hero photo */
+.hero .hero-scrim { background: linear-gradient(180deg, rgba(40,36,31,.26) 0%, rgba(168,91,55,.07) 46%, rgba(40,36,31,.74) 100%); }
+
+/* status badge on available animals gets a friendlier, brighter green */
+.beast-badge.s-available { background: var(--green); }
+
 /* ---------- small-phone refinements ---------- */
 @media (max-width: 600px) {
   /* iOS zooms the page when a focused field is under 16px — keep them all at 16px */
