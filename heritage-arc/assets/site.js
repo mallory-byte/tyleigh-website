@@ -36,7 +36,7 @@
   function headerHTML(){
     return '<header class="site-header" id="siteHeader">'+
       '<div class="nav">'+
-        '<a class="wordmark" href="index.html">'+S.nameHtml+'</a>'+
+        '<a class="wordmark" href="index.html"><img class="logo-mark" src="images/logo-mark.png" alt="'+esc(S.name)+'"><span class="wm-text">'+S.nameHtml+'</span></a>'+
         '<nav class="nav-links">'+
           '<span class="ha-drop"><a href="species.html?s=cattle">Our Animals ⌄</a>'+
             '<span class="ha-menu">'+
@@ -71,7 +71,7 @@
       '<footer class="site-footer"><div class="wrap">'+
         '<div class="foot-grid">'+
           '<div>'+
-            '<span class="wordmark">'+S.nameHtml+'</span>'+
+            '<img class="foot-logo" src="images/logo-cream.png" alt="'+esc(S.name)+'">'+
             '<p>'+esc(S.tagline)+'</p>'+
             (S.instagram||S.facebook ? '<div class="foot-social">'+
               (S.instagram?'<a href="'+S.instagram+'" target="_blank" rel="noopener">Instagram</a>':'')+
@@ -105,13 +105,14 @@
     // footerHTML() has two top-level pieces (credo band + footer) — append both
     var fw = document.createElement('div'); fw.innerHTML = footerHTML();
     while (fw.firstChild) document.body.appendChild(fw.firstChild);
+    // use the real logo as the browser-tab icon on every page
+    try { var fav = document.querySelector('link[rel~="icon"]') || document.createElement('link');
+      fav.rel = 'icon'; fav.href = 'images/favicon.png'; document.head.appendChild(fav); } catch(e){}
     var hdr = byId('siteHeader');
-    var hero = document.body.classList.contains('has-hero');
-    function onScroll(){ hdr.classList.toggle('solid', !hero || window.scrollY > 40); }
-    if(!hero){ hdr.classList.add('solid'); }
-    function sizeHeader(){ var h = hdr.offsetHeight || 64; document.documentElement.style.setProperty('--hdr', h + 'px'); if(!hero) document.body.style.paddingTop = h + 'px'; }
+    // header is always a solid bar so the (dark) logo stays visible on every page
+    hdr.classList.add('solid');
+    function sizeHeader(){ var h = hdr.offsetHeight || 64; document.documentElement.style.setProperty('--hdr', h + 'px'); document.body.style.paddingTop = h + 'px'; }
     sizeHeader(); window.addEventListener('load', sizeHeader); window.addEventListener('resize', sizeHeader);
-    onScroll(); window.addEventListener('scroll', onScroll, {passive:true});
     var t=byId('navToggle'), m=byId('mobileNav');
     if(t&&m){ t.addEventListener('click',function(){ m.classList.toggle('open'); }); }
   }
