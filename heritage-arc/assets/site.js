@@ -35,6 +35,16 @@
   function photoAnimal(a,cls){ return '<div class="ph '+(cls||'')+'">'+animalImg(a)+'</div>'; }
   function animalBySlug(s){ for(var i=0;i<ANIMALS.length;i++) if(ANIMALS[i].slug===s) return ANIMALS[i]; return null; }
   var here = location.pathname.split('/').pop() || 'index.html';
+  // Owner-only edit button: on with ?edit=1 (remembered on this device), while
+  // previewing a draft, or inside the private preview on claude.ai. Hidden from visitors.
+  function editorEnabled(){
+    try {
+      if (/[?&]edit=1/.test(location.search)) { localStorage.setItem('wff_edit','1'); return true; }
+      if (localStorage.getItem('wff_edit') === '1') return true;
+      if (localStorage.getItem('wff_preview')) return true;
+    } catch(e){ if (/[?&]edit=1/.test(location.search)) return true; }
+    return /claude|artifact|usercontent/i.test(location.hostname);
+  }
 
   // ---------- header ----------
   function headerHTML(){
@@ -118,6 +128,11 @@
       document.body.appendChild(pill);
       var pr = document.getElementById('pvReset');
       if (pr) pr.addEventListener('click', function(){ try{ localStorage.removeItem('wff_preview'); }catch(e){}; location.reload(); });
+    }
+    if (editorEnabled() && here !== 'edit.html') {
+      var eb = document.createElement('a'); eb.className = 'edit-fab'; eb.href = 'edit.html';
+      eb.innerHTML = '✎ Edit site';
+      document.body.appendChild(eb);
     }
     var hdr = byId('siteHeader');
     // header is always a solid bar so the (dark) logo stays visible on every page
