@@ -303,6 +303,23 @@
       '})();\n';
   }
 
+  // ---------- preview (sandbox) — see changes on the site without publishing ----------
+  function previewState(){
+    state.ANIMALS.forEach(function(a){ if(!a.slug) a.slug = slugify(a.name); });
+    return { SITE:state.SITE, SPECIES:state.SPECIES, ANIMALS:cleanAnimals(), HORIZON:state.HORIZON,
+      IMG:state.IMG, STOCK:state.STOCK, COPY:state.COPY, EVENTS:state.EVENTS, PRODUCTS:state.PRODUCTS };
+  }
+  function applyPreview(){
+    try {
+      localStorage.setItem('wff_preview', JSON.stringify(previewState()));
+      status('✓ Preview saved. Open your site (click “view the live site” up top, or any page) to see your changes — they’re visible only to you on this device until you Publish.', 'ok');
+    } catch(e){ status('Couldn’t save the preview on this device (storage may be full). Try publishing instead.', 'err'); }
+  }
+  function resetPreview(){
+    try { localStorage.removeItem('wff_preview'); } catch(e){}
+    status('Preview cleared — your site now shows the published version again.', 'ok');
+  }
+
   // ---------- fallback download ----------
   function download(){
     var blob = new Blob([generate()], { type: 'text/javascript' });
@@ -394,6 +411,8 @@
     byId('edAddProduct').addEventListener('click', addProduct);
     byId('edDownload').addEventListener('click', download);
     byId('edPublish').addEventListener('click', publish);
+    var pvBtn = byId('edPreview'); if(pvBtn) pvBtn.addEventListener('click', applyPreview);
+    var pvReset = byId('edPreviewReset'); if(pvReset) pvReset.addEventListener('click', resetPreview);
     // restore saved publish settings
     var cfg = loadCfg();
     byId('pubOwner').value  = cfg.owner  || DEFAULTS.owner;

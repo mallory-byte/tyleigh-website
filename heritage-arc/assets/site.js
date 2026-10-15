@@ -2,6 +2,10 @@
    Wallace Family Farms — shared behavior + rendering (vanilla, no build).
    ========================================================================= */
 (function () {
+  // Preview/sandbox: if the editor saved a draft in this browser, show it here
+  // (only visible to this person, on this device, until they publish for real).
+  var __preview = false;
+  try { var __pv = JSON.parse(localStorage.getItem('wff_preview')); if (__pv && __pv.SITE) { window.HA = __pv; __preview = true; } } catch(e){}
   var S = window.HA.SITE, SP = window.HA.SPECIES, ANIMALS = window.HA.ANIMALS, HORIZON = window.HA.HORIZON;
   var IMG = window.HA.IMG, STOCK = window.HA.STOCK, COPY = window.HA.COPY || {};
   var EVENTS = window.HA.EVENTS || [], PRODUCTS = window.HA.PRODUCTS || [];
@@ -108,6 +112,13 @@
     // use the real logo as the browser-tab icon on every page
     try { var fav = document.querySelector('link[rel~="icon"]') || document.createElement('link');
       fav.rel = 'icon'; fav.href = 'images/favicon.png'; document.head.appendChild(fav); } catch(e){}
+    if (__preview) {
+      var pill = document.createElement('div'); pill.className = 'preview-pill';
+      pill.innerHTML = '<span>👁 Preview mode — only you can see these unsaved changes</span><button type="button" id="pvReset">Reset</button>';
+      document.body.appendChild(pill);
+      var pr = document.getElementById('pvReset');
+      if (pr) pr.addEventListener('click', function(){ try{ localStorage.removeItem('wff_preview'); }catch(e){}; location.reload(); });
+    }
     var hdr = byId('siteHeader');
     // header is always a solid bar so the (dark) logo stays visible on every page
     hdr.classList.add('solid');
