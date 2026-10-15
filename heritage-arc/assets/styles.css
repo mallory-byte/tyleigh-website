@@ -423,6 +423,28 @@ a.beast:hover .ph > img, .product:hover .ph > img { transform: scale(1.06); }
 /* status badge on available animals gets a friendlier, brighter green */
 .beast-badge.s-available { background: var(--green); }
 
+/* --- bolder warmth (obvious at a glance) --- */
+h1 em, h2 em, h3 em, .big em { color: var(--clay); font-style: italic; }
+.hero h1 em { color: var(--honey); }
+.kicker { color: var(--clay); }
+.kicker::before, .kicker.center::after { background: var(--clay); width: 46px; }
+.eyebrow { color: var(--clay); }
+.hero h1 { font-size: clamp(3rem, 8.6vw, 7rem); }
+.hero .overline { color: var(--honey); letter-spacing: .34em; }
+.hero .sub { color: rgba(255,255,255,.94); }
+/* friendlier rounded buttons */
+.btn, .reserve-btn, .filters button { border-radius: 8px; }
+.btn { padding: 1.05em 2.1em; }
+.filters button.active { background: var(--clay); border-color: var(--clay); }
+/* warm tinted "Next Steps" / closing bands via the paths + join */
+.paths { background: #FBF4E6; }
+.paths .path:hover { background: #F5EAD3; }
+.joinband { background: linear-gradient(180deg, #F3E8D2 0%, var(--bone-2) 100%); }
+/* animal name + id get a warm pop */
+.beast .body h3 { color: var(--ink); }
+.beast .body .id { color: var(--clay); }
+.beast .beast-price { color: var(--clay); font-weight: 500; }
+
 /* ---------- small-phone refinements ---------- */
 @media (max-width: 600px) {
   /* iOS zooms the page when a focused field is under 16px — keep them all at 16px */
