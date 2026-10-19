@@ -409,41 +409,20 @@ a.beast:hover .ph > img, .product:hover .ph > img { transform: scale(1.06); }
 .nav-links > a::after, .ha-drop > a::after { content: ""; position: absolute; left: 0; right: 100%; bottom: -5px; height: 2px; background: var(--clay); transition: right .28s ease; }
 .nav-links > a:hover::after, .ha-drop:hover > a::after { right: 0; }
 
-/* warmer, sunnier accents */
-.countdown .n { color: var(--clay); }
-.expected { color: var(--rust); }
-.eyebrow { color: var(--clay); }
+/* subtle hover on the path cards */
 .paths .path { transition: background .25s ease; }
 .paths .path:hover { background: var(--bone-2); }
-.horizon { background: linear-gradient(180deg, #F2E9D7 0%, var(--bone-2) 100%); }
-
-/* a touch of golden-hour warmth over the hero photo */
-.hero .hero-scrim { background: linear-gradient(180deg, rgba(40,36,31,.26) 0%, rgba(168,91,55,.07) 46%, rgba(40,36,31,.74) 100%); }
 
 /* status badge on available animals gets a friendlier, brighter green */
 .beast-badge.s-available { background: var(--green); }
 
-/* --- bolder warmth (obvious at a glance) --- */
-h1 em, h2 em, h3 em, .big em { color: var(--clay); font-style: italic; }
-.hero h1 em { color: var(--honey); }
-.kicker { color: var(--clay); }
-.kicker::before, .kicker.center::after { background: var(--clay); width: 46px; }
-.eyebrow { color: var(--clay); }
-.hero h1 { font-size: clamp(3rem, 8.6vw, 7rem); }
-.hero .overline { color: var(--honey); letter-spacing: .34em; }
-.hero .sub { color: rgba(255,255,255,.94); }
-/* friendlier rounded buttons */
-.btn, .reserve-btn, .filters button { border-radius: 8px; }
-.btn { padding: 1.05em 2.1em; }
-.filters button.active { background: var(--clay); border-color: var(--clay); }
-/* warm tinted "Next Steps" / closing bands via the paths + join */
-.paths { background: #FBF4E6; }
-.paths .path:hover { background: #F5EAD3; }
-.joinband { background: linear-gradient(180deg, #F3E8D2 0%, var(--bone-2) 100%); }
-/* animal name + id get a warm pop */
-.beast .body h3 { color: var(--ink); }
-.beast .body .id { color: var(--clay); }
-.beast .beast-price { color: var(--clay); font-weight: 500; }
+/* --- clean refinements (elegant; warmth comes from the photos) --- */
+.hero h1 { font-size: clamp(2.9rem, 8vw, 6.4rem); }
+.hero .overline { letter-spacing: .32em; color: rgba(255,255,255,.85); }
+.hero .sub { color: rgba(255,255,255,.92); }
+.btn, .reserve-btn { border-radius: 8px; }
+.btn { padding: 1.05em 2em; }
+.beast .beast-price { color: var(--rust); }
 
 /* --- home mockup match: uppercase nav, solid Inquire, hero buttons --- */
 .nav-links > a, .ha-drop > a { text-transform: uppercase; letter-spacing: .09em; font-size: .78rem; }
