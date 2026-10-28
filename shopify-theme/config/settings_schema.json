@@ -231,13 +231,13 @@
         "type": "text",
         "id": "hours_weekday",
         "label": "Weekday hours",
-        "default": "Mon–Fri: 9am–6pm CT"
+        "default": "Mon-Fri: 9am-5pm CT"
       },
       {
         "type": "text",
         "id": "hours_weekend",
         "label": "Weekend hours",
-        "default": "Sat: 10am–4pm CT"
+        "default": ""
       },
       {
         "type": "url",

@@ -24,8 +24,8 @@
     "show_monthly_price": true,
     "contact_email": "info@tyleighcapital.com",
     "contact_phone": "(662) 442-4362",
-    "hours_weekday": "Mon–Fri: 9am–6pm CT",
-    "hours_weekend": "Sat: 10am–4pm CT"
+    "hours_weekday": "Mon-Fri: 9am-5pm CT",
+    "hours_weekend": ""
   },
   "presets": {
     "Ty-Leigh Capital": {}

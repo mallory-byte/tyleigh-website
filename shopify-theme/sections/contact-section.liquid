@@ -43,7 +43,7 @@
               <span>
                 <span class="contact-card__label">Business Hours</span>
                 <strong style="display:block;color:var(--color-text)">{{ settings.hours_weekday }}</strong>
-                <span class="contact-card__label">{{ settings.hours_weekend }}</span>
+                {%- if settings.hours_weekend != blank -%}<span class="contact-card__label">{{ settings.hours_weekend }}</span>{%- endif -%}
               </span>
             </div>
           </div>
