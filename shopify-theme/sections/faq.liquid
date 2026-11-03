@@ -46,6 +46,32 @@
   {%- endif -%}
 </div>
 
+{%- comment -%} FAQ structured data for Google rich results {%- endcomment -%}
+{%- if section.blocks.size > 0 -%}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {%- assign firstq = true -%}
+    {%- for block in section.blocks -%}
+      {%- if block.settings.question != blank -%}
+        {%- unless firstq -%},{%- endunless -%}{%- assign firstq = false -%}
+        {
+          "@type": "Question",
+          "name": {{ block.settings.question | json }},
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": {{ block.settings.answer | strip_html | strip_newlines | json }}
+          }
+        }
+      {%- endif -%}
+    {%- endfor -%}
+  ]
+}
+</script>
+{%- endif -%}
+
 {% schema %}
 {
   "name": "FAQ",

@@ -51,3 +51,36 @@
     }
   </script>
 {%- endif -%}
+
+{%- comment -%} Organization schema (once, on the homepage) {%- endcomment -%}
+{%- if template.name == 'index' -%}
+  {%- assign org_phone = settings.contact_phone | default: settings.phone -%}
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": {{ settings.brand_name | default: shop.name | json }},
+      "url": {{ shop.url | json }},
+      {%- if settings.logo_url != blank -%}"logo": {{ settings.logo_url | json }},{%- endif -%}
+      "description": {{ shop.description | default: 'Affordable owner-financed vacant land across the United States. No credit check, no hassle.' | json }},
+      "areaServed": "United States",
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "contactType": "sales"
+        {%- if org_phone != blank -%}, "telephone": {{ org_phone | json }}{%- endif -%}
+        {%- if settings.contact_email != blank -%}, "email": {{ settings.contact_email | json }}{%- endif -%}
+      }
+      {%- assign socials = '' -%}
+      {%- if settings.social_facebook != blank -%}{%- assign socials = socials | append: settings.social_facebook | append: '|||' -%}{%- endif -%}
+      {%- if settings.social_instagram != blank -%}{%- assign socials = socials | append: settings.social_instagram | append: '|||' -%}{%- endif -%}
+      {%- if settings.social_youtube != blank -%}{%- assign socials = socials | append: settings.social_youtube | append: '|||' -%}{%- endif -%}
+      {%- if settings.social_linkedin != blank -%}{%- assign socials = socials | append: settings.social_linkedin | append: '|||' -%}{%- endif -%}
+      {%- assign social_list = socials | split: '|||' -%}
+      {%- if social_list.size > 0 -%}
+        , "sameAs": [
+          {%- for s in social_list -%}{% unless forloop.first %},{% endunless %}{{ s | json }}{%- endfor -%}
+        ]
+      {%- endif -%}
+    }
+  </script>
+{%- endif -%}
