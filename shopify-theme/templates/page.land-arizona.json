@@ -1,0 +1,17 @@
+{
+  "sections": {
+    "main": {
+      "type": "state-landing",
+      "settings": {
+        "state": "Arizona",
+        "eyebrow": "No Credit Check - Owner Financing",
+        "heading": "Owner Financed Land for Sale in Arizona",
+        "intro": "<p>Looking for affordable land in Arizona? We sell <strong>owner-financed Arizona land with no credit check</strong> - wide-open high-desert acreage, year-round sunshine, and off-grid freedom. Pick a parcel, put a small amount down, and own it with low monthly payments at 0% interest. No banks, no hassle, and a clear recorded deed.</p>",
+        "body": "<h2>Why Buy Land in Arizona?</h2><p>Arizona is one of the most popular states for affordable rural land. With low property taxes, hundreds of days of sunshine a year, and vast high-desert acreage, it is a favorite for off-grid living, RV and camping getaways, and long-term investment. Many of our Arizona parcels are ideal for solar power and self-sufficient building.</p><h2>Owner Financing in Arizona - No Credit Check</h2><p>Every Arizona parcel we sell can be owner financed directly through us. There is no bank, no credit check, and no prepayment penalty. You put a small amount down, make an affordable monthly payment, and once it is paid off the deed transfers into your name. Prefer to pay cash? You can buy any parcel in full and get your deed right away.</p><ul><li><strong>No credit check</strong> - your score never matters</li><li><strong>Low monthly payments</strong> at 0% interest</li><li><strong>Clear, recorded deed</strong> in your name</li><li><strong>60-day money-back guarantee</strong> on your land payments</li></ul><h2>Start Owning Arizona Land Today</h2><p>Browse our available Arizona parcels above, or call us and we will help you find the right piece of land for your budget. Many of our Arizona properties sell quickly, so reserve yours while it is available.</p>"
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

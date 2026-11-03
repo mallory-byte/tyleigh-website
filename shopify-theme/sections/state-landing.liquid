@@ -1,0 +1,67 @@
+{%- comment -%}
+  State landing page - SEO-optimized page that targets "owner financed land in
+  <state>" searches, auto-lists parcels in that state (filtered by the product
+  custom.state metafield), and carries keyword-rich copy. Driven by page
+  templates in templates/page.land-<state>.json.
+{%- endcomment -%}
+{%- liquid
+  assign s = section.settings
+  assign st = s.state
+-%}
+<div class="state-landing">
+  <section class="page-hero">
+    <div class="page-width">
+      {%- if s.eyebrow != blank -%}<span class="eyebrow">{{ s.eyebrow }}</span>{%- endif -%}
+      <h1>{{ s.heading }}</h1>
+      {%- if s.intro != blank -%}<div class="rte page-hero__intro">{{ s.intro }}</div>{%- endif -%}
+      <div class="btn-row btn-row--center">
+        <a href="{{ routes.all_products_collection_url }}" class="btn btn--accent btn--pill">Browse Available Land</a>
+        {%- assign ph = settings.contact_phone | default: settings.phone -%}
+        {%- if ph != blank -%}<a href="tel:{{ ph | remove: ' ' | remove: '(' | remove: ')' | remove: '-' }}" class="btn btn--outline btn--pill">{% render 'icon', icon: 'phone' %} Call {{ ph }}</a>{%- endif -%}
+      </div>
+    </div>
+  </section>
+
+  {%- comment -%} Parcels in this state {%- endcomment -%}
+  <div class="page-width section--sm">
+    {%- assign shown = 0 -%}
+    {%- capture cards -%}
+      {%- for product in collections.all.products -%}
+        {%- assign pstate = product.metafields.custom.state.value -%}
+        {%- if st == blank or pstate == st -%}
+          {% render 'parcel-card', product: product %}
+          {%- assign shown = shown | plus: 1 -%}
+        {%- endif -%}
+      {%- endfor -%}
+    {%- endcapture -%}
+    {%- if shown > 0 -%}
+      <h2 class="state-landing__h2">Available Land in {{ st }}</h2>
+      <div class="card-grid card-grid--4">{{ cards }}</div>
+    {%- else -%}
+      <div class="empty-state">
+        <p class="text-muted">New {{ st }} parcels are added regularly. <a href="{{ routes.all_products_collection_url }}">Browse all available land</a>, or call us and we'll tell you the moment a {{ st }} parcel drops.</p>
+      </div>
+    {%- endif -%}
+  </div>
+
+  {%- comment -%} SEO body copy {%- endcomment -%}
+  {%- if s.body != blank -%}
+    <div class="page-width section--sm">
+      <div class="rte prose state-landing__body">{{ s.body }}</div>
+    </div>
+  {%- endif -%}
+</div>
+
+{% schema %}
+{
+  "name": "State landing",
+  "settings": [
+    { "type": "text", "id": "state", "label": "State to list (must match the product state metafield, e.g. Arizona)" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "No Credit Check Owner Financing" },
+    { "type": "text", "id": "heading", "label": "H1 heading", "default": "Owner Financed Land for Sale" },
+    { "type": "richtext", "id": "intro", "label": "Intro paragraph" },
+    { "type": "richtext", "id": "body", "label": "SEO body copy (use H2s and paragraphs)" }
+  ],
+  "presets": [ { "name": "State landing" } ]
+}
+{% endschema %}

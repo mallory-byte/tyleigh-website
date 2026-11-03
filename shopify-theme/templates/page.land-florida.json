@@ -1,0 +1,17 @@
+{
+  "sections": {
+    "main": {
+      "type": "state-landing",
+      "settings": {
+        "state": "Florida",
+        "eyebrow": "No Credit Check - Owner Financing",
+        "heading": "Owner Financed Land for Sale in Florida",
+        "intro": "<p>Looking for affordable land in Florida? We sell <strong>owner-financed Florida land with no credit check</strong> - warm, buildable rural land close to nature and the coast. Pick a parcel, put a small amount down, and own it with low monthly payments at 0% interest. No banks, no hassle, and a clear recorded deed.</p>",
+        "body": "<h2>Why Buy Land in Florida?</h2><p>Florida land means sunshine year-round, no state income tax, and rural parcels within reach of lakes, rivers, and the coast. Our Florida properties are popular for building, manufactured homes, and investment in one of the fastest-growing states in the country.</p><h2>Owner Financing in Florida - No Credit Check</h2><p>Every Florida parcel we sell can be owner financed directly through us. There is no bank, no credit check, and no prepayment penalty. You put a small amount down, make an affordable monthly payment, and once it is paid off the deed transfers into your name. Prefer to pay cash? You can buy any parcel in full and get your deed right away.</p><ul><li><strong>No credit check</strong> - your score never matters</li><li><strong>Low monthly payments</strong> at 0% interest</li><li><strong>Clear, recorded deed</strong> in your name</li><li><strong>60-day money-back guarantee</strong> on your land payments</li></ul><h2>Start Owning Florida Land Today</h2><p>Browse our available Florida parcels above, or call us and we will help you find the right piece of land for your budget. Many of our Florida properties sell quickly, so reserve yours while it is available.</p>"
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}
