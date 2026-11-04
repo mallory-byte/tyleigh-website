@@ -40,6 +40,7 @@
       "@type": "Product",
       "name": {{ product.title | json }},
       "description": {{ product.description | strip_html | truncate: 300 | json }},
+      "brand": { "@type": "Brand", "name": {{ settings.brand_name | default: shop.name | json }} },
       {% if product.featured_media %}"image": ["https:{{ product.featured_media | image_url: width: 1200 }}"],{% endif %}
       "url": {{ shop.url | append: product.url | json }},
       "offers": {
