@@ -8,7 +8,20 @@
     },
     "popup": {
       "type": "popup",
-      "settings": {}
+      "settings": {
+        "enabled": true,
+        "mode": "email",
+        "delay_seconds": 5,
+        "frequency_days": 7,
+        "eyebrow": "New Buyer Offer",
+        "heading": "Your $249 Document Fee Is On Us",
+        "text": "Join our list and we'll waive the $249 document fee on your first parcel, plus you'll get first access to new land before it's posted publicly.",
+        "email_placeholder": "you@email.com",
+        "email_button": "Waive My $249 Fee",
+        "success_text": "Your $249-off code is on its way! Check your email, then use it at checkout to skip the document fee.",
+        "tag": "waive249",
+        "fineprint": "One use per customer. By entering your email you agree to receive marketing emails. Unsubscribe anytime."
+      }
     }
   },
   "order": ["footer", "popup"]
