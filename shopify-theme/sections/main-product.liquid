@@ -23,9 +23,7 @@
   assign elevation = m.elevation.value
   assign lat = m.latitude.value
   assign lng = m.longitude.value
-  assign features = m.features.value
   assign doc_fee = m.doc_fee.value | default: section.settings.doc_fee | default: 249
-  assign doc_cents = doc_fee | times: 100
   assign down_num = down | plus: 0
 
   # Classify finance vs cash variant by title so the reserve button charges
@@ -185,8 +183,10 @@
             &middot; <a href="https://www.google.com/maps/search/?api=1&query={{ lat }},{{ lng }}" target="_blank" rel="noopener">Open in Google Maps</a>
           </p>
         </div>
+        {%- # theme-check-disable RemoteAsset -%}
         <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
-        <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+        <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin="" defer></script>
+        {%- # theme-check-enable RemoteAsset -%}
         <script>
           (function () {
             function num(v){ var n = parseFloat(v); return isNaN(n) ? null : n; }
@@ -354,7 +354,7 @@
 <div class="lightbox" id="Lightbox" hidden role="dialog" aria-modal="true" aria-label="Photo viewer">
   <button type="button" class="lightbox__close" data-lb-close aria-label="Close">{% render 'icon', icon: 'close' %}</button>
   <button type="button" class="lightbox__nav lightbox__prev" data-lb-prev aria-label="Previous photo">{% render 'icon', icon: 'arrow-left' %}</button>
-  <img class="lightbox__img" data-lb-img alt="{{ p.title | escape }}">
+  <img class="lightbox__img" data-lb-img loading="lazy" alt="{{ p.title | escape }}">
   <button type="button" class="lightbox__nav lightbox__next" data-lb-next aria-label="Next photo">{% render 'icon', icon: 'arrow-right' %}</button>
   <div class="lightbox__count" data-lb-count></div>
 </div>
@@ -503,8 +503,16 @@
 {
   "name": "Parcel details",
   "settings": [
-    { "type": "paragraph", "content": "Parcel data is read from product metafields in the `custom` namespace (state, county, acres, monthly_payment, down_payment, status, features, access, power, water, septic, zoning, elevation, parcel_number, legal_description, latitude, longitude). See README." },
-    { "type": "number", "id": "doc_fee", "label": "Default document fee ($)", "default": 249 }
+    {
+      "type": "paragraph",
+      "content": "Parcel data is read from product metafields in the `custom` namespace (state, county, acres, monthly_payment, down_payment, status, features, access, power, water, septic, zoning, elevation, parcel_number, legal_description, latitude, longitude). See README."
+    },
+    {
+      "type": "number",
+      "id": "doc_fee",
+      "label": "Default document fee ($)",
+      "default": 249
+    }
   ]
 }
 {% endschema %}
