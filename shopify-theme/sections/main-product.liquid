@@ -26,6 +26,30 @@
   assign features = m.features.value
   assign doc_fee = m.doc_fee.value | default: section.settings.doc_fee | default: 249
   assign doc_cents = doc_fee | times: 100
+  assign down_num = down | plus: 0
+
+  comment
+    Classify the finance vs cash variant by title so the reserve button can
+    charge the right amount. Finance variant price = doc fee + down payment;
+    cash variant price = doc fee (reservation only). Down payment + full cash
+    price are handled at checkout / after, per the parcel.
+  endcomment
+  assign fin_variant = blank
+  assign cash_variant = blank
+  for v in p.variants
+    assign vt = v.title | downcase
+    if vt contains 'financ'
+      assign fin_variant = v
+    elsif vt contains 'cash' or vt contains 'full'
+      assign cash_variant = v
+    endif
+  endfor
+  if fin_variant == blank
+    assign fin_variant = p.selected_or_first_available_variant
+  endif
+  if cash_variant == blank
+    assign cash_variant = fin_variant
+  endif
 
   assign status = m.status.value | downcase
   if status == blank
@@ -213,28 +237,19 @@
             <li>
               <span class="fin-steps__n">1</span>
               <div class="fin-steps__body">
-                <strong>Reserve it today — {{ p.price | money_without_trailing_zeros }}</strong>
-                <p>A one-time, non-refundable document fee takes this parcel off the market so no one else can grab it.</p>
+                <strong>Reserve today — {{ fin_variant.price | money_without_trailing_zeros }}</strong>
+                <p>Your ${{ doc_fee }} document fee{% if down_num > 0 %} and ${{ down }} down payment{% endif %} — paid together now to take this parcel off the market and start your financing. The document fee is non-refundable.</p>
               </div>
             </li>
-            {%- if down_num > 0 -%}
-              <li>
-                <span class="fin-steps__n">2</span>
-                <div class="fin-steps__body">
-                  <strong>Down payment — ${{ down }}</strong>
-                  <p>Paid once when you sign, to start your financing.</p>
-                </div>
-              </li>
-            {%- endif -%}
             <li>
-              <span class="fin-steps__n">{{ step_pay }}</span>
+              <span class="fin-steps__n">2</span>
               <div class="fin-steps__body">
                 <strong>${{ monthly }} per month{% if term != blank %} for {{ term }} months{% endif %}</strong>
                 <p>Equal payments{% if settings.show_zero_interest %} at 0% interest{% endif %}. Pay it off early anytime — no penalty.</p>
               </div>
             </li>
             <li>
-              <span class="fin-steps__n">{{ step_own }}</span>
+              <span class="fin-steps__n">3</span>
               <div class="fin-steps__body">
                 <strong>The land is yours</strong>
                 <p>Once it's paid in full, the deed transfers into your name.</p>
@@ -247,11 +262,12 @@
         <div class="pdp-section">
           <h2>The Numbers</h2>
           <div class="fin-breakdown">
-            <div class="fin-breakdown__row"><span>Due today (reserves this parcel)</span><span>{{ p.price | money }}</span></div>
-            {%- if down_num > 0 -%}<div class="fin-breakdown__row"><span>Down payment to start</span><span>${{ down }}</span></div>{%- endif -%}
-            <div class="fin-breakdown__row"><span>Monthly payment{% if term != blank %} &times; {{ term }} months{% endif %}</span><span>${{ monthly }}{% if term != blank %}/mo{% endif %}</span></div>
+            <div class="fin-breakdown__row"><span>Document fee (non-refundable)</span><span>${{ doc_fee }}</span></div>
+            {%- if down_num > 0 -%}<div class="fin-breakdown__row"><span>Down payment</span><span>${{ down }}</span></div>{%- endif -%}
+            <div class="fin-breakdown__row fin-breakdown__row--total"><span>Due today to reserve</span><span>{{ fin_variant.price | money }}</span></div>
+            <div class="fin-breakdown__row"><span>Then monthly{% if term != blank %} &times; {{ term }} months{% endif %}</span><span>${{ monthly }}{% if term != blank %}/mo{% endif %}</span></div>
             {%- if term_num > 0 and monthly_num > 0 -%}
-              <div class="fin-breakdown__row fin-breakdown__row--total"><span>Total you'll pay{% if down_num > 0 %} (down + all payments){% endif %}</span><span>${{ fin_total }}</span></div>
+              <div class="fin-breakdown__row"><span>Total you'll pay{% if down_num > 0 %} (down + all payments){% endif %}</span><span>${{ fin_total }}</span></div>
             {%- endif -%}
             <div class="fin-breakdown__row fin-breakdown__row--alt"><span>Prefer to pay cash?</span><span>{{ cash_display }} in full</span></div>
           </div>
@@ -279,12 +295,12 @@
               {%- if monthly != blank -%}
                 <p style="font-weight:600;font-size:0.9rem;margin-bottom:var(--space-3)">Choose Your Purchase Method</p>
                 <div class="pay-toggle">
-                  <button type="button" class="pay-option pay-option--fin is-active" data-pay="finance">
+                  <button type="button" class="pay-option pay-option--fin is-active" data-pay="finance" data-vid="{{ fin_variant.id }}" data-amt="{{ fin_variant.price | money_without_trailing_zeros }}">
                     <div class="pay-option__name">Owner Finance</div>
                     <div class="pay-option__price">${{ monthly }}<small>/mo</small></div>
                     {%- if down != blank or term != blank -%}<div class="pay-option__sub">{% if down != blank %}${{ down }} down{% endif %}{% if down != blank and term != blank %} · {% endif %}{% if term != blank %}{{ term }} mo{% endif %}</div>{%- endif -%}
                   </button>
-                  <button type="button" class="pay-option" data-pay="cash">
+                  <button type="button" class="pay-option" data-pay="cash" data-vid="{{ cash_variant.id }}" data-amt="{{ cash_variant.price | money_without_trailing_zeros }}">
                     <div class="pay-option__name">Cash Purchase</div>
                     <div class="pay-option__price">{{ cash_display }}</div>
                     <div class="pay-option__sub">paid in full</div>
@@ -292,21 +308,22 @@
                 </div>
 
                 <div class="summary" data-summary="finance">
-                  <div class="summary__row"><span class="muted">Document fee (reserves this parcel)</span><span>{{ p.price | money }}</span></div>
-                  <div class="summary__total"><span>Due Today</span><span class="amt">{{ p.price | money }}</span></div>
-                  <p class="summary__note">Then ${{ monthly }}/mo{% if term != blank %} for {{ term }} months{% endif %}{% if settings.show_zero_interest %} at 0% interest{% endif %}{% if down != blank %} after a ${{ down }} down payment{% endif %} — we set up your owner financing after you reserve.</p>
+                  <div class="summary__row"><span class="muted">Document fee (non-refundable)</span><span>${{ doc_fee }}</span></div>
+                  {%- if down_num > 0 -%}<div class="summary__row"><span class="muted">Down payment</span><span>${{ down }}</span></div>{%- endif -%}
+                  <div class="summary__total"><span>Due Today</span><span class="amt">{{ fin_variant.price | money }}</span></div>
+                  <p class="summary__note">Then ${{ monthly }}/mo{% if term != blank %} for {{ term }} months{% endif %}{% if settings.show_zero_interest %} at 0% interest{% endif %} — we set up your owner financing after you reserve.</p>
                 </div>
                 <div class="summary" data-summary="cash" hidden>
-                  <div class="summary__row"><span class="muted">Document fee (reserves this parcel)</span><span>{{ p.price | money }}</span></div>
-                  <div class="summary__total"><span>Due Today</span><span class="amt">{{ p.price | money }}</span></div>
-                  <p class="summary__note">Balance of {{ cash_display }} due at closing.</p>
+                  <div class="summary__row"><span class="muted">Document fee (non-refundable)</span><span>${{ doc_fee }}</span></div>
+                  <div class="summary__total"><span>Due Today</span><span class="amt">{{ cash_variant.price | money }}</span></div>
+                  <p class="summary__note">Reserves this parcel. The balance of {{ cash_display }} is handled after you reserve.</p>
                 </div>
               {%- endif -%}
 
               {%- form 'product', p, id: 'ReserveForm' -%}
-                <input type="hidden" name="id" value="{{ p.selected_or_first_available_variant.id }}">
-                <button type="submit" name="add" class="btn btn--accent btn--block btn--lg" style="margin-bottom:var(--space-2)">
-                  Pay {{ p.price | money_without_trailing_zeros }} Document Fee &amp; Reserve
+                <input type="hidden" name="id" value="{{ fin_variant.id }}" data-reserve-id>
+                <button type="submit" name="add" class="btn btn--accent btn--block btn--lg" style="margin-bottom:var(--space-2)" data-reserve-btn>
+                  Pay {{ fin_variant.price | money_without_trailing_zeros }} Due Today &amp; Reserve
                 </button>
               {%- endform -%}
               <p class="secure-note">🔒 Secure checkout · 60-day money-back guarantee</p>
@@ -475,11 +492,17 @@
   (function () {
     var opts = document.querySelectorAll('[data-pay]');
     var summaries = document.querySelectorAll('[data-summary]');
+    var reserveId = document.querySelector('[data-reserve-id]');
+    var reserveBtn = document.querySelector('[data-reserve-btn]');
     opts.forEach(function (opt) {
       opt.addEventListener('click', function () {
         var type = opt.getAttribute('data-pay');
         opts.forEach(function (o) { o.classList.toggle('is-active', o === opt); });
         summaries.forEach(function (s) { s.hidden = s.getAttribute('data-summary') !== type; });
+        var vid = opt.getAttribute('data-vid');
+        var amt = opt.getAttribute('data-amt');
+        if (reserveId && vid) { reserveId.value = vid; }
+        if (reserveBtn && amt) { reserveBtn.textContent = 'Pay ' + amt + ' Due Today & Reserve'; }
       });
     });
   })();
