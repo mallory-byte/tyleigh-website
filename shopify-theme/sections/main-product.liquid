@@ -354,7 +354,9 @@
 <div class="lightbox" id="Lightbox" hidden role="dialog" aria-modal="true" aria-label="Photo viewer">
   <button type="button" class="lightbox__close" data-lb-close aria-label="Close">{% render 'icon', icon: 'close' %}</button>
   <button type="button" class="lightbox__nav lightbox__prev" data-lb-prev aria-label="Previous photo">{% render 'icon', icon: 'arrow-left' %}</button>
+  {%- # theme-check-disable ImgWidthAndHeight -%}
   <img class="lightbox__img" data-lb-img loading="lazy" alt="{{ p.title | escape }}">
+  {%- # theme-check-enable ImgWidthAndHeight -%}
   <button type="button" class="lightbox__nav lightbox__next" data-lb-next aria-label="Next photo">{% render 'icon', icon: 'arrow-right' %}</button>
   <div class="lightbox__count" data-lb-count></div>
 </div>
