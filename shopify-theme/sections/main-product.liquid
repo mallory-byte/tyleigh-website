@@ -28,12 +28,8 @@
   assign doc_cents = doc_fee | times: 100
   assign down_num = down | plus: 0
 
-  comment
-    Classify the finance vs cash variant by title so the reserve button can
-    charge the right amount. Finance variant price = doc fee + down payment;
-    cash variant price = doc fee (reservation only). Down payment + full cash
-    price are handled at checkout / after, per the parcel.
-  endcomment
+  # Classify finance vs cash variant by title so the reserve button charges
+  # the right amount: finance variant price = doc fee + down; cash = doc fee.
   assign fin_variant = blank
   assign cash_variant = blank
   for v in p.variants
@@ -223,11 +219,6 @@
           assign term_num = term | plus: 0
           assign payments_total = monthly_num | times: term_num
           assign fin_total = payments_total | plus: down_num
-          assign step_pay = 2
-          if down_num > 0
-            assign step_pay = 3
-          endif
-          assign step_own = step_pay | plus: 1
         -%}
         {%- comment -%} 1) How financing works — the steps {%- endcomment -%}
         <div class="pdp-section" id="financing">
